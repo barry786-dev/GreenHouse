@@ -25,16 +25,18 @@ const registerUser = (UserData) => {
           .then((savedUser) => resolve(savedUser))
           .catch((error) =>
             reject({
+              myMsgToUser: error.message,
               myMsg:
                 'error during try to save the user come from db_Handlers.js from inside registerUser',
-              err : error,
+              err: error,
             })
           );
       })
       .catch((error) =>
         reject({
-          myMsg: 'error during trying to connect to main database',
-          err : error,
+          myMsgToUser:
+            'error during trying to connect to main database, please try again later or contact the admin',
+          err: error,
         })
       );
   });

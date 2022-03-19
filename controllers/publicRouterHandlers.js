@@ -33,22 +33,23 @@ const postRegister = (req, res) => {
       res.json({ myMsg: 'New user register success' });
     })
     .catch((error) => {
-      log([
-        error.err.name,
-        error.err.code,
-        error.err.keyValue,
-        error.err.message,
-        error.myMsg,
-      ]);
-      if (error.err.name = 'MongoServerError' && error.err.code === 11000) {
+      if ((error.err.name = 'MongoServerError' && error.err.code === 11000)) {
+        log([
+          error.err.name,
+          error.err.code,
+          error.err.keyValue,
+          error.err.message,
+          error.myMsg,
+        ]);
         res.json({
           message: `An account with that ${JSON.stringify(
             error.err.keyValue
           )} already exists`,
         });
       } else {
+        log([error.myMsg, error.err.message]);
         res.json({
-          message: error.myMsg,
+          message: error.myMsgToUser,
         });
       }
     });

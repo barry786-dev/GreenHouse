@@ -7,14 +7,14 @@ const Validation_register_user = [
     .notEmpty()
     .withMessage('userFirstName should not be empty')
     .isAlpha()
-    .withMessage('userFirstName should not has numbers'),
+    .withMessage('userFirstName should not has numbers or special characters'),
   check('userLastName')
     .isLength({ min: 2, ax: 20 })
     .withMessage('userLastName should be between 2 and 20 characters')
     .notEmpty()
     .withMessage('userLastName should not be empty')
     .isAlpha()
-    .withMessage('userLastName should not has numbers'),
+    .withMessage('userLastName should not has numbers or special characters'),
   check('userName')
     .isLength({ min: 2, ax: 20 })
     .withMessage('userName should be between 2 and 20 characters')
@@ -32,7 +32,7 @@ const Validation_register_user = [
     .trim()
     .isLength({ min: 8, max: 20 })
     .withMessage('password should be between 8 and 20 characters')
-    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/,)
+    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/)
     .withMessage(
       'Password should be combination of one uppercase , one lower case, one special char, one digit and min 8 , max 20 char long'
     ),

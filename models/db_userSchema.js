@@ -11,12 +11,14 @@ const userSchema = new Schema(
       required: [true, 'userFirstName is required'],
       minLength: [2, 'first name must be more than 2 characters'],
       maxLength: [20, ' first name should be not more than 20 characters'],
+      match: [/^[a-z]+$/gi, 'User first name can not have special characters'],
     },
     userLastName: {
       type: String,
       required: [true, 'userLastName is required'],
       minLength: [2, 'last name must be more than 2 characters'],
       maxLength: [20, ' last name should be not more than 20 characters'],
+      match: [/^[a-z]+$/gi, 'User last name can not have special characters'],
     },
     userName: {
       type: String,
@@ -25,6 +27,7 @@ const userSchema = new Schema(
       required: [true, 'userName is required'],
       minLength: [4, 'user name must be more than 4 characters'],
       maxLength: [20, ' user name should be not more than 20 characters'],
+      match: [/^[a-z]+$/gi, 'User user name can not have special characters'],
     },
     email: {
       type: String,
@@ -44,7 +47,10 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, 'password is required'],
-      match: [/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/],
+      match: [
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/,
+        'Password should be combination of one uppercase , one lower case, one special char, one digit and min 8 , max 20 char long',
+      ],
     },
     verified: {
       type: Boolean,
