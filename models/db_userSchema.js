@@ -45,6 +45,7 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
+      match: [/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/],
     },
     verified: {
       type: Boolean,

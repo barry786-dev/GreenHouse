@@ -1,6 +1,11 @@
 const Users = require('../models/db_userSchema');
 const { ghDbConnect } = require('../models/db_mongo');
 
+/**
+ * 
+ * @param {String} email 
+ * @returns Boolean
+ */
 const validateEmail = (email) => {
   const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return reg.test(email);

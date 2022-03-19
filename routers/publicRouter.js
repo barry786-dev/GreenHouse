@@ -1,6 +1,6 @@
 //const { log } = require('console');
 const express = require('express');
-// import emailSender
+const { Validation_register_user } = require('../models/validationSchemas');
 
 const {
   getHome,
@@ -23,6 +23,6 @@ router.post('/contact', postContact);
 router.get('/login', getLogin);
 router.post('/login', postLogin);
 router.get('/register', getRegister);
-router.post('/register', postRegister);
+router.post('/register', Validation_register_user, postRegister);
 
 module.exports = router;
