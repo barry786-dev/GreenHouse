@@ -1,9 +1,10 @@
+const { log } = require('console');
 const Users = require('../models/db_userSchema');
 const { ghDbConnect } = require('../models/db_mongo');
 
 /**
- * 
- * @param {String} email 
+ *
+ * @param {String} email
  * @returns Boolean
  */
 const validateEmail = (email) => {
@@ -11,24 +12,31 @@ const validateEmail = (email) => {
   return reg.test(email);
 };
 /**
- * 
- * @param {{UserData Registered user data}}  
+ *
+ * @param {{UserData Registered user data}}
  */
 const registerUser = (UserData) => {
   return new Promise((resolve, reject) => {
-    ghDbConnect().then(() => {
-      const newUser = new Users({ ...UserData, verified: false });
-      newUser
-        .save()
-        .then((savedUser) => resolve(savedUser))
-        .catch((error) =>
-          reject({
-            myMsg:
-              'error during try to save the user come from db_Handlers.js from inside registerUser',
-            err: error,
-          })
-        );
-    });
+    ghDbConnect()
+      .then(() => {
+        const newUser = new Users({ ...UserData, verified: false });
+        newUser
+          .save()
+          .then((savedUser) => resolve(savedUser))
+          .catch((error) =>
+            reject({
+              myMsg:
+                'error during try to save the user come from db_Handlers.js from inside registerUser',
+              err : error,
+            })
+          );
+      })
+      .catch((error) =>
+        reject({
+          myMsg: 'error during trying to connect to main database',
+          err : error,
+        })
+      );
   });
 };
 

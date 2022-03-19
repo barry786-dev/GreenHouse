@@ -26,14 +26,12 @@ const Validation_register_user = [
     .isLength({ min: 4, ax: 20 })
     .withMessage('email should be between 4 and 20 characters')
     .isEmail()
-    .withMessage('This is not valid Email address')
+    .withMessage('This is not a valid Email address')
     .normalizeEmail(),
   check('password')
     .trim()
     .isLength({ min: 8, max: 20 })
-    .withMessage('password should be between 2 and 20 characters')
-    .notEmpty()
-    .withMessage('password should not be empty')
+    .withMessage('password should be between 8 and 20 characters')
     .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/,)
     .withMessage(
       'Password should be combination of one uppercase , one lower case, one special char, one digit and min 8 , max 20 char long'

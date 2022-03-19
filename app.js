@@ -1,6 +1,7 @@
 const { log } = require('console');
 const express = require('express');
 const app = express();
+const session = require('express-session');
 const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
@@ -26,9 +27,12 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/node_modules/bootstrap')));
+app.use(express.static(path.join(__dirname, '/node_modules/jquery')));
 
-app.use('/user', registeredUserRouter);
 app.use(publicRouter);
+app.use('/user', registeredUserRouter);
+
 
 app.listen(app.get('port'), () => {
   log(`app is listening on port ${app.get('port')}`);

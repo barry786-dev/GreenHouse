@@ -21,3 +21,10 @@ loginForm.onsubmit = async (e) => {
     console.log(error);
   }
 };
+
+
+/*  <script src='./pristine/dist/pristine.js' type='text/javascript'></script>;
+const form = document.getElementById('register-form');
+const pristine = new Pristine(form);
+const valid = pristine.validate();
+        if (valid) {} */

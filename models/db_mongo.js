@@ -12,7 +12,7 @@ function ghDbConnect() {
     } else {
       mongoose
         .connect(connectionString, {
-          userNewUrlParser: true,
+          useNewUrlParser: true,
           useUnifiedTopology: true,
         })
         .then(() => {

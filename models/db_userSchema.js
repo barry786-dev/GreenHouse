@@ -8,22 +8,21 @@ const userSchema = new Schema(
   {
     userFirstName: {
       type: String,
-      required: true,
+      required: [true, 'userFirstName is required'],
       minLength: [2, 'first name must be more than 2 characters'],
       maxLength: [20, ' first name should be not more than 20 characters'],
     },
     userLastName: {
       type: String,
-      required: true,
+      required: [true, 'userLastName is required'],
       minLength: [2, 'last name must be more than 2 characters'],
       maxLength: [20, ' last name should be not more than 20 characters'],
     },
     userName: {
       type: String,
       trim: true,
-      //unique: [true, 'That user name address is taken.'],
       unique: true,
-      required: true,
+      required: [true, 'userName is required'],
       minLength: [4, 'user name must be more than 4 characters'],
       maxLength: [20, ' user name should be not more than 20 characters'],
     },
@@ -33,7 +32,7 @@ const userSchema = new Schema(
       lowercase: true,
       //unique: [true, 'That email address is taken.'],
       unique: true,
-      required: true,
+      required: [true, 'email is required'],
       minLength: [4, 'user name must be more than 4 characters'],
       maxLength: [20, ' user name should be not more than 20 characters'],
       //validate: [validateEmail, 'Please fill a valid email address'],
@@ -44,12 +43,12 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
-      required: true,
+      required: [true, 'password is required'],
       match: [/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/],
     },
     verified: {
       type: Boolean,
-      required: true,
+      required: [true, 'verified is required'],
     },
   },
   { collection: 'Users' }

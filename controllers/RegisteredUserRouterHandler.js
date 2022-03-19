@@ -1,5 +1,3 @@
-const {} = require('./db');
-
 const getRegisteredUser = (req, res) => {
   if (req.session.user) {
   } else {
