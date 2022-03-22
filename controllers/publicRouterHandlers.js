@@ -1,5 +1,6 @@
 const { log } = require('console');
-//const emailSender = require('../models/emailSender');
+const emailSender = require('../models/emailSender');
+const { regEmailSentForm } = require('../utils/mails_options');
 const { validationResult } = require('express-validator');
 const { registerUser } = require('./db_Handlers');
 
@@ -11,6 +12,7 @@ const getRegister = (req, res) => {};
 
 const postRegister = (req, res) => {
   log(req.body);
+// handling backEnd validation errors
   const validationErrors = validationResult(req);
   if (!validationErrors.isEmpty()) {
     log(validationErrors);
@@ -19,6 +21,7 @@ const postRegister = (req, res) => {
       err: validationErrors.array()[0].msg,
     });
   }
+  //extract the request data from req.body in object form
   const UserData = [
     'userFirstName',
     'userLastName',
@@ -26,13 +29,29 @@ const postRegister = (req, res) => {
     'email',
     'password',
   ].reduce((obj, key) => ((obj[key] = req.body[key]), obj), {});
+
   log(UserData);
-  registerUser(UserData)
+
+  registerUser(UserData) // start registering process
     .then((theNewAddedUser) => {
       log(theNewAddedUser);
-      res.json({ myMsg: 'New user register success' });
+      // sending confirmation email after registration success
+      emailSender
+        .sendEmail(regEmailSentForm(theNewAddedUser))
+        .then((info) => {
+          log(info);
+          res.json({
+            myMsg: `New user register success , we have sent you an email to : ${theNewAddedUser.email} , please check your email and click on the verification link there to confirm your email, thank you`,
+          });
+        })
+        .catch((error) => { // handling error of confirmation email sending
+          log(error);
+          res.json({
+            myMsg: `A new user register success , but an error accrued during trying to send verification code to your registered email : ${theNewAddedUser.email},seems like there is a technical issue on email services, please contact our customer services to assist you to complete your registration`,
+          });
+        });
     })
-    .catch((error) => {
+    .catch((error) => { // handling database unique validations errors
       if ((error.err.name = 'MongoServerError' && error.err.code === 11000)) {
         log([
           error.err.name,
@@ -47,6 +66,7 @@ const postRegister = (req, res) => {
           )} already exists`,
         });
       } else {
+        // handling database connection fail errors and other validation errors 
         log([error.myMsg, error.err.message]);
         res.json({
           message: error.myMsgToUser,
@@ -55,7 +75,7 @@ const postRegister = (req, res) => {
     });
 };
 const getContact = (req, res) => {
-  //console.log(req.query);
+  //log(req.query);
 };
 const postContact = (req, res) => {
   log(req.body);

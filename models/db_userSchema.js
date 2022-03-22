@@ -9,7 +9,7 @@ const userSchema = new Schema(
     userFirstName: {
       type: String,
       required: [true, 'userFirstName is required'],
-      minLength: [2, 'first name must be more than 2 characters'],
+      minLength: [2, `first name must be more than 2 characters, you entered only: ${'VALUE'.length}` ],
       maxLength: [20, ' first name should be not more than 20 characters'],
       match: [/^[a-z]+$/gi, 'User first name can not have special characters'],
     },
@@ -36,8 +36,8 @@ const userSchema = new Schema(
       //unique: [true, 'That email address is taken.'],
       unique: true,
       required: [true, 'email is required'],
-      minLength: [4, 'user name must be more than 4 characters'],
-      maxLength: [20, ' user name should be not more than 20 characters'],
+      minLength: [5, 'user name must be more than 4 characters'],
+      maxLength: [40, ' user name should be not more than 40 characters'],
       //validate: [validateEmail, 'Please fill a valid email address'],
       match: [
         /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,

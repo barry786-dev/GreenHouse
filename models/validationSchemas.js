@@ -2,29 +2,29 @@ const { check } = require('express-validator');
 
 const Validation_register_user = [
   check('userFirstName')
-    .isLength({ min: 2, ax: 20 })
+    .isLength({ min: 2, max: 20 })
     .withMessage('userFirstName should be between 2 and 20 characters')
     .notEmpty()
     .withMessage('userFirstName should not be empty')
     .isAlpha()
     .withMessage('userFirstName should not has numbers or special characters'),
   check('userLastName')
-    .isLength({ min: 2, ax: 20 })
+    .isLength({ min: 2, max: 20 })
     .withMessage('userLastName should be between 2 and 20 characters')
     .notEmpty()
     .withMessage('userLastName should not be empty')
     .isAlpha()
     .withMessage('userLastName should not has numbers or special characters'),
   check('userName')
-    .isLength({ min: 2, ax: 20 })
+    .isLength({ min: 2, max: 20 })
     .withMessage('userName should be between 2 and 20 characters')
     .notEmpty()
     .withMessage('userName should not be empty')
     .isAlpha()
     .withMessage('userName should not has numbers'),
   check('email')
-    .isLength({ min: 4, ax: 20 })
-    .withMessage('email should be between 4 and 20 characters')
+    .isLength({ min: 4, max: 40 })
+    .withMessage('email should be between 4 and 40 characters')
     .isEmail()
     .withMessage('This is not a valid Email address')
     .normalizeEmail(),

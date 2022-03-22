@@ -36,6 +36,8 @@ const registerUser = (UserData) => {
         reject({
           myMsgToUser:
             'error during trying to connect to main database, please try again later or contact the admin',
+          myMsg:
+            'error during try to connect to the data come from db_Handlers.js from inside registerUser',
           err: error,
         })
       );
