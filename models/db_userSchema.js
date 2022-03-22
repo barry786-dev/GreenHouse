@@ -9,7 +9,12 @@ const userSchema = new Schema(
     userFirstName: {
       type: String,
       required: [true, 'userFirstName is required'],
-      minLength: [2, `first name must be more than 2 characters, you entered only: ${'VALUE'.length}` ],
+      minLength: [
+        2,
+        `first name must be more than 2 characters, you entered only: ${
+          'VALUE'.length
+        }`,
+      ],
       maxLength: [20, ' first name should be not more than 20 characters'],
       match: [/^[a-z]+$/gi, 'User first name can not have special characters'],
     },
@@ -55,6 +60,15 @@ const userSchema = new Schema(
     verified: {
       type: Boolean,
       required: [true, 'verified is required'],
+    },
+    status: {
+      type: String,
+      enum: ['pending', 'Active'],
+      default: 'pending',
+    },
+    confirmationCode: {
+      type: String,
+      unique: true,
     },
   },
   { collection: 'Users' }

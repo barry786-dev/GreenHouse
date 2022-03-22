@@ -1,4 +1,8 @@
 const { check } = require('express-validator');
+const {
+  checkDuplicateUsername,
+  checkDuplicateEmail,
+} = require('../controllers/db_Handlers');
 
 const Validation_register_user = [
   check('userFirstName')
@@ -21,13 +25,24 @@ const Validation_register_user = [
     .notEmpty()
     .withMessage('userName should not be empty')
     .isAlpha()
-    .withMessage('userName should not has numbers'),
+    .withMessage('userName should not has numbers')
+    .bail()
+    .custom(checkDuplicateUsername)
+    .withMessage(
+      ' This user name is not available try another one or go to login'
+    ),
   check('email')
     .isLength({ min: 4, max: 40 })
     .withMessage('email should be between 4 and 40 characters')
     .isEmail()
     .withMessage('This is not a valid Email address')
-    .normalizeEmail(),
+    .normalizeEmail()
+    .bail()
+    .custom(checkDuplicateEmail)
+    .withMessage(
+      ' This Email is already exist try another one or go to login'
+    ),
+  ,
   check('password')
     .trim()
     .isLength({ min: 8, max: 20 })

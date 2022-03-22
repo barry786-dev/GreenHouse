@@ -2,6 +2,35 @@ const { log } = require('console');
 const Users = require('../models/db_userSchema');
 const { ghDbConnect } = require('../models/db_mongo');
 
+/* async function checkDuplicateUsernameOrEmail({ userName, email }) {
+  log('db_Handler.js , checkDuplicateUsernameOrEmail', userName, email);
+  await ghDbConnect();
+
+  const existingUser = await Users.findOne({ userName: userName });
+  if (existingUser) {
+    throw new Error(' user already exist');
+  }
+
+  const existingEmail = Users.findOne({ email: email });
+
+  if (existingEmail) {
+    throw new Error('Email already exist');
+  }
+} */
+
+async function checkDuplicateUsername(userName) {
+  const existUser = await Users.findOne({ userName: userName });
+  if (existUser) {
+    return true;
+  }
+}
+async function checkDuplicateEmail(email) {
+  const existEmail = await Users.findOne({ email: email });
+  if (existEmail) {
+    return true;
+  }
+}
+
 /**
  *
  * @param {String} email
@@ -44,4 +73,9 @@ const registerUser = (UserData) => {
   });
 };
 
-module.exports = { validateEmail, registerUser };
+module.exports = {
+  validateEmail,
+  registerUser,
+  checkDuplicateUsername,
+  checkDuplicateEmail,
+};

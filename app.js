@@ -5,9 +5,12 @@ const session = require('express-session');
 const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
+const { ghDbConnect } = require('./models/db_mongo');
 
 const registeredUserRouter = require('./routers/registeredUserRouter');
 const publicRouter = require('./routers/publicRouter');
+
+ghDbConnect();
 
 app.set('port', process.env.PORT || 4500);
 
@@ -32,7 +35,6 @@ app.use(express.static(path.join(__dirname, '/node_modules/jquery')));
 
 app.use(publicRouter);
 app.use('/user', registeredUserRouter);
-
 
 app.listen(app.get('port'), () => {
   log(`app is listening on port ${app.get('port')}`);

@@ -3,6 +3,7 @@ const emailSender = require('../models/emailSender');
 const { regEmailSentForm } = require('../utils/mails_options');
 const { validationResult } = require('express-validator');
 const { registerUser } = require('./db_Handlers');
+const userNameEmail = {};
 
 const getHome = (req, res) => {};
 
@@ -11,8 +12,10 @@ const getAbout = (req, res) => {};
 const getRegister = (req, res) => {};
 
 const postRegister = (req, res) => {
-  log(req.body);
-// handling backEnd validation errors
+  log('publicRouterHandlers.js,postRegister, req.body', req.body);
+  userNameEmail.userName = req.body.userName;
+  userNameEmail.email = req.body.email;
+  // handling backEnd validation errors
   const validationErrors = validationResult(req);
   if (!validationErrors.isEmpty()) {
     log(validationErrors);
@@ -30,7 +33,7 @@ const postRegister = (req, res) => {
     'password',
   ].reduce((obj, key) => ((obj[key] = req.body[key]), obj), {});
 
-  log(UserData);
+  log('publicRouterHandlers.js,postRegister, userData', UserData);
 
   registerUser(UserData) // start registering process
     .then((theNewAddedUser) => {
@@ -44,14 +47,16 @@ const postRegister = (req, res) => {
             myMsg: `New user register success , we have sent you an email to : ${theNewAddedUser.email} , please check your email and click on the verification link there to confirm your email, thank you`,
           });
         })
-        .catch((error) => { // handling error of confirmation email sending
+        .catch((error) => {
+          // handling error of confirmation email sending
           log(error);
           res.json({
             myMsg: `A new user register success , but an error accrued during trying to send verification code to your registered email : ${theNewAddedUser.email},seems like there is a technical issue on email services, please contact our customer services to assist you to complete your registration`,
           });
         });
     })
-    .catch((error) => { // handling database unique validations errors
+    .catch((error) => {
+      // handling database unique validations errors
       if ((error.err.name = 'MongoServerError' && error.err.code === 11000)) {
         log([
           error.err.name,
@@ -66,7 +71,7 @@ const postRegister = (req, res) => {
           )} already exists`,
         });
       } else {
-        // handling database connection fail errors and other validation errors 
+        // handling database connection fail errors and other validation errors
         log([error.myMsg, error.err.message]);
         res.json({
           message: error.myMsgToUser,
@@ -106,4 +111,5 @@ module.exports = {
   postRegister,
   getLogin,
   postLogin,
+  userNameEmail,
 };
