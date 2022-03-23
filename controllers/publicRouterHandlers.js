@@ -1,20 +1,27 @@
 const { log } = require('console');
+const bcrypt = require('bcryptjs');
+const path = require('path');
 const emailSender = require('../models/emailSender');
 const { regEmailSentForm } = require('../utils/mails_options');
 const { validationResult } = require('express-validator');
-const { registerUser } = require('./db_Handlers');
-const userNameEmail = {};
+const {
+  registerUser,
+  findUserByNameOrEmail,
+  findUserByConfirmationCode,
+} = require('./db_Handlers');
 
-const getHome = (req, res) => {};
+const getHome = (req, res) => {
+  res.sendFile(path.join(__dirname, '../index.html'));
+};
 
 const getAbout = (req, res) => {};
 
-const getRegister = (req, res) => {};
+const getRegister = (req, res) => {
+  res.sendFile(path.join(__dirname, '../index.html'));
+};
 
 const postRegister = (req, res) => {
   log('publicRouterHandlers.js,postRegister, req.body', req.body);
-  userNameEmail.userName = req.body.userName;
-  userNameEmail.email = req.body.email;
   // handling backEnd validation errors
   const validationErrors = validationResult(req);
   if (!validationErrors.isEmpty()) {
@@ -33,6 +40,8 @@ const postRegister = (req, res) => {
     'password',
   ].reduce((obj, key) => ((obj[key] = req.body[key]), obj), {});
 
+  UserData.password = bcrypt.hashSync(req.body.password, 8);
+
   log('publicRouterHandlers.js,postRegister, userData', UserData);
 
   registerUser(UserData) // start registering process
@@ -40,7 +49,7 @@ const postRegister = (req, res) => {
       log(theNewAddedUser);
       // sending confirmation email after registration success
       emailSender
-        .sendEmail(regEmailSentForm(theNewAddedUser))
+        .sendEmail(regEmailSentForm(theNewAddedUser)) // regEmailSentForm() inside /utils/mails_options'
         .then((info) => {
           log(info);
           res.json({
@@ -87,19 +96,64 @@ const postContact = (req, res) => {
   //const { email, password } = req.body;
 };
 
-const getLogin = (req, res) => {};
+const getLogin = (req, res) => {
+  if (!req.session.user) {
+    res.sendFile(path.join(__dirname, '../login.html'));
+  } else {
+    res.sendFile(path.join(__dirname, '../dshboard.html'));
+    // res.sendFile(__dirname + '/views/index.html');
+  }
+};
 
-const postLogin = (req, res) => {
-  const { email, password } = req.body;
-  if (email === 'mbrsyr@yahoo.com' && password === '123456') {
+const postLogin = async (req, res) => {
+  const { userNameOrPassword, password } = req.body;
+  const user = await findUserByNameOrEmail(userNameOrPassword);
+  log(user);
+  if (user === 'Failed') {
+    return res.json(
+      'there is error during trying to reach data , please try again or contact the admin'
+    );
+  } else {
+    if (!user) {
+      return res.json('User not Found');
+    }
+  }
+  if (user.status != 'Active') {
+    return res.status(401).send({
+      message: 'Pending Account. Please Verify Your Email!',
+    });
+  }
+  const passwordIsValid = bcrypt.compareSync(password, user.password);
+  if (passwordIsValid) {
     // fill session with data
     req.session.user = {
-      username: 'admin',
+      username: user.userName,
     };
-    res.json('done');
+    res.sendFile(path.join(__dirname, '../dshboard.html'));
+    //res.json('success login');
   } else {
-    res.json('error');
+    res.json({ myMsg: 'Invalid Password!' });
   }
+};
+
+const verifyUser = async (req, res) => {
+  const user = await findUserByConfirmationCode(req.params.confirmationCode);
+  if (user === 'Failed') {
+    return res.json(
+      'there is error during trying to reach data , please try again or contact the admin'
+    );
+  } else {
+    if (!user) {
+      return res.status(404).send({ message: 'User Not found.' });
+    }
+  }
+  user.status = 'Active';
+  user.save((err) => {
+    if (err) {
+     return res.status(500).send({ message: err });
+    }
+    res.redirect('/login');
+  });
 };
 
 module.exports = {
@@ -111,5 +165,5 @@ module.exports = {
   postRegister,
   getLogin,
   postLogin,
-  userNameEmail,
+  verifyUser,
 };

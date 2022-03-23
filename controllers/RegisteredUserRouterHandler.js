@@ -8,11 +8,11 @@ const getRegisteredUser = (req, res) => {
 const logout = (req, res) => {
   req.session.destroy();
   //req.session = null;
-  res.redirect('/login');
+  //res.redirect('/login');
 };
 
 const logOutPost = (req, res) => {
   req.session.destroy();
-  res.json('done');
+  //res.json('done');
 };
 module.exports = { getRegisteredUser, logout, logOutPost };

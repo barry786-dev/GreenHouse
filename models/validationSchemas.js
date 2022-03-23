@@ -42,7 +42,6 @@ const Validation_register_user = [
     .withMessage(
       ' This Email is already exist try another one or go to login'
     ),
-  ,
   check('password')
     .trim()
     .isLength({ min: 8, max: 20 })

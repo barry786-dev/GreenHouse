@@ -11,6 +11,7 @@ const {
   postRegister,
   getLogin,
   postLogin,
+  verifyUser,
 } = require('../controllers/publicRouterHandlers');
 
 const router = express.Router();
@@ -24,5 +25,6 @@ router.get('/login', getLogin);
 router.post('/login', postLogin);
 router.get('/register', getRegister);
 router.post('/register', Validation_register_user, postRegister);
+router.get('/api/auth/confirm/:confirmationCode', verifyUser);
 
 module.exports = router;

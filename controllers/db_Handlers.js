@@ -1,22 +1,42 @@
 const { log } = require('console');
 const Users = require('../models/db_userSchema');
 const { ghDbConnect } = require('../models/db_mongo');
+const { getNewToken } = require('../utils/token');
 
-/* async function checkDuplicateUsernameOrEmail({ userName, email }) {
-  log('db_Handler.js , checkDuplicateUsernameOrEmail', userName, email);
-  await ghDbConnect();
-
-  const existingUser = await Users.findOne({ userName: userName });
-  if (existingUser) {
-    throw new Error(' user already exist');
+async function findUserByNameOrEmail(userNameOrPassword) {
+  try {
+    await ghDbConnect();
+    if (validateEmail(userNameOrPassword)) {
+      const user = await Users.findOne({ email: userNameOrPassword });
+      return user;
+    } else {
+      const user = await Users.findOne({ userName: userNameOrPassword });
+      return user;
+    }
+  } catch (err) {
+    log(
+      'this error coming from db_handler.js from inside findUserByNameOrEmail()',
+      err
+    );
+    return 'Failed';
   }
+}
 
-  const existingEmail = Users.findOne({ email: email });
-
-  if (existingEmail) {
-    throw new Error('Email already exist');
+async function findUserByConfirmationCode(userConfirmationCode) {
+  try {
+    await ghDbConnect();
+    const user = await Users.findOne({
+      confirmationCode: userConfirmationCode,
+    });
+    return user;
+  } catch (err) {
+    log(
+      'this error coming from db_handler.js from inside findUserByNameOrEmail()',
+      err
+    );
+    return 'Failed';
   }
-} */
+}
 
 async function checkDuplicateUsername(userName) {
   const existUser = await Users.findOne({ userName: userName });
@@ -40,6 +60,7 @@ const validateEmail = (email) => {
   const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return reg.test(email);
 };
+
 /**
  *
  * @param {{UserData Registered user data}}
@@ -48,7 +69,8 @@ const registerUser = (UserData) => {
   return new Promise((resolve, reject) => {
     ghDbConnect()
       .then(() => {
-        const newUser = new Users({ ...UserData, verified: false });
+        const newToken = getNewToken();
+        const newUser = new Users({ ...UserData, confirmationCode: newToken });
         newUser
           .save()
           .then((savedUser) => resolve(savedUser))
@@ -78,4 +100,6 @@ module.exports = {
   registerUser,
   checkDuplicateUsername,
   checkDuplicateEmail,
+  findUserByNameOrEmail,
+  findUserByConfirmationCode,
 };

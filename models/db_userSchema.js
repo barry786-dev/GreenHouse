@@ -52,14 +52,6 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, 'password is required'],
-      match: [
-        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d@$.!%*#?&]/,
-        'Password should be combination of one uppercase , one lower case, one special char, one digit and min 8 , max 20 char long',
-      ],
-    },
-    verified: {
-      type: Boolean,
-      required: [true, 'verified is required'],
     },
     status: {
       type: String,
