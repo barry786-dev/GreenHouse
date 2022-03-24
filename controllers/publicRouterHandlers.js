@@ -16,9 +16,10 @@ const getHome = (req, res) => {
 
 const getAbout = (req, res) => {};
 
-const getRegister = (req, res) => {
-  res.sendFile(path.join(__dirname, '../index.html'));
-};
+/* const getRegister = (req, res) => {
+  res.redirect('/')
+  //res.sendFile(path.join(__dirname, '../index.html'));
+}; */
 
 const postRegister = (req, res) => {
   log('publicRouterHandlers.js,postRegister, req.body', req.body);
@@ -99,9 +100,11 @@ const postContact = (req, res) => {
 const getLogin = (req, res) => {
   if (!req.session.user) {
     res.sendFile(path.join(__dirname, '../login.html'));
-  } else {
-    res.sendFile(path.join(__dirname, '../dshboard.html'));
+  } else if (req.session.user.username === 'admin') {
+    res.redirect('/admin');
     // res.sendFile(__dirname + '/views/index.html');
+  } else {
+    res.redirect('/user/dashboard');
   }
 };
 
@@ -128,9 +131,15 @@ const postLogin = async (req, res) => {
     // fill session with data
     req.session.user = {
       username: user.userName,
+      userType: user.userType,
+      userId : user._id,
     };
-    res.sendFile(path.join(__dirname, '../dshboard.html'));
-    //res.json('success login');
+    if (user.userType === 'admin') {
+      res.redirect('/admin');
+    } else {
+      res.redirect('/user/dashboard');
+      //res.json('success login');
+    }
   } else {
     res.json({ myMsg: 'Invalid Password!' });
   }
@@ -150,7 +159,7 @@ const verifyUser = async (req, res) => {
   user.status = 'Active';
   user.save((err) => {
     if (err) {
-     return res.status(500).send({ message: err });
+      return res.status(500).send({ message: err });
     }
     res.redirect('/login');
   });
@@ -161,7 +170,7 @@ module.exports = {
   getAbout,
   getContact,
   postContact,
-  getRegister,
+  
   postRegister,
   getLogin,
   postLogin,

@@ -62,6 +62,11 @@ const userSchema = new Schema(
       type: String,
       unique: true,
     },
+    userType: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user',
+    },
   },
   { collection: 'Users' }
 );

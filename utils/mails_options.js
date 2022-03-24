@@ -12,7 +12,7 @@ const regEmailSentForm = (emailReceiverInfo) => {
       <p><strong> your user name:</strong> ${userName}</p>
       <p><strong> your registration email:</strong> ${email}</p>
       <p><strong>Thank you for subscribing. Please confirm your email by clicking on the following link -</strong> :</p>
-       <a href=http://localhost:5600/api/auth/confirm/${confirmationCode}> Click here</a>
+       <a href=http://localhost:${process.env.PORT}/api/auth/confirm/${confirmationCode}> Click here</a>
       <p><strong>if you did not register by Green-House services or you have just received this email by mistake, please you can only ignore this email, for more information you can contact us at our email : info@green-house.com , thank you </strong></p>
       `,
   };

@@ -7,7 +7,7 @@ const {
   getAbout,
   getContact,
   postContact,
-  getRegister,
+  //getRegister,
   postRegister,
   getLogin,
   postLogin,
@@ -23,7 +23,7 @@ router.get('/contact', getContact);
 router.post('/contact', postContact);
 router.get('/login', getLogin);
 router.post('/login', postLogin);
-router.get('/register', getRegister);
+//router.get('/register', getRegister);
 router.post('/register', Validation_register_user, postRegister);
 router.get('/api/auth/confirm/:confirmationCode', verifyUser);
 
