@@ -2,7 +2,7 @@ const { check } = require('express-validator');
 const {
   checkDuplicateUsername,
   checkDuplicateEmail,
-} = require('../controllers/db_Handlers');
+} = require('../controllers/db_users_Handlers');
 
 const Validation_register_user = [
   check('userFirstName')
@@ -39,9 +39,7 @@ const Validation_register_user = [
     .normalizeEmail()
     .bail()
     .custom(checkDuplicateEmail)
-    .withMessage(
-      ' This Email is already exist try another one or go to login'
-    ),
+    .withMessage(' This Email is already exist try another one or go to login'),
   check('password')
     .trim()
     .isLength({ min: 8, max: 20 })

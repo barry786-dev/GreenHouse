@@ -1,34 +1,41 @@
 const { log } = require('console');
+const { mongoose } = require('mongoose');
 const Products = require('../models/db_productSchema');
 const { ghDbConnect } = require('../models/db_mongo');
 
-async function addUserToProduct(serialNumber, userId){
-  const product = await Products.findOne({ serialNumber: serialNumber });
-    if (!product) {
-      return 'NoP'// no such product
-    }
-  product.userId = userId;
-  product.save((err) => {
-    if (err) {
-      log(err)
-      return ('wrong');
-    }
-  });
-  return 'added';
-};
-
-
+async function addUserToProduct(serialNumber, userId) {
+  try{
+    await ghDbConnect();
+    const product = await Products.findOneAndUpdate(
+      { serialNumber: serialNumber },
+      { userId: new mongoose.Types.ObjectId(userId) },
+      { new: true }
+    );
+    return product;
+  } catch (error) {
+    return error;
+  }
+}
 
 async function checkSN(serialNumber) {
-  const existProduct = await Products.findOne({ serialNumber: serialNumber });
-  log(existProduct)
-  if (existProduct) {
-    if (existProduct.userId === 'null') {
-      return 'success';
+  try {
+    await ghDbConnect();
+    const product = await Products.findOne({ serialNumber: serialNumber });
+    if (!product) {
+      return {
+        errorNu: 8,
+        myMsg: 'this serial number is not exist',
+      }; // no such product
     }
-    return 'UPR'; //used product
-  } else {
-    return 'NoSN'; // No such serialNumber
+    if (product.userId) {
+      return {
+        errorNu: 9,
+        myMsg: 'this product is already sold and it is in use',
+      }; // this product is already sold and it is in use
+    }
+    return 'success';
+  } catch (error) {
+    return error;
   }
 }
 

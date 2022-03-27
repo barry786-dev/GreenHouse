@@ -41,8 +41,9 @@ const productSchema = new Schema(
       default: 'No Description',
     },
     userId: {
-      type: String,
-      default: 'null',
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Users',
+      default: null,
     },
   },
   { collection: 'Products' }
