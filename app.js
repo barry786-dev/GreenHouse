@@ -10,6 +10,7 @@ const { ghDbConnect } = require('./models/db_mongo');
 const registeredUserRouter = require('./routers/registeredUserRouter');
 const publicRouter = require('./routers/publicRouter');
 const adminRouter = require('./routers/adminRouter');
+const DataRouter = require('./routers/dataRouter');
 
 ghDbConnect();
 
@@ -37,6 +38,7 @@ app.use(express.static(path.join(__dirname, '/node_modules/jquery')));
 app.use(publicRouter);
 app.use('/user', registeredUserRouter);
 app.use('/admin', adminRouter);
+app.use('/data', DataRouter);
 
 app.listen(app.get('port'), () => {
   log(`app is listening on port ${app.get('port')}`);
