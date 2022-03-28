@@ -22,7 +22,31 @@ loginForm.onsubmit = async (e) => {
   }
 };
 
+function timeToString(h, m, s) {
+  if (h < 10) h = '0' + h;
+  if (m < 10) h = '0' + h;
+  if (s < 10) h = '0' + h;
+  return h + ':' + m + ':' + s;
+}
 
+
+// time: {
+//     type: String,
+//     validate: {
+//       isAsync: true,
+//       validator: function(v, cb) {
+//         setTimeout(function() {
+//           var timeRegex = /^(?:2[0-3]|[01][0-9]):[0-5][0-9]:[0-5][0-9]$/;
+//           var msg = v + ' is not a valid time format!';
+
+//           cb(timeRegex.test(v), msg);
+//         }, 5);
+//       },
+
+//       message: 'Default error message'
+//     },
+//     required: [true, 'Time is required']
+//   }
 /*  <script src='./pristine/dist/pristine.js' type='text/javascript'></script>;
 const form = document.getElementById('register-form');
 const pristine = new Pristine(form);
