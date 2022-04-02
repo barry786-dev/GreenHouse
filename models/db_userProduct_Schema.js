@@ -32,24 +32,33 @@ const UserProductSchema = new Schema(
       default: null,
     },
     data: {
-      light: [
-        {
-          value: { type: Number, default: 0 },
-          date: { type: Date, default: Date.now },
-        },
-      ],
-      SoilHumidity: [
-        {
-          value: { type: Number, default: 0 },
-          date: { type: Date, default: Date.now },
-        },
-      ],
-      pump: [
-        {
-          value: { type: Number, enum: [0, 1], default: 0 },
-          date: { type: Date, default: Date.now },
-        },
-      ],
+      light: {
+        type: [
+          {
+            value: { type: Number },
+            date: { type: Date },
+          },
+        ],
+        default: [{ value: 0, date: Date.now() }],
+      },
+      SoilHumidity: {
+        type: [
+          {
+            value: { type: Number },
+            date: { type: Date },
+          },
+        ],
+        default: [{ value: 0, date: Date.now() }],
+      },
+      pump: {
+        type: [
+          {
+            value: { type: Number, enum: [0, 1] },
+            date: { type: Date },
+          },
+        ],
+        default: [{ value: 0, date: Date.now() }],
+      },
     },
     settings: {
       SoilHumidityS: {
@@ -57,7 +66,6 @@ const UserProductSchema = new Schema(
         period: { type: Number, min: 0, default: 24 }, // in hours
         runTime: { type: Number, min: 1, default: 1 }, //in seconds
       },
-
     },
   },
   { collection: 'User_Product' }

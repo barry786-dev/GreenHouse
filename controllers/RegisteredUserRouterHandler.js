@@ -27,27 +27,22 @@ const getDashboard = (req, res) => {
 /** */
 const postDashboard = async (req, res) => {
   try {
-    if (req.body.minValue && req.body.period && req.body.runTime) {
-      const { minValue, period, runTime, serialNumber, productNameByUser } =
-        req.body;
+    if (req.body.productNameByUser) {
+      // const { minValue, period, runTime, serialNumber, productNameByUser } =
+      //   req.body;
       const userId = req.session.user.userId;
-       const result = await checkDocument('Products', {
-      serialNumber: serialNumber,
-    });
+      const result = await checkDocument('Products', {
+        serialNumber: req.body.serialNumber,
+      });
       if (!result) {
-       return res.json({
-         errorNu: 8,
-         myMsg:
-           'this serial number is not in use please try again and be sure about it',
-       });
+        return res.json({
+          errorNu: 8,
+          myMsg:
+            'this serial number is not in use please try again and be sure about it',
+        });
       } else if (result && result.userId.equals(userId)) {
         const result2 = await addUserProductSettings(
-          serialNumber,
-          userId,
-          minValue,
-          period,
-          runTime,
-          productNameByUser
+          {...req.body, userId},
         );
         if (result2.productNameByUser) {
           res.json({
@@ -64,31 +59,31 @@ const postDashboard = async (req, res) => {
         });
       }
     } else {
-    const { serialNumber } = req.body;
-    const userId = req.session.user.userId;
-    const result = await checkDocument('Products', {
-      serialNumber: serialNumber,
-    });
-    console.log('this is the result' , result)
-    if (result && (result.userId === null)) {
-      const result2 = await addUserToProduct(serialNumber, userId);
-      if (result2.productName) {
-        //res.json({ message: 'your product is ready to be used' });
-        res.sendFile(
-          path.join(__dirname, '../views/dashboard_addProduct.html')
-        );
+      const { serialNumber } = req.body;
+      const userId = req.session.user.userId;
+      const result = await checkDocument('Products', {
+        serialNumber: serialNumber,
+      });
+      console.log('this is the result', result);
+      if (result && result.userId === null) {
+        const result2 = await addUserToProduct(serialNumber, userId);
+        if (result2.productName) {
+          //res.json({ message: 'your product is ready to be used' });
+          res.sendFile(
+            path.join(__dirname, '../views/dashboard_addProduct.html')
+          );
+        }
+      } else if (result && result.serialNumber) {
+        res.json({
+          errorNu: 9,
+          myMsg: 'this product is already sold and it is in use',
+        });
+      } else {
+        res.json({
+          errorNu: 8,
+          myMsg: 'this serial number is not exist',
+        });
       }
-    } else if (result && (result.serialNumber)) {
-      res.json({
-        errorNu: 9,
-        myMsg: 'this product is already sold and it is in use',
-      });
-    } else {
-      res.json({
-        errorNu: 8,
-        myMsg: 'this serial number is not exist',
-      });
-    }
     }
   } catch (error) {
     log(
