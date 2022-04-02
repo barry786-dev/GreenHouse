@@ -14,6 +14,7 @@
   - 7: Pending Account. Please Verify Your Email!
   - 8: this serial number is not exist
   - 9: this product is already sold and it is in use
+  -10: you can not add this product because you are not the owner of this product
 
 ## session
 

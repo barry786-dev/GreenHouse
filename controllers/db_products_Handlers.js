@@ -1,10 +1,12 @@
 const { log } = require('console');
 const { mongoose } = require('mongoose');
 const Products = require('../models/db_productSchema');
+const Users = require('../models/db_userSchema');
+const User_Product = require('../models/db_userProduct_Schema');
 const { ghDbConnect } = require('../models/db_mongo');
 
 async function addUserToProduct(serialNumber, userId) {
-  try{
+  try {
     await ghDbConnect();
     const product = await Products.findOneAndUpdate(
       { serialNumber: serialNumber },
@@ -12,28 +14,6 @@ async function addUserToProduct(serialNumber, userId) {
       { new: true }
     );
     return product;
-  } catch (error) {
-    return error;
-  }
-}
-
-async function checkSN(serialNumber) {
-  try {
-    await ghDbConnect();
-    const product = await Products.findOne({ serialNumber: serialNumber });
-    if (!product) {
-      return {
-        errorNu: 8,
-        myMsg: 'this serial number is not exist',
-      }; // no such product
-    }
-    if (product.userId) {
-      return {
-        errorNu: 9,
-        myMsg: 'this product is already sold and it is in use',
-      }; // this product is already sold and it is in use
-    }
-    return 'success';
   } catch (error) {
     return error;
   }
@@ -71,4 +51,4 @@ const addNewProduct = (ProductData) => {
       );
   });
 };
-module.exports = { addNewProduct, checkSN, addUserToProduct };
+module.exports = { addNewProduct, addUserToProduct };

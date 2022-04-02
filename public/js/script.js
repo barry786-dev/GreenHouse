@@ -22,12 +22,60 @@ loginForm.onsubmit = async (e) => {
   }
 };
 
+      /* const coco = {light: {
+        minValue: { type: Number, default: 0 },
+        startOn: [
+          {
+            hours: {
+              type: Number,
+              required: true,
+              min: 0,
+              max: 23,
+            },
+            minutes: {
+              type: Number,
+              required: true,
+              min: 0,
+              max: 59,
+            },
+            seconds: {
+              type: Number,
+              required: true,
+              min: 0,
+              max: 59,
+            },
+          },
+        ],
+        startOff: [
+          {
+            hours: {
+              type: Number,
+              required: true,
+              min: 0,
+              max: 23,
+            },
+            minutes: {
+              type: Number,
+              required: true,
+              min: 0,
+              max: 59,
+            },
+            seconds: {
+              type: Number,
+              required: true,
+              min: 0,
+              max: 59,
+            },
+          },
+        ],
+      }};
+
 function timeToString(h, m, s) {
   if (h < 10) h = '0' + h;
   if (m < 10) h = '0' + h;
   if (s < 10) h = '0' + h;
   return h + ':' + m + ':' + s;
-}
+} */
 
 
 // time: {

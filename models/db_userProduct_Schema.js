@@ -52,64 +52,16 @@ const UserProductSchema = new Schema(
       ],
     },
     settings: {
-      light: {
+      SoilHumidityS: {
         minValue: { type: Number, default: 0 },
-        startOn: [
-          {
-            hours: {
-              type: Number,
-              required: true,
-              min: 0,
-              max: 23,
-            },
-            minutes: {
-              type: Number,
-              required: true,
-              min: 0,
-              max: 59,
-            },
-            seconds: {
-              type: Number,
-              required: true,
-              min: 0,
-              max: 59,
-            },
-          },
-        ],
-        startOff: [
-          {
-            hours: {
-              type: Number,
-              required: true,
-              min: 0,
-              max: 23,
-            },
-            minutes: {
-              type: Number,
-              required: true,
-              min: 0,
-              max: 59,
-            },
-            seconds: {
-              type: Number,
-              required: true,
-              min: 0,
-              max: 59,
-            },
-          },
-        ],
-      },
-      SoilHumidity: {
-        minValue: { type: Number, default: 0 },
-      },
-      pump: {
         period: { type: Number, min: 0, default: 24 }, // in hours
         runTime: { type: Number, min: 1, default: 1 }, //in seconds
       },
+
     },
   },
   { collection: 'User_Product' }
 );
-const User_Product = mongoose.model('User_Product', productSchema);
+const User_Product = mongoose.model('User_Product', UserProductSchema);
 
 module.exports = User_Product;
