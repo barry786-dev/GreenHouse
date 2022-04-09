@@ -1,14 +1,19 @@
-loginForm.onsubmit = async (e) => {
+/* loginForm.onsubmit = async (e) => {
   e.preventDefault();
-  //const formData = new FormData(loginForm);
+  const formData = new FormData(loginForm);
   //const email = formData.get('email');
   //const password = formData.get('password');
-
+  //Create an object from the form data entries
+  //The FormData.entries() method returns an iterator allowing to go through all key/value pairs contained in this object.
+  //The Object.fromEntries() method transforms a list of key-value pairs into an object.
+  const formDataObject = Object.fromEntries(formData.entries());
+  // Format the plain form data as JSON
+  const formDataJsonString = JSON.stringify(formDataObject);
   try {
     const response = await fetch('/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: new FormData(loginForm),
+      body: formDataJsonString,
     });
     const result = await response.json();
     console.log(result);
@@ -20,9 +25,51 @@ loginForm.onsubmit = async (e) => {
   } catch (error) {
     console.log(error);
   }
+}; */
+contacts_form.onsubmit = async (e) => {
+  e.preventDefault();
+  const formData = new FormData(contacts_form);
+  //Create an object from the form data entries
+  //The FormData.entries() method returns an iterator allowing to go through all key/value pairs contained in this object.
+  //The Object.fromEntries() method transforms a list of key-value pairs into an object.
+  const formDataObject = Object.fromEntries(formData.entries());
+  // Format the plain form data as JSON
+  const formDataJsonString = JSON.stringify(formDataObject);
+  try {
+    const response = await fetch('/contact-us', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      //body: new FormData(contacts_form),
+      body: formDataJsonString,
+    });
+    const result = await response.json();
+    if (result.success === true) {
+      contacts_form.reset();
+      // Hide contacts_form
+      document.getElementById('contacts_form').style.display = 'none';
+      // Show received message element
+      document.getElementById('received').style.display = 'block';
+    } else {
+      // Hide contacts_form
+      document.getElementById('contacts_form').style.display = 'none';
+      // Show received message element
+      document.getElementById('failed').style.display = 'block';
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
-
-      /* const coco = {light: {
+const backToContactUsForm = () => {
+  // Show contacts_form
+  document.getElementById('contacts_form').style.display = 'block';
+  // Hide received message element
+  document.getElementById('received').style.display = 'none';
+  // Hide received message element
+  document.getElementById('failed').style.display = 'none';
+}
+/* const coco = {light: {
         minValue: { type: Number, default: 0 },
         startOn: [
           {
@@ -77,7 +124,6 @@ function timeToString(h, m, s) {
   return h + ':' + m + ':' + s;
 } */
 
-
 // time: {
 //     type: String,
 //     validate: {
@@ -101,7 +147,7 @@ const pristine = new Pristine(form);
 const valid = pristine.validate();
         if (valid) {} */
 
-      /*   <script>
+/*   <script>
       function submitForm(e) {
         e.preventDefault();
         let form = $(e.target);

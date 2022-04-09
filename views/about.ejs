@@ -1,0 +1,43 @@
+<%- include ('partials/head')%>
+<body id="body">
+  <!-- header -->
+  <header id="header">
+    <%- include ('partials/nav',{page:'about'})%>
+  </header>
+  <!--main-->
+  <main id="main">
+    <!-- content -->
+    <div class="content">
+      <section class="about-pro">
+        <h2>Our Project</h2>
+        <p>
+          Our project is all about the problems faced by people when they go
+          out of their home and have less time for taking care of their
+          plants. This project helps people in such time and they can
+          trigger or check status of their plant from anywhere. We started
+          making this project at the time when we were looking for some
+          field where we can learn new electronic technologies and can apply
+          on a real life project.
+        </p>
+      </section>
+      <section>
+        <h2>Our Team</h2>
+        <ul class="list1">
+          <li>
+            <img src="/images/2page-img1.png" alt="" /><a href="#">Mohamed Al-Barry</a><br />
+            Full-Stack App-Developer, the guy who is standing behind this
+            project back End and micro-controllers
+          </li>
+          <li>
+            <img src="/images/2page-img2.jpg" alt="" /><a href="#">Fran</a><br />
+            Full-Stack Web-Developer , the guy who is standing behind the
+            project idea , front end and management
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+  <!-- footer -->
+  <%- include ('partials/footer')%>
+</body>
+</html>

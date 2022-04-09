@@ -1,0 +1,74 @@
+<%- include ('partials/head')%>
+
+<body id="body">
+  <!--main-->
+  <!-- header -->
+  <header id="header">
+    <%- include ('partials/nav',{page: 'contact'})%>
+  </header>
+  <!--main-->
+  <main id="main">
+    <!-- content -->
+    <div class="contact-content">
+
+      <!-- <div id="contact-img" class="contact-cel-2"></div> -->
+      <div class="contact-cel-1">
+        <h2>Contact Us</h2>
+        <p>
+          If you have any questions or comments, please feel free to contact us
+          using the form below.
+        </p>
+      </div>
+      <div class="contact-cel-2">
+        <table style="width: 100%; text-align: left;">
+          <tr>
+            <th valign=left style="width:30%">
+              <h2>Address</h2>
+            </th>
+            <th style="width:30%">
+              <h2>Email</h2>
+            </th>
+            <th style="width:30%">
+              <h2>Phone</h2>
+            </th>
+          </tr>
+          <tr>
+            <td>MühlenStraße 29 <br> 35947 Nettersheim <br> Germany</td>
+            <td valign=top>mbrsyr@yahoo.com</td>
+            <td valign=top>+49 1578 4446611</td>
+          </tr>
+        </table>
+      </div>
+      <div class="contact-cel-3">
+        <div id="received" style="display: none;">
+          <p id="received-msg">Thanks you we have received your email, we will contact you soon!</p>
+          <div id="received-form-btn_div"><button type="submit" onclick="backToContactUsForm()">go back</button></div>
+        </div>
+        <div id="failed" style="display: none;">
+          <p id="failed-msg">Problem in Email sending from the company side, may you try again OR please contact us at this email <bold>mbrsyr@yahoo.com,</bold> or call our customer support at : +49 157-8444-6611</p>
+          <div id="failed-form-btn_div"><button type="submit" onclick="backToContactUsForm()">go back</button></div>
+        </div>
+        <form id="contacts_form">
+          <input type="text" name="name" placeholder="Name" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="text" name="subject" placeholder="Subject" required>
+          <textarea id="aaa" name="message" placeholder="Wite a message here" required></textarea>
+          <div id="contact-form-btn_div"><button id="contact-btn" type="submit" onclick="backToContactUsForm()">Send Message</button></div>
+        </form>
+      </div>
+      <div class="contact-cel-4">
+        <h2>Follow us here</h2>
+        <p>
+          <a href="#">Facebook</a>
+          <a href="#">Twitter</a>
+          <a href="#">Instagram</a>
+        </p>
+      </div>
+    </div>
+  </main>
+  <!-- footer -->
+  <%- include ('partials/footer')%>
+  <script src="/js/script.js"></script>
+</body>
+
+</html>

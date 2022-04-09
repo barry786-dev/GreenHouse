@@ -23,9 +23,6 @@ const addUserProductData = async (data) => {
           },
           'data.pump': { value: data[3].pump, date: data[3].date },
         },
-        // light: this.light.push({ value: data[1].light, date: data[1].date }),
-        // SoilHumidity: this.SoilHumidity.push({ value: data[2].SoilHumidity, date: data[2].date }),
-        // pump: this.pump.push({ value: data[3].pump, date: data[3].date }),
       },
       { new: true }
     );

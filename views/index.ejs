@@ -1,0 +1,94 @@
+<%- include ('partials/head')%>
+<body id="body">
+    <!-- header -->
+    <header id="header">
+        <%- include ('partials/nav',{page:'index'})%>
+    </header>
+    <!--main-->
+    <main id="main">
+        <!-- content -->
+        <div class="content">
+            <section class="cell-1">
+                <h2>Welcome to GadEden!</h2>
+                <h3>
+                    Our project is all about the problems faced by people when they go out of their home and have
+                    less time for taking care of their plants. This project helps people in such time and they can
+                    trigger or check status of their plant from anywhere.
+                </h3>
+                <p>
+                    The system monitors temperature and humidity of the place, and soil moisture of the ground,
+                    waters the plant remotely, then saves all data to DynamoDB through AWS IoT. Collected data is
+                    visualized by different charts and figures to give better understanding of conditions where the
+                    plant thrives.
+                </p>
+            </section>
+            <section class="cell-2">
+                <h2>Recent Articles</h2>
+                <ul class="list">
+                    <li>
+                        <a href="#">How Plant Technology Can Save The World</a><br />
+                        Moderator Dr. Jason Jay, senior lecturer and director of Sustainability Initiative at
+                        MIT Sloan, had a direct question for all of the panelists in his conversation on how to
+                        save the world through plant technology at the Forbes Under 30 Summit.
+                    </li>
+                    <li>
+                        <a href="#">Growing the best plants</a><br />
+                        As even a casual reader of the news knows, our world faces some very daunting
+                        challenges. Our climate is changing rapidly, and much of the planet is heating up and
+                        drying out.
+                    </li>
+                    <li>
+                        <a href="#">Smart Technology for Your Indoor Plants</a><br />
+                        You don’t need the great outdoors to develop a green thumb thanks to these high-tech
+                        gadgets
+                    </li>
+                    <li>
+                        <a href="#">10 Technological Innovations for Gardeners</a><br />
+                        What’s the best way to celebrate Earth Day? By planting something, of course. Whether
+                        you were inspired by Courtney Barnett or a desire to fight the man, growing your own
+                        plants is as enjoyable as it is rewarding. Today, there is an abundance of gardening
+                        apps and smart tools that help even the most inexperienced gardener grow a green thumb
+                    </li>
+                    <li>
+                        <a href="#">New Technologies for 21st Century Plant Science</a><br />
+                        Plants are one of the most fascinating and important groups of organisms living on
+                        Earth. They serve as the conduit of energy into the biosphere, provide food, and shape
+                        our environment.
+                    </li>
+                </ul>
+            </section>
+            <section class="cell-3">
+                <div class="sign-up-in">
+                    <input type="checkbox" id="chk" aria-hidden="true">
+                    <div class="sign-up">
+                        <form>
+                            <label for="chk" aria-hidden="true">Sign up</label>
+                            <input type="text" name="name" placeholder="your name"
+                                title="please enter you fist and last" required="">
+                            <input type="text" name="userName" placeholder="User name"
+                                title="please enter a name to use it as username" required="">
+                            <input type="email" name="email" placeholder="Email" title="please enter you email email" autocomplete
+                                required="">
+                            <input type="password" name="password" placeholder="Password"
+                                title="please enter a password" required="">
+                            <input type="password" name="re-password" placeholder="re-Password"
+                                title="Please rewrite you password here again" required="">
+                            <button id="signUp-btn">Sign up</button>
+                        </form>
+                    </div>
+                    <div class="login">
+                        <form>
+                            <label for="chk" aria-hidden="true">Login</label>
+                            <input type="text" name="userName" placeholder="user name" required="">
+                            <input type="password" name="password" placeholder="Password" required="">
+                            <button id="signIn-btn">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- footer -->
+    <%- include ('partials/footer')%>
+</body>
+</html>

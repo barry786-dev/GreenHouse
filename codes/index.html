@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Control pump switcher</h1>
+    <input id="pump" type="checkbox" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <!-- include socket.io client side script -->
+
+    <script>
+      const socket = io.connect('http://localhost:5000');
+      const pump = document.getElementById('pump');
+      pump.addEventListener('change', () => {
+        //add event listener for when checkbox changes
+        socket.emit('pump', Number(pump.checked));  //send pump status to server (as 0 or 1)
+      });
+      socket.on('pump', (data) => {
+        //listen for server response
+        pump.checked = data;
+        socket.emit('pump', data);
+      });
+    </script>
+  </body>
+</html>

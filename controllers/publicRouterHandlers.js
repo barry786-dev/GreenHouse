@@ -1,43 +1,74 @@
 const { log } = require('console');
 const bcrypt = require('bcryptjs');
 const path = require('path');
-const emailSender = require('../models/emailSender');
-const { regEmailSentForm } = require('../utils/mails_options');
-const { validationResult } = require('express-validator');
+const { sendEmail } = require('../models/emailSender');
 const {
-  registerUser,
-  findUser,
-} = require('./db_users_Handlers');
+  regEmailSentForm,
+  contactEmailSentForm,
+} = require('../utils/mails_options');
+const { validationResult } = require('express-validator');
+const { registerUser, findUser } = require('./db_users_Handlers');
 
 /****** */
 const getHome = (req, res) => {
-  res.sendFile(path.join(__dirname, '../views/index.html'));
+  // res.sendFile(path.join(__dirname, '../views/index.html'));
+  res.render('index', { title: 'Gad Eden' });
 };
-
 ////////////////////////////////////
-const getAbout = (req, res) => {};
-
+const getAbout = (req, res) => {
+  res.render('about', { title: 'Gad Eden | About us' });
+};
+/////////////////////////////////////////////
+const getArticles = (req, res) => {
+  res.render('articles', { title: 'Gad Eden | Articles' });
+};
+const getArticle1 = (req, res) => {
+  res.render('article-1', { title: 'Gad Eden | Article-1' });
+};
+/////////////////////////////////////////////
 const getContact = (req, res) => {
-  //log(req.query);
+  res.render('contact-us', {
+    title: 'Gad Eden | contact-us',
+  });
 };
 const postContact = (req, res) => {
   log(req.body);
-  //const { email, password } = req.body;
+  // sending email after contact us form submit
+  sendEmail(contactEmailSentForm(req.body)) // contactEmailSentForm() inside /utils/mails_options'
+    .then((info) => {
+      log(info);
+      res.json({
+        success: true,
+        /* myMsg: `contact-us success , we will contact you soon, thank you`, */
+      });
+    })
+    .catch((error) => {
+      // if email sending failed
+      // handling error of confirmation email sending
+      log(error);
+      res.json({
+        errorNu: 6,
+        /* myMsg:
+          'Problem in Email sending from the company side please send email to mbrsyr@yahoo.com, or call our customer support at : +49 157-8444-6611', */
+      });
+    });
 };
 ////////////////////////////////////
 /************ */
 const getLogin = (req, res) => {
   if (!req.session.user) {
+    //res.redirect('/auth');
     res.sendFile(path.join(__dirname, '../views/login.html'));
   } else if (req.session.user.userType === 'admin') {
-    res.redirect('/admin');
-    // res.sendFile(__dirname + '/views/index.html');
+    //res.redirect('/admin');
+    res.sendFile(__dirname + '/views/index.html');
   } else {
     res.redirect('/user/dashboard');
   }
 };
 /*********** */
 const postLogin = async (req, res) => {
+  console.log(req.body);
   const { userName, password } = req.body;
   const user = await findUser(userName, 'userName');
   if (user === 'Failed') {
@@ -112,8 +143,7 @@ const postRegister = (req, res) => {
     .then((theNewAddedUser) => {
       //log(theNewAddedUser);
       // sending confirmation email after registration success
-      emailSender
-        .sendEmail(regEmailSentForm(theNewAddedUser)) // regEmailSentForm() inside /utils/mails_options'
+      sendEmail(regEmailSentForm(theNewAddedUser)) // regEmailSentForm() inside /utils/mails_options'
         .then((info) => {
           log(info);
           res.json({
@@ -187,6 +217,8 @@ const verifyUser = async (req, res) => {
 module.exports = {
   getHome,
   getAbout,
+  getArticles,
+  getArticle1,
   getContact,
   postContact,
   getRegister,

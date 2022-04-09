@@ -2,8 +2,12 @@ const { log } = require('console');
 const { mongoose } = require('mongoose');
 const path = require('path');
 const { checkDocument } = require('../utils/db_utils');
-const {addUserToProduct } = require('./db_products_Handlers.js');
+const { addUserToProduct } = require('./db_products_Handlers.js');
 const { addUserProductSettings } = require('./db_userProduct_Handlers.js');
+///////////////////////////////////////////////////////////////////////////////
+const chart = (req, res) => {
+  res.sendFile(path.join(__dirname, '../views/chart.html'));
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 /** */
@@ -41,9 +45,7 @@ const postDashboard = async (req, res) => {
             'this serial number is not in use please try again and be sure about it',
         });
       } else if (result && result.userId.equals(userId)) {
-        const result2 = await addUserProductSettings(
-          {...req.body, userId},
-        );
+        const result2 = await addUserProductSettings({ ...req.body, userId });
         if (result2.productNameByUser) {
           res.json({
             SuccessNu: 0,
@@ -98,7 +100,7 @@ const postDashboard = async (req, res) => {
 const logout = (req, res) => {
   req.session.destroy();
   //req.session = null;
-  res.redirect('/login');
+  res.redirect('/auth');
 };
 
 const logOutPost = (req, res) => {
@@ -113,4 +115,5 @@ module.exports = {
   logOutPost,
   getDashboard,
   postDashboard,
+  chart,
 };
