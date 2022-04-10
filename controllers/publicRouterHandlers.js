@@ -1,6 +1,7 @@
 const { log } = require('console');
 const bcrypt = require('bcryptjs');
 const path = require('path');
+const nodeFetch = require('node-fetch');
 const { sendEmail } = require('../models/emailSender');
 const {
   regEmailSentForm,
@@ -29,12 +30,31 @@ const getArticle1 = (req, res) => {
 const getContact = (req, res) => {
   res.render('contact-us', {
     title: 'Gad Eden | contact-us',
+    sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
   });
 };
-const postContact = (req, res) => {
-  log(req.body);
+const postContact = async (req, res) => {
+  //log(req.body);
+  const captchaVerified = await nodeFetch(
+    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${req.params.captchaResponse}`,
+    { method: 'POST' }
+  ).then((response) => response.json());
+  if (!captchaVerified.success) {
+    return res.json({ errorNu: 11, myMsg: 'Captcha Failed' });
+  }
+  // handling backEnd validation errors
+  const validationErrors = validationResult(req);
+  if (!validationErrors.isEmpty()) {
+    log(validationErrors);
+    return res.json({
+      errorNu: 3,
+      myMsg: 'there are some error in the entered data. May you refresh your page ',
+      //err: validationErrors.array()[0].msg, // validationErrors.array return array of object errors, so I get the first object to show first error only
+    });
+  }
+  const { name, email, subject, message } = req.body;
   // sending email after contact us form submit
-  sendEmail(contactEmailSentForm(req.body)) // contactEmailSentForm() inside /utils/mails_options'
+  sendEmail(contactEmailSentForm({ name, email, subject, message })) // contactEmailSentForm() inside /utils/mails_options'
     .then((info) => {
       log(info);
       res.json({

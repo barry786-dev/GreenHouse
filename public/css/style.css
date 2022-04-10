@@ -121,7 +121,8 @@ p {
 }
 #contacts_form button,
 #received button,
-#failed button {
+#failed button,
+#captcha button {
   width: 30%;
   height: 40px;
   background: #89b700;
@@ -143,17 +144,20 @@ p {
 
 #contacts_form button:hover,
 #received button:hover,
-#failed button:hover {
+#failed button:hover,
+#captcha button:hover {
   background: #a8d51f;
 }
 #contact-form-btn_div,
 #received-form-btn_div,
-#failed-form-btn_div {
-  width: 80%;
+#failed-form-btn_div,
+#captcha-form-btn_div {
+  width: 70%;
   text-align: center;
 }
 #received-msg,
-#failed-msg {
+#failed-msg,
+#captcha-msg {
   width: 100%;
   text-align: center;
   font-size: 1.5em;

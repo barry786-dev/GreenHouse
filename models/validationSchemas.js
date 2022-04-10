@@ -3,7 +3,9 @@ const {
   checkDuplicateUsername,
   checkDuplicateEmail,
 } = require('../controllers/db_users_Handlers');
-
+/**
+ * @description  this is backend validation schema which will be passed to the post /register router in public Router.js
+ */
 const Validation_register_user = [
   check('userFirstName')
     .isLength({ min: 2, max: 20 })
@@ -49,7 +51,36 @@ const Validation_register_user = [
       'Password should be combination of one uppercase , one lower case, one special char, one digit and min 8 , max 20 char long'
     ),
 ];
-module.exports = { Validation_register_user };
+
+/**
+ * @description  this is backend validation schema which will be passed to the post /contact router in public Router.js
+ */
+const validation_contact_us = [
+  check('name')
+    .isLength({ min: 2, max: 30 })
+    .withMessage('Name should be between 2 and 30 characters')
+    .notEmpty()
+    .withMessage('Name should not be empty')
+    .isAlpha()
+    .withMessage('Name should not has numbers or special characters'),
+  check('email')
+    .isLength({ min: 4, max: 40 })
+    .withMessage('email should be between 4 and 40 characters')
+    .isEmail()
+    .withMessage('This is not a valid Email address')
+    .normalizeEmail(),
+  check('subject')
+    .isLength({ min: 2, max: 20 })
+    .withMessage('subject should be between 2 and 20 characters')
+    .notEmpty()
+    .withMessage('subject should not be empty'),
+  check('message')
+    .isLength({ min: 2, max: 600 })
+    .withMessage('subject should be between 2 and 600 characters')
+    .notEmpty()
+    .withMessage('subject should not be empty'),
+];
+module.exports = { Validation_register_user , validation_contact_us };
 
 /* const Validation_register_user = checkSchema({
   userFirstName: {

@@ -7,7 +7,7 @@
   - 0 : Error during connecting to database or trying to reach to collections
   - 1 : Searched document is not exist 'User not Found'
   - 2 : The user is exist but the used password is not matching 'Invalid Password!'
-  - 3: Server validation error('bad data reached to the server from FrontEnd)
+  - 3: Server validation error('bad data reached to the server from FrontEnd) or Captcha Failed
   - 4: Data Base validation error
   - 5: User or email is already exist
   - 6: failed to send email // nodemailer
@@ -15,6 +15,7 @@
   - 8: this serial number is not exist
   - 9: this product is already sold and it is in use
   -10: you can not add this product because you are not the owner of this product
+  -11: Captcha Failed
 
 ## session
 
@@ -87,7 +88,7 @@ It is the file which hold all needed functions to deal with data base like findi
 
 - token.js
   - **getNewToken()** will generate a new token to each new user using math logarithm to use it as confirmationCode to verify the user email
-  - Under the utils folder you can find also some files like pictuers which help in writing MD files documentation for this project
+  - Under the utils folder you can find also some files like pictures which help in writing MD files documentation for this project
 
 ## Sending email to the user
 
@@ -100,4 +101,4 @@ It is the file which hold all needed functions to deal with data base like findi
 - You can find them inside ./routes/**publicRouter.js**
 - Handlers for publicRouters are in ./controllers/**publicRouterHandlers.js**
 - he **'/api/auth/confirm/:confirmationCode'** will be the router which will take the passed confirmation parameter to the user email, by route to it will trigger **verifyUser()**
-- **verifyUser()** will look if there is a pended user with the passed confirmationCode then will change its status 'Active' instead of 'pending', the user email is verified and will be ready to login 
+- **verifyUser()** will look if there is a pended user with the passed confirmationCode then will change its status 'Active' instead of 'pending', the user email is verified and will be ready to login

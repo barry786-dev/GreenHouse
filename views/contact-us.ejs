@@ -1,5 +1,4 @@
 <%- include ('partials/head')%>
-
 <body id="body">
   <!--main-->
   <!-- header -->
@@ -10,7 +9,6 @@
   <main id="main">
     <!-- content -->
     <div class="contact-content">
-
       <!-- <div id="contact-img" class="contact-cel-2"></div> -->
       <div class="contact-cel-1">
         <h2>Contact Us</h2>
@@ -45,15 +43,36 @@
           <div id="received-form-btn_div"><button type="submit" onclick="backToContactUsForm()">go back</button></div>
         </div>
         <div id="failed" style="display: none;">
-          <p id="failed-msg">Problem in Email sending from the company side, may you try again OR please contact us at this email <bold>mbrsyr@yahoo.com,</bold> or call our customer support at : +49 157-8444-6611</p>
+          <p id="failed-msg">Problem in Email sending from the company side, May you try again OR please contact us at
+            this email <bold>mbrsyr@yahoo.com,</bold> or call our customer support at : +49 157-8444-6611</p>
           <div id="failed-form-btn_div"><button type="submit" onclick="backToContactUsForm()">go back</button></div>
+        </div>
+        <div id="captcha" style="display: none;">
+          <p id="captcha-msg">recaptcha failed, May you try again OR please contact us at
+            this email <bold>mbrsyr@yahoo.com,</bold> or call our customer support at : +49 157-8444-6611</p>
+          <div id="captcha-form-btn_div"><button type="submit" onclick="backToContactUsForm()">go back</button></div>
         </div>
         <form id="contacts_form">
           <input type="text" name="name" placeholder="Name" required>
           <input type="email" name="email" placeholder="Email" required>
           <input type="text" name="subject" placeholder="Subject" required>
           <textarea id="aaa" name="message" placeholder="Wite a message here" required></textarea>
-          <div id="contact-form-btn_div"><button id="contact-btn" type="submit" onclick="backToContactUsForm()">Send Message</button></div>
+          <!-- Recaptcha Starting div -->
+          <div style="position: relative; display: inline-block;">
+            <div class="g-recaptcha" data-sitekey="<%= sitKey %>" data-size="visible" data-callback="recaptchaCallback">
+            </div>
+            <input id="recaptcha_check_empty" tabindex="-1" style="
+                width: 50px;
+                height: 0;
+                opacity: 0;
+                pointer-events: none;
+                position: absolute;
+                bottom: 0;
+              " required />
+          </div>
+          <!-- Recaptcha closing div -->
+          <div id="contact-form-btn_div"><button id="contact-btn" type="submit" >Send
+              Message</button></div>
         </form>
       </div>
       <div class="contact-cel-4">
@@ -68,7 +87,7 @@
   </main>
   <!-- footer -->
   <%- include ('partials/footer')%>
-  <script src="/js/script.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="/js/contactScript.js"></script>
 </body>
-
 </html>
