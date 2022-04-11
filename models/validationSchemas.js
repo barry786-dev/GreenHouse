@@ -61,7 +61,8 @@ const validation_contact_us = [
     .withMessage('Name should be between 2 and 30 characters')
     .notEmpty()
     .withMessage('Name should not be empty')
-    .isAlpha()
+    //.custom((value=>{return value.match(/^(?:[\p{L}\p{Mn}\p{Pd}\'\x{2019}]+(?:$|\s+)){2,}$/);}))
+    .isAlpha('en-US', { ignore: 's - _ ß ö ä ü Ö Ä Ü æ é' })
     .withMessage('Name should not has numbers or special characters'),
   check('email')
     .isLength({ min: 4, max: 40 })

@@ -1,4 +1,5 @@
 <%- include ('partials/head')%>
+
 <body id="body">
   <!--main-->
   <!-- header -->
@@ -53,25 +54,27 @@
           <div id="captcha-form-btn_div"><button type="submit" onclick="backToContactUsForm()">go back</button></div>
         </div>
         <form id="contacts_form">
-          <input type="text" name="name" placeholder="Name" required>
-          <input type="email" name="email" placeholder="Email" required>
-          <input type="text" name="subject" placeholder="Subject" required>
-          <textarea id="aaa" name="message" placeholder="Wite a message here" required></textarea>
+          <div class="form-group"><input type="text" name="name" placeholder="Name" minlength="2" maxlength="30"
+              required data-pristine-required-message="You have to enter your name	&uarr;"></div>
+          <div class="form-group"><input type="email" name="email" placeholder="Email" minlength="2" maxlength="40" required data-pristine-required-message="You have to enter your email	&uarr;"></div>
+          <div class="form-group"><input type="text" name="subject" placeholder="Subject" minlength="2" maxlength="20" required data-pristine-required-message="You have to add subject	&uarr;"></div>
+          <div class="form-group"><textarea id="aaa" name="message" placeholder="Wite a message here" minlength="2" maxlength="600"
+              required data-pristine-required-message="You can not send empty message	&uarr;"></textarea></div>
           <!-- Recaptcha Starting div -->
-          <div style="position: relative; display: inline-block;">
+          <div class="form-group" style="position: relative; display: inline-block;">
             <div class="g-recaptcha" data-sitekey="<%= sitKey %>" data-size="visible" data-callback="recaptchaCallback">
             </div>
-            <input id="recaptcha_check_empty" tabindex="-1" style="
+            <input id="recaptcha_check_empty" type="checkbox" name="future" tabindex="-1" style="
                 width: 50px;
                 height: 0;
                 opacity: 0;
                 pointer-events: none;
                 position: absolute;
                 bottom: 0;
-              " required />
+              " required data-pristine-required-message="You have to check reCAPTCHA	&uarr;"/>
           </div>
           <!-- Recaptcha closing div -->
-          <div id="contact-form-btn_div"><button id="contact-btn" type="submit" >Send
+          <div id="contact-form-btn_div"><button id="contact-btn" >Send
               Message</button></div>
         </form>
       </div>
@@ -87,7 +90,9 @@
   </main>
   <!-- footer -->
   <%- include ('partials/footer')%>
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+  <script src="/js/pristine/dist/pristine.min.js"></script>
   <script src="/js/contactScript.js"></script>
 </body>
+
 </html>

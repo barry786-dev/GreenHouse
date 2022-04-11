@@ -1,4 +1,4 @@
-/* loginForm.onsubmit = async (e) => {
+/*loginForm.onsubmit = async (e) => {
   e.preventDefault();
   const formData = new FormData(loginForm);
   //const email = formData.get('email');
@@ -26,59 +26,65 @@
     console.log(error);
   }
 }; */
-contacts_form.onsubmit = async (e) => {
+const registerBtn = document.getElementById('contact-btn');
+registerBtn.addEventListener('click', async (e) => {
   e.preventDefault();
-  /**
-   * The FormData interface represents a set of key/value pairs representing form fields and their values, which can then be easily sent using the XMLHttpRequest.send() method.
-   */
-  const formData = new FormData(contacts_form);
-  /**
-   * create an object from the form data entries
-   * The FormData.entries() method returns an iterator allowing to go through all key/value pairs contained in this object.
-   * The Object.fromEntries() method transforms a list of key-value pairs into an object.
-   */
-  const formDataObject = Object.fromEntries(formData.entries());
-  /**
-   * Format the plain formData as JSON
-   */
-  const formDataJsonString = JSON.stringify(formDataObject);
-  const captchaResponse = formData.get('g-recaptcha-response');
-  try {
-    const response = await fetch(
-      `/contact-us${
-        captchaResponse
-          ? '/' + encodeURI(captchaResponse)
-          : '/' + encodeURI('123')
-      }`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: formDataJsonString,
+  const pristine = new Pristine(contacts_form);
+  const valid = pristine.validate();
+  if (valid) {
+    /**
+     * The FormData interface represents a set of key/value pairs representing form fields and their values, which can then be easily sent using the XMLHttpRequest.send() method.
+     */
+    const formData = new FormData(contacts_form);
+    /**
+     * create an object from the form data entries
+     * The FormData.entries() method returns an iterator allowing to go through all key/value pairs contained in this object.
+     * The Object.fromEntries() method transforms a list of key-value pairs into an object.
+     */
+    const formDataObject = Object.fromEntries(formData.entries());
+    /**
+     * Format the plain formData as JSON
+     */
+    const formDataJsonString = JSON.stringify(formDataObject);
+    const captchaResponse = formData.get('g-recaptcha-response');
+    try {
+      const response = await fetch(
+        `/contact-us${
+          captchaResponse
+            ? '/' + encodeURI(captchaResponse)
+            : '/' + encodeURI('123')
+        }`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: formDataJsonString,
+        }
+      );
+      grecaptcha.reset(); // rest captcha after submitting the form
+      const result = await response.json();
+      if (result.success === true) {
+        contacts_form.reset();
+        document.getElementById('contacts_form').style.display = 'none'; // Hide contacts_form
+        document.getElementById('received').style.display = 'block'; // Show received message element
+      } else if (result.errorNu === 6) {
+        document.getElementById('contacts_form').style.display = 'none'; // Hide contacts_form
+        document.getElementById('failed').style.display = 'block'; // Show failed message element
+      } else if (result.errorNu === 11) {
+        document.getElementById('contacts_form').style.display = 'none'; // Hide contacts_form
+        document.getElementById('captcha').style.display = 'block'; // Show captcha message element
+      } else if (result.errorNu === 3) {
+        document.body.innerHTML = JSON.stringify(result.err);
+      } else {
+        document.body.innerHTML =
+          'something going wrong , may you refresh the page and try again, or contact our technical support +4915784446611 or by email at mbrsyr@yahoo.com';
       }
-    );
-    grecaptcha.reset(); // rest captcha after submitting the form
-    const result = await response.json();
-    if (result.success === true) {
-      contacts_form.reset();
-      document.getElementById('contacts_form').style.display = 'none'; // Hide contacts_form
-      document.getElementById('received').style.display = 'block'; // Show received message element
-    } else if (result.errorNu === 6) {
-      document.getElementById('contacts_form').style.display = 'none'; // Hide contacts_form
-      document.getElementById('failed').style.display = 'block'; // Show failed message element
-    } else if (result.errorNu === 11) {
-      document.getElementById('contacts_form').style.display = 'none'; // Hide contacts_form
-      document.getElementById('captcha').style.display = 'block'; // Show captcha message element
-    } else if (result.errorNu === 3) {
-      document.body.innerHTML = JSON.stringify(result.myMsg);
-    } else {
-      document.body.innerHTML = 'something going wrong , may you refresh the page and try again, or contact our technical support+4915784446611 or by email at mbrsyr@yahoo.com';
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
   }
-};
+});
 /**
  * @description this function is used to send the user back to contact-us form , and make captcha hidden input field enquired again after showing the error message and click on the button
  */
@@ -87,13 +93,15 @@ const backToContactUsForm = () => {
   document.getElementById('received').style.display = 'none'; // Hide received message element
   document.getElementById('failed').style.display = 'none'; // Hide failed message element
   document.getElementById('captcha').style.display = 'none'; // Hide captcha message element
-  document.getElementById('recaptcha_check_empty').required = true;
+  document.getElementById('recaptcha_check_empty').checked = false;
 };
 /**
  * @description this function is used to cancel th required of the hidden input field behinds the captcha after captcha is solved
  */
 function recaptchaCallback() {
-  document.getElementById('recaptcha_check_empty').required = false;
+  document.getElementById('recaptcha_check_empty').checked = true;
+  const pristine = new Pristine(contacts_form);
+  pristine.validate();
 }
 /* const coco = {light: {
         minValue: { type: Number, default: 0 },

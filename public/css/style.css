@@ -487,3 +487,10 @@ h3 {
 #chk:checked ~ .sign-up label {
   transform: scale(0.6);
 }
+
+/*======================Pristine====================*/
+.pristine-error{
+  color: red;
+  font-size: 1.2em;
+  font-weight: bold;
+}

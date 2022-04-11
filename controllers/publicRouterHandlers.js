@@ -49,7 +49,7 @@ const postContact = async (req, res) => {
     return res.json({
       errorNu: 3,
       myMsg: 'there are some error in the entered data. May you refresh your page ',
-      //err: validationErrors.array()[0].msg, // validationErrors.array return array of object errors, so I get the first object to show first error only
+      err: validationErrors.array()[0].msg, // validationErrors.array return array of object errors, so I get the first object to show first error only
     });
   }
   const { name, email, subject, message } = req.body;
