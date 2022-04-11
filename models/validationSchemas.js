@@ -12,15 +12,15 @@ const Validation_register_user = [
     .withMessage('userFirstName should be between 2 and 20 characters')
     .notEmpty()
     .withMessage('userFirstName should not be empty')
-    .isAlpha()
-    .withMessage('userFirstName should not has numbers or special characters'),
+    .isAlpha('en-US', { ignore: 's - _ ß ö ä ü Ö Ä Ü æ é' })
+    .withMessage('Name should not has numbers or special characters'),
   check('userLastName')
     .isLength({ min: 2, max: 20 })
     .withMessage('userLastName should be between 2 and 20 characters')
     .notEmpty()
     .withMessage('userLastName should not be empty')
-    .isAlpha()
-    .withMessage('userLastName should not has numbers or special characters'),
+    .isAlpha('en-US', { ignore: 's - _ ß ö ä ü Ö Ä Ü æ é' })
+    .withMessage('Name should not has numbers or special characters'),
   check('userName')
     .isLength({ min: 2, max: 20 })
     .withMessage('userName should be between 2 and 20 characters')
@@ -57,8 +57,8 @@ const Validation_register_user = [
  */
 const validation_contact_us = [
   check('name')
-    .isLength({ min: 2, max: 30 })
-    .withMessage('Name should be between 2 and 30 characters')
+    .isLength({ min: 2, max: 40 })
+    .withMessage('Name should be between 2 and 40 characters')
     .notEmpty()
     .withMessage('Name should not be empty')
     //.custom((value=>{return value.match(/^(?:[\p{L}\p{Mn}\p{Pd}\'\x{2019}]+(?:$|\s+)){2,}$/);}))

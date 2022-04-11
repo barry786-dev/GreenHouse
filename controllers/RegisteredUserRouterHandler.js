@@ -15,7 +15,7 @@ const getRegisteredUser = (req, res) => {
   if (req.session.user) {
     res.redirect('/user/dashboard');
   } else {
-    res.redirect('/login');
+    res.redirect('/');
   }
 };
 ///////////////////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@ const getDashboard = (req, res) => {
   if (req.session.user) {
     res.sendFile(path.join(__dirname, '../views/dashboard.html'));
   } else {
-    res.redirect('/login');
+    res.redirect('/');
   }
 };
 
@@ -100,12 +100,12 @@ const postDashboard = async (req, res) => {
 const logout = (req, res) => {
   req.session.destroy();
   //req.session = null;
-  res.redirect('/auth');
+  res.redirect('/');
 };
 
 const logOutPost = (req, res) => {
   req.session.destroy();
-  //res.json('done');
+  res.json('done');
 };
 ///////////////////////////////////////////////////////////////////////////////
 

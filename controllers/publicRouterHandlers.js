@@ -12,26 +12,79 @@ const { registerUser, findUser } = require('./db_users_Handlers');
 
 /****** */
 const getHome = (req, res) => {
-  // res.sendFile(path.join(__dirname, '../views/index.html'));
-  res.render('index', { title: 'Gad Eden' });
+  if (!req.session.user) {
+    res.render('index', { title: 'Gad Eden', signed: false });
+  } else if (req.session.user.userType === 'admin') {
+    res.render('index', { title: 'Gad Eden', signed: true });
+  } else {
+     document.getElementById('sign-up-in_section').style.display = 'none';
+     res.render('index', { title: 'Gad Eden', signed: true });
+   }
+
+  //  if (!req.session.user) {
+  //    //res.redirect('/auth');
+  //    res.sendFile(path.join(__dirname, '../views/login.html'));
+  //  } else if (req.session.user.userType === 'admin') {
+  //    //res.redirect('/admin');
+  //    res.sendFile(__dirname + '/views/index.html');
+  //  } else {
+  //    res.redirect('/user/dashboard');
+  //  }
 };
 ////////////////////////////////////
 const getAbout = (req, res) => {
-  res.render('about', { title: 'Gad Eden | About us' });
+  if (!req.session.user) {
+    res.render('about', { title: 'Gad Eden | About us', signed: false });
+  } else if (req.session.user.userType === 'admin') {
+    res.render('about', { title: 'Gad Eden | About us', signed: true });
+  } else {
+    document.getElementById('sign-up-in_section').style.display = 'none';
+    res.render('about', { title: 'Gad Eden | About us', signed: true });
+  }
 };
 /////////////////////////////////////////////
 const getArticles = (req, res) => {
-  res.render('articles', { title: 'Gad Eden | Articles' });
+  if (!req.session.user) {
+    res.render('articles', { title: 'Gad Eden | Articles', signed: false });
+  } else if (req.session.user.userType === 'admin') {
+    res.render('articles', { title: 'Gad Eden | Articles', signed: true });
+  } else {
+    document.getElementById('sign-up-in_section').style.display = 'none';
+    res.render('articles', { title: 'Gad Eden | Articles', signed: true });
+  }
 };
 const getArticle1 = (req, res) => {
-  res.render('article-1', { title: 'Gad Eden | Article-1' });
+  if (!req.session.user) {
+    res.render('article-1', { title: 'Gad Eden | Article-1', signed: false });
+  } else if (req.session.user.userType === 'admin') {
+    res.render('article-1', { title: 'Gad Eden | Article-1', signed: true });
+  } else {
+    document.getElementById('sign-up-in_section').style.display = 'none';
+    res.render('article-1', { title: 'Gad Eden | Article-1', signed: true });
+  }
 };
 /////////////////////////////////////////////
 const getContact = (req, res) => {
+if (!req.session.user) {
   res.render('contact-us', {
     title: 'Gad Eden | contact-us',
     sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+    signed: false,
   });
+} else if (req.session.user.userType === 'admin') {
+  res.render('contact-us', {
+    title: 'Gad Eden | contact-us',
+    sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+    signed: true,
+  });
+} else {
+  res.render('contact-us', {
+    title: 'Gad Eden | contact-us',
+    sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+    signed: true,
+  });
+}
+  
 };
 const postContact = async (req, res) => {
   //log(req.body);
@@ -48,7 +101,8 @@ const postContact = async (req, res) => {
     log(validationErrors);
     return res.json({
       errorNu: 3,
-      myMsg: 'there are some error in the entered data. May you refresh your page ',
+      myMsg:
+        'there are some error in the entered data. May you refresh your page ',
       err: validationErrors.array()[0].msg, // validationErrors.array return array of object errors, so I get the first object to show first error only
     });
   }
@@ -75,7 +129,7 @@ const postContact = async (req, res) => {
 };
 ////////////////////////////////////
 /************ */
-const getLogin = (req, res) => {
+/* const getLogin = (req, res) => {
   if (!req.session.user) {
     //res.redirect('/auth');
     res.sendFile(path.join(__dirname, '../views/login.html'));
@@ -85,7 +139,7 @@ const getLogin = (req, res) => {
   } else {
     res.redirect('/user/dashboard');
   }
-};
+}; */
 /*********** */
 const postLogin = async (req, res) => {
   console.log(req.body);
@@ -117,7 +171,7 @@ const postLogin = async (req, res) => {
       userId: user._id,
     };
     if (user.userType === 'admin') {
-      res.redirect('/admin');
+      res.redirect('/');
     } else {
       res.redirect('/user/dashboard');
       //res.json('success login');
@@ -243,7 +297,7 @@ module.exports = {
   postContact,
   getRegister,
   postRegister,
-  getLogin,
+  //getLogin,
   postLogin,
   verifyUser,
 };

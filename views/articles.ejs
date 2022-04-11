@@ -2,7 +2,11 @@
 <body id="body">
   <!-- header -->
   <header id="header">
+    <% if (signed===true) { %>
+      <%- include ('partials/nav1',{page:'articles'})%>
+    <% } else { %>
     <%- include ('partials/nav',{page:'articles'})%>
+    <% } %>
   </header>
   <!--main-->
   <main id="main">
@@ -39,6 +43,7 @@
   </main>
   <!-- footer -->
   <%- include ('partials/footer')%>
+  <script src="/js/publicScript.js"></script>
 </body>
 
 </html>

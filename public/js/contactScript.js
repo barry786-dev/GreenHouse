@@ -103,6 +103,7 @@ function recaptchaCallback() {
   const pristine = new Pristine(contacts_form);
   pristine.validate();
 }
+
 /* const coco = {light: {
         minValue: { type: Number, default: 0 },
         startOn: [
@@ -212,3 +213,16 @@ const valid = pristine.validate();
         });
       }
     </script> */
+
+/* $(document).ready(function () {
+      $('#logOut').click(function () {
+        console.log('logOut');
+        $.ajax({
+          url: '/user/logout',
+          type: 'GET',
+          success: function (data) {
+            window.location.href = '/';
+          },
+        });
+      });
+    }); */

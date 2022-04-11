@@ -4,7 +4,11 @@
   <!--main-->
   <!-- header -->
   <header id="header">
-    <%- include ('partials/nav',{page: 'contact'})%>
+    <% if (signed===true) { %>
+      <%- include ('partials/nav1',{page:'contact'})%>
+    <% } else { %>
+    <%- include ('partials/nav',{page:'contact'})%>
+    <% } %>
   </header>
   <!--main-->
   <main id="main">
@@ -54,7 +58,7 @@
           <div id="captcha-form-btn_div"><button type="submit" onclick="backToContactUsForm()">go back</button></div>
         </div>
         <form id="contacts_form">
-          <div class="form-group"><input type="text" name="name" placeholder="Name" minlength="2" maxlength="30"
+          <div class="form-group"><input type="text" name="name" placeholder="Name" minlength="2" maxlength="40"
               required data-pristine-required-message="You have to enter your name	&uarr;"></div>
           <div class="form-group"><input type="email" name="email" placeholder="Email" minlength="2" maxlength="40" required data-pristine-required-message="You have to enter your email	&uarr;"></div>
           <div class="form-group"><input type="text" name="subject" placeholder="Subject" minlength="2" maxlength="20" required data-pristine-required-message="You have to add subject	&uarr;"></div>
@@ -93,6 +97,7 @@
   <script src="https://www.google.com/recaptcha/api.js"></script>
   <script src="/js/pristine/dist/pristine.min.js"></script>
   <script src="/js/contactScript.js"></script>
+  <script src="/js/publicScript.js"></script>
 </body>
 
 </html>

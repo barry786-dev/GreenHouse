@@ -348,6 +348,10 @@ h3 {
   width: 42%;
   border-radius: 5px;
 }
+#main .content .cell-4 {
+  width: 97%;
+  border-radius: 5px;
+}
 
 #main .contact-content {
   display: flex;
@@ -489,8 +493,26 @@ h3 {
 }
 
 /*======================Pristine====================*/
-.pristine-error{
+.pristine-error {
   color: red;
   font-size: 1.2em;
   font-weight: bold;
+}
+
+#logOut {
+  height: 60px;
+  width: 60px;
+  background-color: #04aa6d;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 50%;
+  position: absolute;
+  top: 85px;
+  left: 30px;
+  cursor: pointer;
+}
+#logOut:hover {
+  background-color: #0b6d4d;
 }

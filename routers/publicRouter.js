@@ -28,11 +28,9 @@ router.get('/articles', getArticles);
 router.get('/article/article-1', getArticle1);
 router.get('/contact-us', getContact);
 router.post('/contact-us/:captchaResponse', validation_contact_us, postContact);
-/* router.get('/auth', getLogin);
-router.post('/auth',postLogin) */
-router.get('/login', getLogin);
+router.get('/login', getHome);
 router.post('/login', postLogin);
-router.get('/register', getRegister);
+router.get('/register', getHome);
 router.post('/register', Validation_register_user, postRegister);
 router.get('/api/auth/confirm/:confirmationCode', verifyUser);
 

@@ -1,9 +1,15 @@
 <%- include ('partials/head')%>
+
 <body id="body">
     <!-- header -->
     <header id="header">
+        <% if (signed===true) { %>
+        <%- include ('partials/nav1',{page:'index'})%>
+        <% } else { %>
         <%- include ('partials/nav',{page:'index'})%>
+        <% } %>
     </header>
+
     <!--main-->
     <main id="main">
         <!-- content -->
@@ -22,7 +28,7 @@
                     plant thrives.
                 </p>
             </section>
-            <section class="cell-2">
+            <section class=<%= signed ? "cell-4" : "cell-2"%>>
                 <h2>Recent Articles</h2>
                 <ul class="list">
                     <li>
@@ -57,38 +63,15 @@
                     </li>
                 </ul>
             </section>
-            <section class="cell-3">
-                <div class="sign-up-in">
-                    <input type="checkbox" id="chk" aria-hidden="true">
-                    <div class="sign-up">
-                        <form>
-                            <label for="chk" aria-hidden="true">Sign up</label>
-                            <input type="text" name="name" placeholder="your name"
-                                title="please enter you fist and last" required="">
-                            <input type="text" name="userName" placeholder="User name"
-                                title="please enter a name to use it as username" required="">
-                            <input type="email" name="email" placeholder="Email" title="please enter you email email" autocomplete
-                                required="">
-                            <input type="password" name="password" placeholder="Password"
-                                title="please enter a password" required="">
-                            <input type="password" name="re-password" placeholder="re-Password"
-                                title="Please rewrite you password here again" required="">
-                            <button id="signUp-btn">Sign up</button>
-                        </form>
-                    </div>
-                    <div class="login">
-                        <form>
-                            <label for="chk" aria-hidden="true">Login</label>
-                            <input type="text" name="userName" placeholder="user name" required="">
-                            <input type="password" name="password" placeholder="Password" required="">
-                            <button id="signIn-btn">Login</button>
-                        </form>
-                    </div>
-                </div>
-            </section>
+            <% if (signed===false) { %>
+            <%- include('partials/signUpIn')%>
+            <% } %>
+
         </div>
     </main>
     <!-- footer -->
     <%- include ('partials/footer')%>
+    <script src="/js/publicScript.js"></script>
 </body>
+
 </html>
