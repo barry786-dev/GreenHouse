@@ -9,6 +9,9 @@
         <%- include ('partials/nav',{page:'index'})%>
         <% } %>
     </header>
+    <% if (alertModel.show===true) { %>
+    <%- include ('partials/alertModel',{modelTitle:alertModel.modelTitle,modelMsg:alertModel.modelMsg})%>
+    <% } %>
 
     <!--main-->
     <main id="main">
@@ -71,7 +74,21 @@
     </main>
     <!-- footer -->
     <%- include ('partials/footer')%>
+    <!-- <script src="/js/pristine/dist/pristine.min.js"></script> -->
     <script src="/js/publicScript.js"></script>
+    <script>
+    function modelClose(){
+        document.getElementById("model").style.display = "none";
+    }
+</script>
+    <!-- <script>
+        document.getElementById("signUp-btn").addEventListener("click",(e)=>{
+            console.log("signUp-btn clicked");
+            e.preventDefault();
+            const pristine = new Pristine(register_form);
+  const valid = pristine.validate();});
+        
+    </script> -->
 </body>
 
 </html>

@@ -16,14 +16,21 @@ const userSchema = new Schema(
         }`,
       ],
       maxLength: [20, ' first name should be not more than 20 characters'],
-      match: [/^[a-z]+$/gi, 'User first name can not have special characters'],
+      match: [
+        /^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$/gi,
+        ///^[a-zA-Z_-ßöäüÖÄÜæé]+$/gi,
+        'User first name can not have special characters or numbers',
+      ],
     },
     userLastName: {
       type: String,
       required: [true, 'userLastName is required'],
       minLength: [2, 'last name must be more than 2 characters'],
       maxLength: [20, ' last name should be not more than 20 characters'],
-      match: [/^[a-z]+$/gi, 'User last name can not have special characters'],
+      match: [
+        /^[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z]+[\u0600-\u065F\u066A-\u06EF\u06FA-\u06FFa-zA-Z-_]*$/gi,
+        'User last name can not have special characters or numbers',
+      ],
     },
     userName: {
       type: String,
@@ -32,7 +39,10 @@ const userSchema = new Schema(
       required: [true, 'userName is required'],
       minLength: [4, 'user name must be more than 4 characters'],
       maxLength: [20, ' user name should be not more than 20 characters'],
-      match: [/^[a-z]+$/gi, 'User user name can not have special characters'],
+      match: [
+        /^[a-zA-Z0-9_-]+$/gi,
+        'User user name can not have special characters',
+      ],
     },
     email: {
       type: String,

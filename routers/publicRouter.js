@@ -12,9 +12,7 @@ const {
   getArticle1,
   getContact,
   postContact,
-  getRegister,
   postRegister,
-  getLogin,
   postLogin,
   verifyUser,
 } = require('../controllers/publicRouterHandlers');

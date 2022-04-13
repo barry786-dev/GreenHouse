@@ -26,8 +26,8 @@ const Validation_register_user = [
     .withMessage('userName should be between 2 and 20 characters')
     .notEmpty()
     .withMessage('userName should not be empty')
-    .isAlpha()
-    .withMessage('userName should not has numbers')
+    .matches(/^[A-Za-z0-9_-]+$/)
+    .withMessage('userName should not has special characters')
     .bail()
     .custom(checkDuplicateUsername)
     .withMessage(

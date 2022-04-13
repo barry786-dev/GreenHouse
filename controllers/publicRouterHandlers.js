@@ -13,13 +13,25 @@ const { registerUser, findUser } = require('./db_users_Handlers');
 /****** */
 const getHome = (req, res) => {
   if (!req.session.user) {
-    res.render('index', { title: 'Gad Eden', signed: false });
+    res.render('index', {
+      title: 'Gad Eden',
+      signed: false,
+      alertModel: { show: false },
+    });
   } else if (req.session.user.userType === 'admin') {
-    res.render('index', { title: 'Gad Eden', signed: true });
+    res.render('index', {
+      title: 'Gad Eden',
+      signed: true,
+      alertModel: { show: false },
+    });
   } else {
-     document.getElementById('sign-up-in_section').style.display = 'none';
-     res.render('index', { title: 'Gad Eden', signed: true });
-   }
+    document.getElementById('sign-up-in_section').style.display = 'none';
+    res.render('index', {
+      title: 'Gad Eden',
+      signed: true,
+      alertModel: { show: false },
+    });
+  }
 
   //  if (!req.session.user) {
   //    //res.redirect('/auth');
@@ -65,26 +77,25 @@ const getArticle1 = (req, res) => {
 };
 /////////////////////////////////////////////
 const getContact = (req, res) => {
-if (!req.session.user) {
-  res.render('contact-us', {
-    title: 'Gad Eden | contact-us',
-    sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-    signed: false,
-  });
-} else if (req.session.user.userType === 'admin') {
-  res.render('contact-us', {
-    title: 'Gad Eden | contact-us',
-    sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-    signed: true,
-  });
-} else {
-  res.render('contact-us', {
-    title: 'Gad Eden | contact-us',
-    sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-    signed: true,
-  });
-}
-  
+  if (!req.session.user) {
+    res.render('contact-us', {
+      title: 'Gad Eden | contact-us',
+      sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+      signed: false,
+    });
+  } else if (req.session.user.userType === 'admin') {
+    res.render('contact-us', {
+      title: 'Gad Eden | contact-us',
+      sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+      signed: true,
+    });
+  } else {
+    res.render('contact-us', {
+      title: 'Gad Eden | contact-us',
+      sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+      signed: true,
+    });
+  }
 };
 const postContact = async (req, res) => {
   //log(req.body);
@@ -183,9 +194,9 @@ const postLogin = async (req, res) => {
 /////////////////////////////////////////////
 
 /***** */
-const getRegister = (req, res) => {
+/* const getRegister = (req, res) => {
   res.sendFile(path.join(__dirname, '../views/register.html'));
-};
+}; */
 
 /****** */
 const postRegister = (req, res) => {
@@ -220,9 +231,19 @@ const postRegister = (req, res) => {
       sendEmail(regEmailSentForm(theNewAddedUser)) // regEmailSentForm() inside /utils/mails_options'
         .then((info) => {
           log(info);
-          res.json({
-            myMsg: `New user register success , we have sent you an email to : ${theNewAddedUser.email} , please check your email and click on the verification link there to confirm your email, thank you`,
+          res.render('index', {
+            title: 'Gad Eden',
+            signed: false,
+            alertModel: {
+              show: true,
+              modelTitle: ' Registration Success',
+              modelMsg: `New user register success , we have sent you an email to : ${theNewAddedUser.email} , please check your email and click on the verification link there to confirm your email, thank you`,
+            },
           });
+          /* res.json({
+            success: true,
+            myMsg: `New user register success , we have sent you an email to : ${theNewAddedUser.email} , please check your email and click on the verification link there to confirm your email, thank you`,
+          }); */
         })
         .catch((error) => {
           // if email sending failed
@@ -295,7 +316,7 @@ module.exports = {
   getArticle1,
   getContact,
   postContact,
-  getRegister,
+  //getRegister,
   postRegister,
   //getLogin,
   postLogin,
