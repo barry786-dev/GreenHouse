@@ -14,20 +14,17 @@ const { registerUser, findUser } = require('./db_users_Handlers');
 const getHome = (req, res) => {
   if (!req.session.user) {
     res.render('index', {
-      title: 'Gad Eden',
       signed: false,
       alertModel: { show: false },
     });
   } else if (req.session.user.userType === 'admin') {
     res.render('index', {
-      title: 'Gad Eden',
       signed: true,
       alertModel: { show: false },
     });
   } else {
     document.getElementById('sign-up-in_section').style.display = 'none';
     res.render('index', {
-      title: 'Gad Eden',
       signed: true,
       alertModel: { show: false },
     });
@@ -46,52 +43,49 @@ const getHome = (req, res) => {
 ////////////////////////////////////
 const getAbout = (req, res) => {
   if (!req.session.user) {
-    res.render('about', { title: 'Gad Eden | About us', signed: false });
+    res.render('about', { signed: false });
   } else if (req.session.user.userType === 'admin') {
-    res.render('about', { title: 'Gad Eden | About us', signed: true });
+    res.render('about', {signed: true });
   } else {
     document.getElementById('sign-up-in_section').style.display = 'none';
-    res.render('about', { title: 'Gad Eden | About us', signed: true });
+    res.render('about', {signed: true });
   }
 };
 /////////////////////////////////////////////
 const getArticles = (req, res) => {
   if (!req.session.user) {
-    res.render('articles', { title: 'Gad Eden | Articles', signed: false });
+    res.render('articles', {signed: false });
   } else if (req.session.user.userType === 'admin') {
-    res.render('articles', { title: 'Gad Eden | Articles', signed: true });
+    res.render('articles', {signed: true });
   } else {
     document.getElementById('sign-up-in_section').style.display = 'none';
-    res.render('articles', { title: 'Gad Eden | Articles', signed: true });
+    res.render('articles', {signed: true });
   }
 };
 const getArticle1 = (req, res) => {
   if (!req.session.user) {
-    res.render('article-1', { title: 'Gad Eden | Article-1', signed: false });
+    res.render('article-1', {signed: false });
   } else if (req.session.user.userType === 'admin') {
-    res.render('article-1', { title: 'Gad Eden | Article-1', signed: true });
+    res.render('article-1', {signed: true });
   } else {
     document.getElementById('sign-up-in_section').style.display = 'none';
-    res.render('article-1', { title: 'Gad Eden | Article-1', signed: true });
+    res.render('article-1', {signed: true });
   }
 };
 /////////////////////////////////////////////
 const getContact = (req, res) => {
   if (!req.session.user) {
     res.render('contact-us', {
-      title: 'Gad Eden | contact-us',
       sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
       signed: false,
     });
   } else if (req.session.user.userType === 'admin') {
     res.render('contact-us', {
-      title: 'Gad Eden | contact-us',
       sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
       signed: true,
     });
   } else {
     res.render('contact-us', {
-      title: 'Gad Eden | contact-us',
       sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
       signed: true,
     });
@@ -157,21 +151,45 @@ const postLogin = async (req, res) => {
   const { userName, password } = req.body;
   const user = await findUser(userName, 'userName');
   if (user === 'Failed') {
-    return res.json({
+    return res.render('index', {
+      signed: false,
+      alertModel: {
+        show: true,
+        modelTitle: 'errorNu: 0',
+        modelMsg: `there is error during trying to reach data , please try again later or contact customer support at : +49 157-8444-6611 or by email at: mbrsyr@yahoo.com`,
+      },
+    });
+    /* return res.json({
       errorNu: 0,
       MyMsgToFront:
         'there is error during trying to reach data , please try again or contact the admin',
-    });
+    }); */
   } else {
     if (!user) {
-      return res.json({ errorNu: 1, MyMsgToFront: 'User not Found' });
+      return res.render('index', {
+        signed: false,
+        alertModel: {
+          show: true,
+          modelTitle: 'LogIn Error, errorNu: 1',
+          modelMsg: `User not Found! if you forget your UserName use password forget link in login section`,
+        },
+      });
+      //return res.json({ errorNu: 1, MyMsgToFront: 'User not Found' });
     }
   }
   if (user.status != 'Active') {
-    return res.status(401).send({
+    return res.render('index', {
+      signed: false,
+      alertModel: {
+        show: true,
+        modelTitle: 'errorNu: 7',
+        modelMsg: `Pending Account. Please Verify Your Email! or contact customer support at : +49 157-8444-6611 or by email at: mbrsyr@yahoo.com`,
+      },
+    });
+    /* return res.status(401).send({
       errorNu: 7,
       message: 'Pending Account. Please Verify Your Email!',
-    });
+    }); */
   }
   const passwordIsValid = bcrypt.compareSync(password, user.password);
   if (passwordIsValid) {
@@ -188,7 +206,15 @@ const postLogin = async (req, res) => {
       //res.json('success login');
     }
   } else {
-    res.json({ errorNu: 2, myMsg: 'Invalid Password!' });
+    res.render('index', {
+      signed: false,
+      alertModel: {
+        show: true,
+        modelTitle: ' LogIn Error, errorNu: 2',
+        modelMsg: `Invalid Password! if you forget your password use password forget link in login section`,
+      },
+    });
+    //res.json({ errorNu: 2, myMsg: 'Invalid Password!' });
   }
 };
 /////////////////////////////////////////////
@@ -232,7 +258,6 @@ const postRegister = (req, res) => {
         .then((info) => {
           log(info);
           res.render('index', {
-            title: 'Gad Eden',
             signed: false,
             alertModel: {
               show: true,
@@ -249,10 +274,18 @@ const postRegister = (req, res) => {
           // if email sending failed
           // handling error of confirmation email sending
           log(error);
-          res.json({
+          res.render('index', {
+            signed: false,
+            alertModel: {
+              show: true,
+              modelTitle: ' Registration Success with errorNu: 6',
+              modelMsg: `A new user register success , but an error accrued during trying to send verification code to your registered email : ${theNewAddedUser.email},seems like there is a technical issue on email services, please contact customer services to assist you to complete your registration`,
+            },
+          });
+          /* res.json({
             errorNu: 6,
             myMsg: `A new user register success , but an error accrued during trying to send verification code to your registered email : ${theNewAddedUser.email},seems like there is a technical issue on email services, please contact our customer services to assist you to complete your registration`,
-          });
+          }); */
         });
     })
     .catch((error) => {
@@ -266,12 +299,22 @@ const postRegister = (req, res) => {
           error.err.message,
           error.myMsg,
         ]);
-        res.json({
+        res.render('index', {
+          signed: false,
+          alertModel: {
+            show: true,
+            modelTitle: 'errorNu: 6',
+            modelMsg: `An account with that ${JSON.stringify(
+              error.err.keyValue
+            )} already exists`,
+          },
+        });
+        /* res.json({
           errorNu: 5,
           message: `An account with that ${JSON.stringify(
             error.err.keyValue
           )} already exists`,
-        });
+        }); */
       } else {
         // handling database connection fail errors and other validation errors
         log('coming from inside publicRouterHandlers.js inside registerUser ', [

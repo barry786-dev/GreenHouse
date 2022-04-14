@@ -7,7 +7,7 @@ const {
 } = require('../controllers/adminRouterHandlers');
 
 router.get('/',adminDashboard)
-//router.get('/add-product', getAddProduct);
+router.get('/add-product', getAddProduct);
 router.post('/add-product', postAddProduct);
 
 module.exports = router

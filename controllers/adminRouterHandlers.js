@@ -6,13 +6,15 @@ const adminDashboard = (req, res) => {
   if (!req.session.user || req.session.user.userType !== 'admin') {
     res.json({ massage: 'you are not allowed to enter to this resources' });
   } else {
-    res.sendFile(path.join(__dirname, '../views/AdminDashboard.html'));
+    res.render('adminDashboard');
   }
 };
 
-/* const getAddProduct = (req, res) => {
-  res.redirect('/admin');
-}; */
+const getAddProduct = (req, res) => {
+  res.render('adminAddProduct', {
+    alertModel: { show: false },
+  });
+};
 
 const postAddProduct = (req, res) => {
   if (!req.session.user || req.session.user.userType !== 'admin') {
@@ -26,7 +28,15 @@ const postAddProduct = (req, res) => {
     };
     addNewProduct(newProduct)
       .then((result) => {
-        res.json({ message: 'product added successfully' });
+        res.render('adminAddProduct', {
+          signed: false,
+          alertModel: {
+            show: true,
+            modelTitle: 'Susses',
+            modelMsg: `product added successfully`,
+          },
+        });
+        //res.json({ message: 'product added successfully' });
       })
       .catch((error) => {
         //log('here is the error', error)
@@ -39,14 +49,32 @@ const postAddProduct = (req, res) => {
             error.err.message,
             error.myMsg,
           ]);
-          res.json({
+          res.render('adminAddProduct', {
+            signed: false,
+            alertModel: {
+              show: true,
+              modelTitle: 'Failed',
+              modelMsg: `An product with that ${JSON.stringify(
+                error.err.keyValue
+              )} already exists`,
+            },
+          });
+          /* res.json({
             message: `An product with that ${JSON.stringify(
               error.err.keyValue
             )} already exists`,
-          });
+          }); */
         } else {
           // handling database connection fail errors and other validation errors
           log([error.myMsg, error.err.message]);
+          /* res.render('adminAddProduct', {
+            signed: false,
+            alertModel: {
+              show: true,
+              modelTitle: 'Failed',
+              modelMsg: error.myMsgToUser,
+            },
+          }); */
           res.json({
             message: error.myMsgToUser,
           });
@@ -55,4 +83,4 @@ const postAddProduct = (req, res) => {
   }
 };
 
-module.exports = { adminDashboard, postAddProduct };
+module.exports = { adminDashboard, postAddProduct, getAddProduct };

@@ -29,7 +29,7 @@ const productSchema = new Schema(
     productDescription: {
       type: String,
       minLength: [
-        10,
+        0,
         `product description must be more than 9 characters, you entered only: ${
           'VALUE'.length
         }`,

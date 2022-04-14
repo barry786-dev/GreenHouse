@@ -1,0 +1,59 @@
+<%- include ('partials/head',{title: 'Gad Eden | Admin-Dash'})%>
+
+<body id="body">
+    <!-- header -->
+    <header id="header">
+        <%- include ('partials/nav1',{page:'dashboard'})%>
+    </header>
+    <% if (alertModel.show===true) { %>
+    <%- include ('partials/alertModel',{modelTitle:alertModel.modelTitle,modelMsg:alertModel.modelMsg})%>
+    <% } %>
+    <!--main-->
+    <main id="main">
+        <h1>Hello admin</h1>
+        <!-- content -->
+        <div class="content">
+            <form id="add_product_form" action="/admin/add-product" method="POST" class="">
+                <h2 class="">add serial number to product Form</h2>
+                <div class="form-group">
+                    <label for="productName-input"> Product Name</label>
+                    <input id="productName-input" type="text" name="productName" class="" placeholder="product's Name"
+                        minlength="2" maxlength="30" required />
+                </div>
+                <div class="form-group">
+                    <label for="serialNumber-input"> serialNumber</label>
+                    <input id="serialNumber-input" type="text" name="serialNumber" maxlength="12" class="" placeholder="serialNumber"
+                        autocomplete pattern="/^([A-Z]{2})([0-9]{3})([A-Z]{1})([0-9]{6})/" data-pristine-pattern-message="the serial number should has this form XX000X000000 " required />
+                </div>
+                <div class="form-group">
+                    <label for="productDescription-input"> Description</label>
+                    <input id="productDescription-input" type="textarea" name="productDescription" class=""
+                        placeholder="product's Description" maxlength="200" autocomplete />
+                </div>
+                <div class="form-group">
+                    <button type="submit" id="addProduct_btn" class="btn btn-primary">
+                        Add & print
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <!-- footer -->
+    <%- include ('partials/footer')%>
+    <script src="/js/pristine/dist/pristine.min.js"></script>
+    <script src="/js/publicScript.js"></script>
+    <script>
+        const addProductForm = document.getElementById('add_product_form');
+        const addProductBtn = document.getElementById('addProduct_btn');
+        addProductBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const pristine = new Pristine(add_product_form);
+            const valid = pristine.validate();
+            if (valid) {
+                addProductForm.submit();
+            }
+        });
+    </script>
+</body>
+
+</html>
