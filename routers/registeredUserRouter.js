@@ -5,16 +5,16 @@ const {
   getRegisteredUser,
   logout,
   logOutPost,
-  getDashboard,
-  postDashboard,
-  chart
+  getAddDevice,
+  postAddDevice,
+  chart,
 } = require('../controllers/RegisteredUserRouterHandler');
 
 router.get('/', getRegisteredUser);
 router.get('/logout', logout);
 router.post('/logout', logOutPost);
-router.get('/dashboard', getDashboard);
-router.post('/dashboard',postDashboard);
+router.get('/add-device', getAddDevice);
+router.post('/add-device', postAddDevice);
 router.get('/chart', chart)
 
 module.exports = router;

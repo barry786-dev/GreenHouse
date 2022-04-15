@@ -355,7 +355,6 @@ h3 {
 #main .content .cell-5 {
   width: 45%;
   margin-bottom: 40px;
-  
 }
 #main .content .cell-6 {
   width: 45%;
@@ -366,7 +365,7 @@ h3 {
 #main .content .cell-8 {
   width: 45%;
 }
-#main .content .admin_btn{
+#main .content .admin_btn {
   width: 100%;
   height: 50px;
   margin-top: 20px;
@@ -386,7 +385,7 @@ h3 {
   cursor: pointer;
   border: 1px solid black;
 }
-#main .content .admin_btn:hover{
+#main .content .admin_btn:hover {
   background: #a8d51f;
 }
 
@@ -582,7 +581,7 @@ h3 {
 }
 #model_title {
   text-align: center;
-  padding:10px;
+  padding: 10px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -611,14 +610,18 @@ h3 {
   background: #72a613;
 }
 /*======================add product====================*/
-#add_product_form label {
+#add_product_form label,
+#add_device_form label,
+#add_productSettings_form label {
   color: black;
   font-size: 1.2em;
   font-weight: bold;
   margin-top: 20px;
   display: block;
 }
-#add_product_form input {
+#add_product_form input,
+#add_device_form input,
+#add_productSettings_form input {
   width: 100%;
   height: 30px;
   background: #fff0f0;
@@ -630,7 +633,9 @@ h3 {
   outline: none;
   border-radius: 5px;
 }
-#add_product_form button {
+#add_product_form button,
+#add_device_form button,
+#add_productSettings_form button {
   width: 100%;
   height: 30px;
   margin: 10px auto;
@@ -648,6 +653,8 @@ h3 {
   cursor: pointer;
   border: 1px solid black;
 }
-#add_product_form button:hover {
+#add_product_form button:hover,
+#add_device_form button:hover,
+#add_productSettings_form button:hover {
   background: #89b700;
 }

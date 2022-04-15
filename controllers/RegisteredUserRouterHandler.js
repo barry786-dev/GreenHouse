@@ -21,9 +21,12 @@ const getRegisteredUser = (req, res) => {
 };
 ///////////////////////////////////////////////////////////////////////////////
 /** */
-const getDashboard = (req, res) => {
+const getAddDevice = (req, res) => {
   if (req.session.user) {
-res.sendFile(path.join(__dirname, '../views/dashboard_addProduct.html'));
+    res.render('userAddDevice', {
+      alertModel: { show: false },
+    });
+    //res.sendFile(path.join(__dirname, '../views/dashboard_addProduct.html'));
     //res.sendFile(path.join(__dirname, '../views/dashboard.html'));
   } else {
     res.redirect('/');
@@ -31,7 +34,7 @@ res.sendFile(path.join(__dirname, '../views/dashboard_addProduct.html'));
 };
 
 /** */
-const postDashboard = async (req, res) => {
+const postAddDevice = async (req, res) => {
   try {
     if (req.body.productNameByUser) {
       // const { minValue, period, runTime, serialNumber, productNameByUser } =
@@ -41,26 +44,50 @@ const postDashboard = async (req, res) => {
         serialNumber: req.body.serialNumber,
       });
       if (!result) {
-        return res.json({
+        return res.render('userAddDevice', {
+          alertModel: {
+            show: true,
+            modelTitle: 'errorNu: 8',
+            modelMsg:
+              'this serial number is not in use please try again and be sure about it',
+          },
+        });
+        /* return res.json({
           errorNu: 8,
           myMsg:
             'this serial number is not in use please try again and be sure about it',
-        });
+        }); */
       } else if (result && result.userId.equals(userId)) {
         const result2 = await addUserProductSettings({ ...req.body, userId });
         if (result2.productNameByUser) {
-          res.json({
+          res.render('userAddDevice', {
+            alertModel: {
+              show: true,
+              modelTitle: 'Success',
+              modelMsg:
+                'your product sittings is Done and the product is start working',
+            },
+          });
+          /* res.json({
             SuccessNu: 0,
             myMsg:
               'your product sittings is Done and the product is start working',
-          });
+          }); */
         }
       } else if (result && !result.userId.equals(userId)) {
-        res.json({
+        res.render('userAddDevice', {
+          alertModel: {
+            show: true,
+            modelTitle: 'errorNu: 10',
+            modelMsg:
+              'you can not add this product because you are not the owner of this product',
+          },
+        });
+        /* res.json({
           errorNu: 10,
           myMsg:
             'you can not add this product because you are not the owner of this product',
-        });
+        }); */
       }
     } else {
       const { serialNumber } = req.body;
@@ -72,21 +99,42 @@ const postDashboard = async (req, res) => {
       if (result && result.userId === null) {
         const result2 = await addUserToProduct(serialNumber, userId);
         if (result2.productName) {
+          res.render('userAddDevice', {
+            alertModel: {
+              show: true,
+              modelTitle: 'Success',
+              modelMsg: 'your product is ready to be used',
+            },
+          });
           //res.json({ message: 'your product is ready to be used' });
-          res.sendFile(
+          /* res.sendFile(
             path.join(__dirname, '../views/dashboard_addProduct.html')
-          );
+          ); */
         }
       } else if (result && result.serialNumber) {
-        res.json({
+        res.render('userAddDevice', {
+          alertModel: {
+            show: true,
+            modelTitle: 'errorNu: 9',
+            modelMsg: 'this product is already sold and it is in use',
+          },
+        });
+        /* res.json({
           errorNu: 9,
           myMsg: 'this product is already sold and it is in use',
-        });
+        }); */
       } else {
-        res.json({
+        res.render('userAddDevice', {
+          alertModel: {
+            show: true,
+            modelTitle: 'errorNu: 8',
+            modelMsg: 'this serial number is not exist',
+          },
+        });
+        /* res.json({
           errorNu: 8,
           myMsg: 'this serial number is not exist',
-        });
+        }); */
       }
     }
   } catch (error) {
@@ -115,7 +163,7 @@ module.exports = {
   getRegisteredUser,
   logout,
   logOutPost,
-  getDashboard,
-  postDashboard,
+  getAddDevice,
+  postAddDevice,
   chart,
 };

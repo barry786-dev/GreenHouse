@@ -1,0 +1,97 @@
+<%- include ('partials/head',{title: 'Gad Eden | User-Dash'})%>
+
+<body id="body">
+    <!-- header -->
+    <header id="header">
+        <%- include ('partials/nav1',{page:'dashboard',type:'user'})%>
+    </header>
+    <% if (alertModel.show===true) { %>
+    <%- include ('partials/alertModel',{modelTitle:alertModel.modelTitle,modelMsg:alertModel.modelMsg})%>
+    <% } %>
+    <!--main-->
+    <main id="main">
+        <h1>Hello admin</h1>
+        <!-- content -->
+        <div class="content">
+            <form id="add_device_form" action="/user/add-device" method="POST" class="">
+                <h2 class="">add your product serial number Form</h2>
+                <div class="form-group">
+                    <label for="serialNumber-input1"> serialNumber</label>
+                    <input id="serialNumber-input1" type="text" name="serialNumber" maxlength="12" class=""
+                        placeholder="serialNumber" autocomplete pattern="/^([A-Z]{2})([0-9]{3})([A-Z]{1})([0-9]{6})/"
+                        data-pristine-pattern-message="the serial number should has this form XX000X000000 " required />
+                </div>
+                <div class="form-group">
+                    <button type="submit" id="addSN-button" class="btn btn-primary">
+                        Add
+                    </button>
+                </div>
+            </form>
+
+            <form id="add_productSettings_form" action="/user/add-device" method="POST" class="">
+                <h2 class="">add your product settings</h2>
+                <div class="form-group">
+                    <label for="productNameByUser-input"> Product Name</label>
+                    <input id="productNameByUser-input" type="text" name="productNameByUser" class=""
+                        placeholder="Add name to your product as example kitchen-plants" minlength="2" maxlength="30"
+                        required />
+                </div>
+                <div class="form-group">
+                    <label for="serialNumber-input2"> serialNumber</label>
+                    <input id="serialNumber-input2" type="text" name="serialNumber" maxlength="12" class=""
+                        placeholder="serialNumber" autocomplete pattern="/^([A-Z]{2})([0-9]{3})([A-Z]{1})([0-9]{6})/"
+                        data-pristine-pattern-message="the serial number should has this form XX000X000000 " required />
+                </div>
+                <h3>SoilHumidity-Settings</h3>
+                <div class="form-group">
+                    <label for="minValue-input"> Minimum Value(from 1000)</label>
+                    <input id="minValue-input" type="number" name="minValue" min="0" max="999" class=""
+                        placeholder="min humidity value on scale of 1000" autocomplete />
+                </div>
+                <div class="form-group">
+                    <label for="period-input"> start each (Hours)</label>
+                    <input id="period-input" type="number" name="period" min="0" max="168" class=""
+                        placeholder="water pump starting each how many (hours)" autocomplete />
+                </div>
+                <div class="form-group">
+                    <label for="runTime-input"> Run time(seconds)</label>
+                    <input id="runTime-input" type="number" name="runTime" min="0" max="600" class=""
+                        placeholder="runTime by seconds" autocomplete />
+                </div>
+                <div class="form-group">
+                    <button type="submit" id="addSettings-button">
+                        confirm your product sittings
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <!-- footer -->
+    <%- include ('partials/footer')%>
+    <script src="/js/pristine/dist/pristine.min.js"></script>
+    <script src="/js/publicScript.js"></script>
+    <script>
+        const addDeviceForm = document.getElementById('add_device_form');
+        const addSnBtn = document.getElementById('addSN-button');
+        addSnBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const pristine = new Pristine(add_device_form);
+            const valid = pristine.validate();
+            if (valid) {
+                addDeviceForm.submit();
+            }
+        });
+        const addSettingsForm = document.getElementById('add_productSettings_form');
+        const addSettingsBtn = document.getElementById('addSettings-button');
+        addSettingsBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const pristine = new Pristine(add_productSettings_form);
+            const valid = pristine.validate();
+            if (valid) {
+                addSettingsForm.submit();
+            }
+        });
+    </script>
+</body>
+
+</html>
