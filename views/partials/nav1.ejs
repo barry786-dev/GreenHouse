@@ -4,7 +4,8 @@
     <li><a href="/about" class=<%= page==='about' ? "act" : ''%>>About Us</a></li>
     <li><a href="/articles" class=<%= page==='articles' ? "act" : ''%>>Articles</a></li>
     <li><a href="/contact-us" class=<%= page==='contact' ? "act" : ''%>>Contact Us</a></li>
-    <li><a href="/admin" class=<%= page==='dashboard' ? "act" : ''%>>DashBoard</a></li>
+    <li><a href=<%= type === 'admin'? '/admin' : '/user'%> class=<%= page==='dashboard' ? "act" : ''%>>DashBoard</a>
+    </li>
   </ul>
 </nav>
 <button id="logOut" type="button" onclick="logoutUser()">logOut</button>

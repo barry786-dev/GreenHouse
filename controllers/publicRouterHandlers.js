@@ -20,12 +20,14 @@ const getHome = (req, res) => {
   } else if (req.session.user.userType === 'admin') {
     res.render('index', {
       signed: true,
+      type: 'admin',
       alertModel: { show: false },
     });
   } else {
-    document.getElementById('sign-up-in_section').style.display = 'none';
+    //document.getElementById('sign-up-in_section').style.display = 'none';
     res.render('index', {
       signed: true,
+      type: 'user',
       alertModel: { show: false },
     });
   }
@@ -45,31 +47,31 @@ const getAbout = (req, res) => {
   if (!req.session.user) {
     res.render('about', { signed: false });
   } else if (req.session.user.userType === 'admin') {
-    res.render('about', {signed: true });
+    res.render('about', { signed: true, type: 'admin' });
   } else {
-    document.getElementById('sign-up-in_section').style.display = 'none';
-    res.render('about', {signed: true });
+    //document.getElementById('sign-up-in_section').style.display = 'none';
+    res.render('about', { signed: true, type: 'user' });
   }
 };
 /////////////////////////////////////////////
 const getArticles = (req, res) => {
   if (!req.session.user) {
-    res.render('articles', {signed: false });
+    res.render('articles', { signed: false });
   } else if (req.session.user.userType === 'admin') {
-    res.render('articles', {signed: true });
+    res.render('articles', { signed: true, type: 'admin' });
   } else {
-    document.getElementById('sign-up-in_section').style.display = 'none';
-    res.render('articles', {signed: true });
+    //document.getElementById('sign-up-in_section').style.display = 'none';
+    res.render('articles', { signed: true, type: 'user' });
   }
 };
 const getArticle1 = (req, res) => {
   if (!req.session.user) {
-    res.render('article-1', {signed: false });
+    res.render('article-1', { signed: false });
   } else if (req.session.user.userType === 'admin') {
-    res.render('article-1', {signed: true });
+    res.render('article-1', { signed: true, type: 'admin' });
   } else {
-    document.getElementById('sign-up-in_section').style.display = 'none';
-    res.render('article-1', {signed: true });
+    //document.getElementById('sign-up-in_section').style.display = 'none';
+    res.render('article-1', { signed: true, type: 'user' });
   }
 };
 /////////////////////////////////////////////
@@ -83,11 +85,13 @@ const getContact = (req, res) => {
     res.render('contact-us', {
       sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
       signed: true,
+      type: 'admin',
     });
   } else {
     res.render('contact-us', {
       sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
       signed: true,
+      type: 'user',
     });
   }
 };
@@ -202,7 +206,7 @@ const postLogin = async (req, res) => {
     if (user.userType === 'admin') {
       res.redirect('/');
     } else {
-      res.redirect('/user/dashboard');
+      res.redirect('/');
       //res.json('success login');
     }
   } else {
@@ -359,9 +363,7 @@ module.exports = {
   getArticle1,
   getContact,
   postContact,
-  //getRegister,
   postRegister,
-  //getLogin,
   postLogin,
   verifyUser,
 };

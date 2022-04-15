@@ -13,7 +13,8 @@ const chart = (req, res) => {
 /** */
 const getRegisteredUser = (req, res) => {
   if (req.session.user) {
-    res.redirect('/user/dashboard');
+    res.render('userDashboard');
+    //res.redirect('/user/dashboard');
   } else {
     res.redirect('/');
   }
@@ -22,7 +23,8 @@ const getRegisteredUser = (req, res) => {
 /** */
 const getDashboard = (req, res) => {
   if (req.session.user) {
-    res.sendFile(path.join(__dirname, '../views/dashboard.html'));
+res.sendFile(path.join(__dirname, '../views/dashboard_addProduct.html'));
+    //res.sendFile(path.join(__dirname, '../views/dashboard.html'));
   } else {
     res.redirect('/');
   }

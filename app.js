@@ -84,3 +84,6 @@ app.use(publicRouter);
 app.use('/user', registeredUserRouter);
 app.use('/admin', adminRouter);
 app.use('/data', DataRouter);
+app.use('*', (req, res) => {
+  res.render('404');
+});

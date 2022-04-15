@@ -3,7 +3,7 @@
   <!-- header -->
   <header id="header">
     <% if (signed===true) { %>
-      <%- include ('partials/nav1',{page:'about'})%>
+      <%- include ('partials/nav1',{page:'about',type:type})%>
     <% } else { %>
     <%- include ('partials/nav',{page:'about'})%>
     <% } %>

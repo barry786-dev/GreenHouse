@@ -4,7 +4,7 @@
     <!-- header -->
     <header id="header">
         <% if (signed===true) { %>
-        <%- include ('partials/nav1',{page:'index'})%>
+        <%- include ('partials/nav1',{page:'index',type:type})%>
         <% } else { %>
         <%- include ('partials/nav',{page:'index'})%>
         <% } %>

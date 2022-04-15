@@ -3,7 +3,7 @@
 <body id="body">
     <!-- header -->
     <header id="header">
-        <%- include ('partials/nav1',{page:'dashboard'})%>
+        <%- include ('partials/nav1',{page:'dashboard',type:'admin'})%>
     </header>
     <% if (alertModel.show===true) { %>
     <%- include ('partials/alertModel',{modelTitle:alertModel.modelTitle,modelMsg:alertModel.modelMsg})%>
