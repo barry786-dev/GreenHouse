@@ -40,7 +40,7 @@
                         each 1 hour.
                     </h4>
                 </div>
-                <button class="admin_btn">Dated Chart</button>
+                <button class="admin_btn" onclick="routeToDatedChat()">Dated Chart</button>
             </section>
             <section class="cell-8">
                 <h2><i class='fa fa-gear fa-spin' style="font-size:20px;color:red;"></i>controls!</h2>
@@ -50,7 +50,7 @@
                         environment according to it, and you can switch off and on the fan or water pump.
                     </h4>
                 </div>
-                <button class="admin_btn">controls</button>
+                <button class="admin_btn" onclick="routeToControllers()">controls</button>
             </section>
         </div>
     </main>
@@ -61,6 +61,12 @@
     <script>
         function routeToAddDevice() {
             window.location.href = "/user/add-device";
+        }
+        function routeToDatedChat() {
+            window.location.href = "/user/dated-chart";
+        }
+        function routeToControllers() {
+            window.location.href = "/user/controllers";
         }
     </script>
 </body>

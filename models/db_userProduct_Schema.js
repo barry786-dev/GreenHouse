@@ -35,6 +35,7 @@ const UserProductSchema = new Schema(
       light: {
         type: [
           {
+            _id: false,
             value: { type: Number },
             date: { type: Date },
           },
@@ -44,6 +45,7 @@ const UserProductSchema = new Schema(
       SoilHumidity: {
         type: [
           {
+            _id: false,
             value: { type: Number },
             date: { type: Date },
           },
@@ -53,6 +55,7 @@ const UserProductSchema = new Schema(
       pump: {
         type: [
           {
+            _id: false,
             value: { type: Number, enum: [0, 1] },
             date: { type: Date },
           },

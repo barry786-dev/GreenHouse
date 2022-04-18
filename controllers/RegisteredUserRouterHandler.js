@@ -8,6 +8,9 @@ const { addUserProductSettings } = require('./db_userProduct_Handlers.js');
 const chart = (req, res) => {
   res.sendFile(path.join(__dirname, '../views/chart.html'));
 };
+const getDatedChart = (req, res) => {
+  res.render('datedChart');
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 /** */
@@ -15,6 +18,16 @@ const getRegisteredUser = (req, res) => {
   if (req.session.user) {
     res.render('userDashboard');
     //res.redirect('/user/dashboard');
+  } else {
+    res.redirect('/');
+  }
+};
+///////////////////////////////////////////////////////////////////////////////
+const getControllers = (req, res) => {
+  if (req.session.user) {
+    res.render('userControllers', {
+      alertModel: { show: false },
+    });
   } else {
     res.redirect('/');
   }
@@ -165,5 +178,7 @@ module.exports = {
   logOutPost,
   getAddDevice,
   postAddDevice,
+  getControllers,
+  getDatedChart,
   chart,
 };

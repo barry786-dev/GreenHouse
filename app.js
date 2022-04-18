@@ -79,7 +79,6 @@ app.use(
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules', 'bootstrap')));
 app.use(express.static(path.join(__dirname, 'node_modules', 'jquery')));
-console.log(__dirname);
 
 app.use(publicRouter);
 app.use('/user', registeredUserRouter);
