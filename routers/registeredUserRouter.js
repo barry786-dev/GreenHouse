@@ -8,6 +8,7 @@ const {
   getAddDevice,
   postAddDevice,
   getDatedChart,
+  getLiveChart,
   chart,
   getControllers,
 } = require('../controllers/RegisteredUserRouterHandler');
@@ -18,6 +19,7 @@ router.post('/logout', logOutPost);
 router.get('/add-device', getAddDevice);
 router.post('/add-device', postAddDevice);
 router.get('/dated-chart', getDatedChart);
+router.get('/live-chart', getLiveChart);
 router.get('/controllers', getControllers);
 router.get('/chart', chart)
 

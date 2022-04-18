@@ -29,7 +29,7 @@
                         present situation. these values are updated every 10 seconds.
                     </h4>
                 </div>
-                <button class="admin_btn">Live Chart</button>
+                <button class="admin_btn" onclick="routeToLiveChart()">Live Chart</button>
             </section>
             <section class="cell-7">
                 <h2><i class="fa fa-pie-chart" style="font-size:20px;color:red"></i>Dated Chart!</h2>
@@ -67,6 +67,9 @@
         }
         function routeToControllers() {
             window.location.href = "/user/controllers";
+        }
+        function routeToLiveChart() {
+            window.location.href = "/user/live-chart";
         }
     </script>
 </body>

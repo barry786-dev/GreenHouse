@@ -33,6 +33,14 @@ const getControllers = (req, res) => {
   }
 };
 ///////////////////////////////////////////////////////////////////////////////
+const getLiveChart = (req, res) => {
+  if (req.session.user) {
+    res.render('liveChart');
+  } else {
+    res.redirect('/');
+  }
+}
+///////////////////////////////////////////////////////////////////////////////
 /** */
 const getAddDevice = (req, res) => {
   if (req.session.user) {
@@ -180,5 +188,6 @@ module.exports = {
   postAddDevice,
   getControllers,
   getDatedChart,
+  getLiveChart,
   chart,
 };
