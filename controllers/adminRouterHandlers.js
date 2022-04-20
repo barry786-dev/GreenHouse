@@ -3,11 +3,7 @@ const path = require('path');
 const { addNewProduct } = require('./db_products_Handlers');
 
 const adminDashboard = (req, res) => {
-  if (!req.session.user || req.session.user.userType !== 'admin') {
-    res.json({ massage: 'you are not allowed to enter to this resources' });
-  } else {
     res.render('adminDashboard');
-  }
 };
 
 const getAddProduct = (req, res) => {
@@ -17,9 +13,6 @@ const getAddProduct = (req, res) => {
 };
 
 const postAddProduct = (req, res) => {
-  if (!req.session.user || req.session.user.userType !== 'admin') {
-    res.json({ massage: 'you are not allowed to enter to this resources' });
-  } else {
     const { productName, serialNumber, productDescription } = req.body;
     const newProduct = {
       productName,
@@ -80,7 +73,6 @@ const postAddProduct = (req, res) => {
           });
         }
       });
-  }
 };
 
 module.exports = { adminDashboard, postAddProduct, getAddProduct };

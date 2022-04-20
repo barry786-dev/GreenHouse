@@ -76,6 +76,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules', 'bootstrap')));
+app.use(express.static(path.join(__dirname, 'node_modules', 'jquery')));
+
+
 app.use(
   session({
     secret: 'green houses',
@@ -86,15 +93,24 @@ app.use(
     saveUninitialized: true,
   })
 );
-
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'node_modules', 'bootstrap')));
-app.use(express.static(path.join(__dirname, 'node_modules', 'jquery')));
-
+function checkSession(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+}
+function checkAdminSession(req, res, next) {
+  if (req.session.user && req.session.user.userType === 'admin') {
+    next();
+  } else {
+    res.redirect('/');
+  }
+}
 app.use(publicRouter);
-app.use('/user', registeredUserRouter);
-app.use('/admin', adminRouter);
-app.use('/data', DataRouter);
+app.use('/user', checkSession , registeredUserRouter);
+app.use('/admin', checkAdminSession, adminRouter);
+app.use('/data', checkSession, DataRouter);
 app.use('*', (req, res) => {
   res.render('404');
 });

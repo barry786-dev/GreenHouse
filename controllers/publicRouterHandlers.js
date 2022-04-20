@@ -9,9 +9,19 @@ const {
 } = require('../utils/mails_options');
 const { validationResult } = require('express-validator');
 const { registerUser, findUser } = require('./db_users_Handlers');
+/////////////////////////////////////////////
+const getDashboard = (req, res) => {
+  if (!req.session.user) {
+    res.redirect('/login');
+  } else if (req.session.user.userType === 'admin') {
+    res.render('adminDashboard');
+  } else {
+    res.render('userDashboard');
+  }
+}
 
 /****** */
-const getHome = (req, res) => {
+/* const getHome = (req, res) => {
   if (!req.session.user) {
     res.render('index', {
       signed: false,
@@ -24,54 +34,49 @@ const getHome = (req, res) => {
       alertModel: { show: false },
     });
   } else {
-    //document.getElementById('sign-up-in_section').style.display = 'none';
     res.render('index', {
       signed: true,
       type: 'user',
       alertModel: { show: false },
     });
   }
-
-  //  if (!req.session.user) {
-  //    //res.redirect('/auth');
-  //    res.sendFile(path.join(__dirname, '../views/login.html'));
-  //  } else if (req.session.user.userType === 'admin') {
-  //    //res.redirect('/admin');
-  //    res.sendFile(__dirname + '/views/index.html');
-  //  } else {
-  //    res.redirect('/user/dashboard');
-  //  }
-};
+}; */
+const getHome = (req, res) => {
+if (!req.session.user) {
+  res.render('index', {
+    signed: false,
+    type: 'noLogOutBtn',
+    alertModel: { show: false },
+  });
+} else {
+  res.render('index', {
+    signed: true,
+    type: 'WithLogoutBtn',
+    alertModel: { show: false },
+  });
+}
+}
 ////////////////////////////////////
 const getAbout = (req, res) => {
   if (!req.session.user) {
-    res.render('about', { signed: false });
-  } else if (req.session.user.userType === 'admin') {
-    res.render('about', { signed: true, type: 'admin' });
+    res.render('about', { type: 'noLogOutBtn' });
   } else {
-    //document.getElementById('sign-up-in_section').style.display = 'none';
-    res.render('about', { signed: true, type: 'user' });
+    res.render('about', { type: 'WithLogoutBtn' });
   }
 };
 /////////////////////////////////////////////
 const getArticles = (req, res) => {
   if (!req.session.user) {
-    res.render('articles', { signed: false });
-  } else if (req.session.user.userType === 'admin') {
-    res.render('articles', { signed: true, type: 'admin' });
+    res.render('articles', { type: 'noLogOutBtn' });
   } else {
-    //document.getElementById('sign-up-in_section').style.display = 'none';
-    res.render('articles', { signed: true, type: 'user' });
+    res.render('articles', { type: 'WithLogoutBtn' });
   }
 };
 const getArticle1 = (req, res) => {
   if (!req.session.user) {
-    res.render('article-1', { signed: false });
-  } else if (req.session.user.userType === 'admin') {
-    res.render('article-1', { signed: true, type: 'admin' });
+    res.render('article-1', { type: 'noLogOutBtn' });
   } else {
-    //document.getElementById('sign-up-in_section').style.display = 'none';
-    res.render('article-1', { signed: true, type: 'user' });
+    res.render('article-1', { type: 'WithLogoutBtn' });
   }
 };
 /////////////////////////////////////////////
@@ -79,19 +84,12 @@ const getContact = (req, res) => {
   if (!req.session.user) {
     res.render('contact-us', {
       sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-      signed: false,
-    });
-  } else if (req.session.user.userType === 'admin') {
-    res.render('contact-us', {
-      sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-      signed: true,
-      type: 'admin',
+      type: 'noLogOutBtn',
     });
   } else {
     res.render('contact-us', {
       sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-      signed: true,
-      type: 'user',
+      type: 'WithLogoutBtn',
     });
   }
 };
@@ -366,4 +364,5 @@ module.exports = {
   postRegister,
   postLogin,
   verifyUser,
+  getDashboard,
 };

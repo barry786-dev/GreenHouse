@@ -3,11 +3,7 @@
 <body id="body">
     <!-- header -->
     <header id="header">
-        <% if (signed===true) { %>
-        <%- include ('partials/nav1',{page:'index',type:type})%>
-        <% } else { %>
-        <%- include ('partials/nav',{page:'index'})%>
-        <% } %>
+        <%- include ('partials/nav3',{page:'index',type:type})%>
     </header>
     <% if (alertModel.show===true) { %>
     <%- include ('partials/alertModel',{modelTitle:alertModel.modelTitle,modelMsg:alertModel.modelMsg})%>
