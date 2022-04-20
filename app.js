@@ -55,7 +55,18 @@ io.on('connection', (socket) => {
     console.log(data);
     io.emit('serverEventToBrowser', data);
   });
-
+  /////Pump events
+  socket.on('pumpEventBrowserToServer', (data) => {
+    console.log('event from pump has received');
+    console.log(data);
+    io.emit('pumpEventServerToRasp', data);
+  });
+  socket.on('PumpStatus', (data) => {
+    console.log('event from pumpRasp has received');
+    console.log(data);
+    io.emit('pumpStatusServerToBrowser', data);
+  });
+//////////////////////////////////////////////////////////////////////////////////////////////
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });

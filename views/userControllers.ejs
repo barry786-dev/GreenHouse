@@ -45,12 +45,6 @@
                             placeholder="Add name to your product as example kitchen-plants" minlength="2" maxlength="30"
                             required />
                     </div>
-                    <div class="form-group">
-                        <label for="serialNumber-input2"> serialNumber</label>
-                        <input id="serialNumber-input2" type="text" name="serialNumber" maxlength="12" class=""
-                            placeholder="serialNumber" autocomplete pattern="/^([A-Z]{2})([0-9]{3})([A-Z]{1})([0-9]{6})/"
-                            data-pristine-pattern-message="the serial number should has this form XX000X000000 " required />
-                    </div>
                     <h3>SoilHumidity-Settings</h3>
                     <div class="form-group">
                         <label for="minValue-input"> Minimum Value(from 1000)</label>
@@ -83,16 +77,6 @@
     <script src="/js/pristine/dist/pristine.min.js"></script>
     <script src="/js/publicScript.js"></script>
     <script>
-        const addDeviceForm = document.getElementById('add_device_form');
-        const addSnBtn = document.getElementById('addSN-button');
-        addSnBtn.addEventListener('click', async (e) => {
-            e.preventDefault();
-            const pristine = new Pristine(add_device_form);
-            const valid = pristine.validate();
-            if (valid) {
-                addDeviceForm.submit();
-            }
-        });
         const addSettingsForm = document.getElementById('add_productSettings_form');
         const addSettingsBtn = document.getElementById('addSettings-button');
         addSettingsBtn.addEventListener('click', async (e) => {
@@ -100,9 +84,39 @@
             const pristine = new Pristine(add_productSettings_form);
             const valid = pristine.validate();
             if (valid) {
-                addSettingsForm.submit();
+                // addSettingsForm.submit();
             }
         });
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const messages = document.getElementById('messages');
+      let socket = io();
+      socket.on('connect', () => {
+        console.log('connected');
+      });
+      socket.on('serverEventToBrowser', (data) => {
+        console.log('event from server has received');
+        const item = document.createElement('li');
+        item.textContent = JSON.stringify(data, null, 2);
+        messages.appendChild(item);
+      });
+      socket.on('disconnect', () => {
+        console.log(
+          'the server disconnected, the browser will keep trying to connect or you close the page and try later'
+        );
+      });
+      const pumpInput = document.getElementById('Pump');
+        pumpInput.addEventListener('change', (e) => {
+            const pump = e.target.checked;
+            socket.emit('pumpEventBrowserToServer', {
+                pump
+            });
+        });
+        socket.on('pumpStatusServerToBrowser', (data) => {
+        console.log('event from server has received');
+        pumpInput.checked = data.pump;
+      });
     </script>
 </body>
 
