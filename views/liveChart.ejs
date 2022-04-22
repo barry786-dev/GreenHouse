@@ -37,19 +37,19 @@
       socket.on('connect', () => {
         console.log('connected');
       });
-      socket.on('serverEventToBrowser', (data) => {
+      socket.on('serverEventToBrowser', (data) => { //listen to the event
         console.log('event from server has received');
         const item = document.createElement('li');
         item.textContent = JSON.stringify(data, null, 2);
         messages.appendChild(item);
       });
-      socket.on('disconnect', () => {
+      socket.on('disconnect', () => { 
         console.log(
           'the server disconnected, the browser will keep trying to connect or you close the page and try later'
         );
       });
       const send = () => {
-        socket.emit('browserEvent', {
+        socket.emit('browserEvent', { // send data to server
           message: 'hello from browser',
         });
       };

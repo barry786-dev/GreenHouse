@@ -40,6 +40,7 @@ const UserProductSchema = new Schema(
             date: { type: Date },
           },
         ],
+        _id: false,
         default: [{ value: 0, date: Date.now() }],
       },
       SoilHumidity: {
@@ -50,6 +51,7 @@ const UserProductSchema = new Schema(
             date: { type: Date },
           },
         ],
+        _id: false,
         default: [{ value: 0, date: Date.now() }],
       },
       pump: {
@@ -60,6 +62,7 @@ const UserProductSchema = new Schema(
             date: { type: Date },
           },
         ],
+        _id: false,
         default: [{ value: 0, date: Date.now() }],
       },
     },

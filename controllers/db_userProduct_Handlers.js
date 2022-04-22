@@ -2,33 +2,39 @@ const { log } = require('console');
 const { mongoose } = require('mongoose');
 const User_Product = require('../models/db_userProduct_Schema');
 const { ghDbConnect } = require('../models/db_mongo');
-
+const { uniqueCodes } = require('../utils/deviceUniqueCodes');
 const addUserProductData = async (data) => {
   serialNumber = data[0];
+  deviceUniqueCode = data[4];
   /*  [
     { light: 0, date: 1648908599346 },
     { SoilHumidity: 53, date: 1648908599346 },
     { pump: 0, date: 1648908599347 },
   ]; */
-  try {
-    await ghDbConnect();
-    const result = await User_Product.findOneAndUpdate(
-      { serialNumber: serialNumber },
-      {
-        $push: {
-          'data.light': { value: data[1].light, date: data[1].date },
-          'data.SoilHumidity': {
-            value: data[2].SoilHumidity,
-            date: data[2].date,
+  if (uniqueCodes.includes(deviceUniqueCode)) {
+    try {
+      await ghDbConnect();
+      const result = await User_Product.findOneAndUpdate(
+        { serialNumber: serialNumber },
+        {
+          $push: {
+            'data.light': { value: data[1].light, date: data[1].date },
+            'data.SoilHumidity': {
+              value: data[2].SoilHumidity,
+              date: data[2].date,
+            },
+            'data.pump': { value: data[3].pump, date: data[3].date },
           },
-          'data.pump': { value: data[3].pump, date: data[3].date },
         },
-      },
-      { new: true }
-    );
-    return result;
-  } catch (error) {
-    log(error);
+        { new: true }
+      );
+      return result;
+    } catch (error) {
+      log(error);
+    }
+  } else {
+    return 'UniqueCode';
+   
   }
 };
 

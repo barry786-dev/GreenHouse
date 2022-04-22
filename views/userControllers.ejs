@@ -109,14 +109,14 @@
       const pumpInput = document.getElementById('Pump');
         pumpInput.addEventListener('change', (e) => {
             const pump = e.target.checked;
-            socket.emit('pumpEventBrowserToServer', {
+            socket.emit('pumpEventBrowserToServer', { // emit to server when checkbox is checked
                 pump
             });
         });
-        socket.on('pumpStatusServerToBrowser', (data) => {
+        /* socket.on('pumpStatusServerToBrowser', (data) => { //start check the real pump stat when load this page
         console.log('event from server has received');
         pumpInput.checked = data.pump;
-      });
+      }); */
     </script>
 </body>
 

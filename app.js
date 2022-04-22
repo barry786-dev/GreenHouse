@@ -6,6 +6,7 @@ const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
 const { ghDbConnect } = require('./models/db_mongo');
+const { addUserProductData } = require('./controllers/db_userProduct_Handlers');
 
 const registeredUserRouter = require('./routers/registeredUserRouter');
 const publicRouter = require('./routers/publicRouter');
@@ -35,12 +36,13 @@ const io = socketIo(server, {
 io.on('connection', (socket) => {
   console.log('a user connected :' + socket.id);
   socket.on('browserEvent', (data) => {
+    //listen to message from browser liveChat page
     console.log(data.message);
     //socket.emit (choose a client)
     //io.emit (choose all clients)
     //socket.broadcast.emit (choose all clients except the one who sent the event)
     const killInterval = setInterval(function () {
-      io.emit('raspEvent', Math.random());
+      io.emit('raspEvent', Math.random()); //send data to raspberry pi
       console.log('message sent to the Raspberry');
     }, 3000);
 
@@ -51,22 +53,49 @@ io.on('connection', (socket) => {
   });
 
   socket.on('serverEventRasp', (data) => {
+    //listen to message from raspberry pi
     console.log('event from raspberry has received');
     console.log(data);
-    io.emit('serverEventToBrowser', data);
+    io.emit('serverEventToBrowser', data); //send data to browser liveChat page
   });
   /////Pump events
   socket.on('pumpEventBrowserToServer', (data) => {
+    //listen to message from browser userControllers page
     console.log('event from pump has received');
     console.log(data);
-    io.emit('pumpEventServerToRasp', data);
+    io.emit('pumpEventServerToRasp', data); //send data to raspberry pi
   });
-  socket.on('PumpStatus', (data) => {
+  /* socket.on('PumpStatus', (data) => {
     console.log('event from pumpRasp has received');
     console.log(data);
     io.emit('pumpStatusServerToBrowser', data);
+  }); */
+  socket.on('raspSensorsValues', (data) => {
+    //console.log('event from raspSensorsValues has received');
+    //console.log(data);
+    const addNewSensorsValues = async () => {
+      try {
+        const result = await addUserProductData(data);
+        //console.log('this is the result', result);
+        if (result === 'UniqueCode') {
+          console.log('deviceUniqueCode not found');
+        } else if (result) {
+          console.log({ message: 'done' });
+          //res.json({ message: 'done' });
+        } else {
+          console.log(
+            'a device  trying to write but its serial number is not exist in user product'
+          );
+          //res.json({ message: 'error' });
+        }
+      } catch (error) {
+        console.log({ message: error.message });
+        //res.json({ message: error.message });
+      }
+    };
+    addNewSensorsValues();
   });
-//////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
@@ -76,12 +105,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
-
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules', 'bootstrap')));
 app.use(express.static(path.join(__dirname, 'node_modules', 'jquery')));
-
 
 app.use(
   session({
@@ -108,9 +134,9 @@ function checkAdminSession(req, res, next) {
   }
 }
 app.use(publicRouter);
-app.use('/user', checkSession , registeredUserRouter);
+app.use('/user', checkSession, registeredUserRouter);
 app.use('/admin', checkAdminSession, adminRouter);
-app.use('/data', checkSession, DataRouter);
+app.use('/data', DataRouter);
 app.use('*', (req, res) => {
   res.render('404');
 });
