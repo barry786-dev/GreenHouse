@@ -1,3 +1,91 @@
+<%- include ('partials/head',{title: 'Gad Eden | chart'})%>
+
+<body>
+  <%- include ('partials/nav3',{page:'dashboard',type:'WithLogoutBtn'})%>
+  <div id="datedChart">
+    <input type="date" name="filteredDate" id="ChartDate" value="<%= chosenDate%>">
+    <div class="chart-container" style="position: relative; height: 20vh; width: 50vw">
+      <canvas id="myChart"></canvas>
+    </div>
+    <div class="chart-container" style="position: relative; height: 20vh; width: 50vw">
+      <canvas id="myChart1"></canvas>
+    </div>
+    <div class="chart-container" style="position: relative; height: 20vh; width: 50vw">
+      <canvas id="myChart2"></canvas>
+    </div>
+  </div>
+  <!-- footer -->
+  <%- include ('partials/footer')%>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/js/chartScript.js"></script>
+  <script>
+    const SoilHumidityData = {
+      labels: '<%- labels%>'.split(','),
+      datasets: [{
+        label: 'Soil Humidity (in %)',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(9, 32, 235)',
+        data: '<%- SoilHumidityData%>'.split(','),
+      }, ],
+    };
+    const SoilHumidityConfig = {
+      type: 'line',
+      data: SoilHumidityData,
+      options: {
+        maintainAspectRatio: false,
+      },
+    };
+    // light Chart data
+    const LightData = {
+      labels: '<%- labels%>'.split(','),
+      datasets: [{
+        label: 'light (in lux)',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(9, 235, 21)',
+        data: '<%- lightData%>'.split(','),
+      }, ],
+    };
+    const LightConfig = {
+      type: 'line',
+      data: LightData,
+      options: {
+        maintainAspectRatio: false,
+      },
+    };
+    // pump chart data
+    const PumpData = {
+      labels: '<%- labels%>'.split(','),
+      datasets: [{
+        label: 'pump (in 0/1)',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: '<%- pumpData%>'.split(','),
+      }, ],
+    };
+    const PumpConfig = {
+      type: 'line',
+      data: PumpData,
+      options: {
+        maintainAspectRatio: false,
+      },
+    };
+    const myChart = new Chart(document.getElementById('myChart'), SoilHumidityConfig);
+    const myChart1 = new Chart(document.getElementById('myChart1'), LightConfig);
+    const myChart2 = new Chart(document.getElementById('myChart2'), PumpConfig);
+  </script>
+  <!-- <script src="/js/pristine/dist/pristine.min.js"></script> -->
+  <script src="/js/publicScript.js"></script>
+  <script>
+    const date = document.getElementById('ChartDate');
+    date.addEventListener('change', (e) => {
+      const date = e.target.value;
+      window.location.href = `/user/dated-chart/${date}`;
+    });
+  </script>
+</body>
+
+</html>
+
 <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <canvas id="myChart" ></canvas>
 <script>
@@ -37,49 +125,3 @@ const myChart = new Chart(ctx, {
     }
 });
 </script> -->
-<div>
-  <div class="chart-container" style="position: relative; height:40vh; width:40vw">
-  <canvas id="myChart"></canvas>
-  </div>
-  <div class="chart-container" style="position: relative; height:40vh; width:40vw">
-  <canvas id="myChart1"></canvas>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-  const labels = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-  ];
-
-  const data = {
-    labels: labels,
-    datasets: [{
-      label: 'My First dataset',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: [0, 10, 5, 2, 20, 30, 45],
-    }]
-  };
-
-  const config = {
-    type: 'line',
-    data: data,
-    options: {}
-  };
-</script>
-<script>
-  const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-  );
-  const myChart1 = new Chart(
-    document.getElementById('myChart1'),
-    config
-  );
-</script>
-

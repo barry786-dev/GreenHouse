@@ -767,3 +767,28 @@ h3 {
     box-shadow: -3px -3px 5px rgba(255,255,255,.5),
                 3px 3px 5px #00b33c;
 }
+
+/* =======================================Dated chart=================================================== */
+#datedChart {
+  width: 90%;
+  height: 80%;
+  margin: 70px auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 5px 20px 50px #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center
+}
+input[type="date"] {
+  background: #0080ff;
+  color: #fff;
+  justify-content: center;
+  display: flex;
+  margin: 20px auto;
+  padding: 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+}

@@ -6,7 +6,14 @@ const { addUserToProduct } = require('./db_products_Handlers.js');
 const { addUserProductSettings } = require('./db_userProduct_Handlers.js');
 ///////////////////////////////////////////////////////////////////////////////
 const getDatedChart = (req, res) => {
-  res.render('datedChart');
+  // here you need to filter the data according to chosen date
+  res.render('datedChart', {
+    labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
+    chosenDate: req.params.date,
+    SoilHumidityData: [0, 10, 5, 2, 20, 30, 45,45,45,45,40,45,45,40],
+    lightData: [0, 10, 5, 0, 10, 5, 0],
+    pumpData : [0, 0, 0, 0, 1, 0, 0,0,1,0],
+  });
 };
 ///////////////////////////////////////////////////////////////////////////////
 /** */

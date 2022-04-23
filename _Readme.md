@@ -2,7 +2,9 @@
 
 ## Project's Idea
 
-The Idea for this project is to build a product from A to Z which will monitor a plant environment (temperature, light, soil humidity...etc), check the suitable values which will be entered by the product user online dashboard, then automatically adjust the monitored plant environment
+The Idea for this project is to build a product from A to Z which will monitor a plant environment (temperature, light, soil humidity...etc), check the suitable values which will be entered by the product user online dashboard, then automatically adjust the monitored plant environment.
+Reading values from sensors connected to Raspberry Pi (Rasp Pi) GPIO pins and displaying the results on the command line is satisfying, but being able to access your sensors remotely is where things start getting useful.
+Automatic Irrigation System
 
 ## Project Structure
 
@@ -16,6 +18,7 @@ The Idea for this project is to build a product from A to Z which will monitor a
         - Soil Moisture Sensor Hygrometer Module V1.2 Capacitive Compatible with Arduino
         - Arduino Pump
         - Cable Jumper 28 AWG Wire Bridges for Arduino Raspberry Pi
+        - breadBoard
 
     Software:
         - ReactJS
@@ -87,7 +90,7 @@ Root
 └── README.MD
 ```
 ## Project's Environmenet
-> Create ```.env``` file and make sure to put those varables with your values in Atlas mongodb:
+> Create ```.env``` file and make sure to put those variables with your values in Atlas mongodb:
 ```sh
 PORT=3000
 # DONT USE 'USER' VARIABLE, it's reserved By SYSTEM!!!

@@ -40,7 +40,7 @@
                         each 1 hour.
                     </h4>
                 </div>
-                <button class="admin_btn" onclick="routeToDatedChat()">Dated Chart</button>
+                <button class="admin_btn" onclick="routeToDatedChart()">Dated Chart</button>
             </section>
             <section class="cell-8">
                 <h2><i class='fa fa-gear fa-spin' style="font-size:20px;color:red;"></i>controls!</h2>
@@ -59,15 +59,24 @@
     <!-- <script src="/js/pristine/dist/pristine.min.js"></script> -->
     <script src="/js/publicScript.js"></script>
     <script>
+        // const today = new Date();
+        // const date1 = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        // const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        // const dateTime = date1 + ' ' + time;
+        const date=today.toISOString().substr(0, 10);
+
         function routeToAddDevice() {
             window.location.href = "/user/add-device";
         }
-        function routeToDatedChat() {
-            window.location.href = "/user/dated-chart";
+
+        function routeToDatedChart() {
+            window.location.href = `/user/dated-chart/${date}`;
         }
+
         function routeToControllers() {
             window.location.href = "/user/controllers";
         }
+
         function routeToLiveChart() {
             window.location.href = "/user/live-chart";
         }
