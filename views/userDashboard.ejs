@@ -7,7 +7,7 @@
     </header>
     <!--main-->
     <main id="main">
-        <h1>Hello user</h1>
+        <h1>Hello <%= userName%></h1>
         <!-- content -->
         <div class="content">
             <section class="cell-5">
@@ -59,18 +59,18 @@
     <!-- <script src="/js/pristine/dist/pristine.min.js"></script> -->
     <script src="/js/publicScript.js"></script>
     <script>
-        // const today = new Date();
+         const today = new Date();
         // const date1 = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
         // const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         // const dateTime = date1 + ' ' + time;
-        const date=today.toISOString().substr(0, 10);
+        const date = today.toISOString().substr(0, 10);
 
         function routeToAddDevice() {
             window.location.href = "/user/add-device";
         }
 
         function routeToDatedChart() {
-            window.location.href = `/user/dated-chart/${date}`;
+            window.location.href = `/user/dated-chart/${date}/<%- deviceName%>`;
         }
 
         function routeToControllers() {

@@ -781,7 +781,7 @@ h3 {
   justify-content: center;
   align-items: center
 }
-input[type="date"] {
+input[type="date"], #device-select {
   background: #0080ff;
   color: #fff;
   justify-content: center;

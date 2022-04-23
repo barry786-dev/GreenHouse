@@ -4,38 +4,82 @@ const path = require('path');
 const { checkDocument } = require('../utils/db_utils');
 const { addUserToProduct } = require('./db_products_Handlers.js');
 const { addUserProductSettings } = require('./db_userProduct_Handlers.js');
+const User_Product = require('../models/db_userProduct_Schema');
+const { ghDbConnect } = require('../models/db_mongo');
 ///////////////////////////////////////////////////////////////////////////////
-const getDatedChart = (req, res) => {
+const getDatedChart = async (req, res) => {
   // here you need to filter the data according to chosen date
-  res.render('datedChart', {
-    labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
-    chosenDate: req.params.date,
-    SoilHumidityData: [0, 10, 5, 2, 20, 30, 45,45,45,45,40,45,45,40],
-    lightData: [0, 10, 5, 0, 10, 5, 0],
-    pumpData : [0, 0, 0, 0, 1, 0, 0,0,1,0],
-  });
+  const chosenDate = req.params.date;
+  const chosenDevice = req.params.device;
+  const userId = req.session.user.userId;
+  try {
+    await ghDbConnect();
+    const result = await User_Product.find({ userId: userId });
+    console.log(result);
+    const devicesNames = result.map((item) => item.productNameByUser);
+    res.render('datedChart', {
+      labels: [
+        '00:00',
+        '01:00',
+        '02:00',
+        '03:00',
+        '04:00',
+        '05:00',
+        '06:00',
+        '07:00',
+        '08:00',
+        '09:00',
+        '10:00',
+        '11:00',
+        '12:00',
+        '13:00',
+        '14:00',
+        '15:00',
+        '16:00',
+        '17:00',
+        '18:00',
+        '19:00',
+        '20:00',
+        '21:00',
+        '22:00',
+        '23:00',
+      ],
+      chosenDate: chosenDate,
+      chosenDevice: chosenDevice,
+      devicesNames: devicesNames,
+      SoilHumidityData: [0, 10, 5, 2, 20, 30, 45, 45, 45, 45, 40, 45, 45, 40],
+      lightData: [0, 10, 5, 0, 10, 5, 0],
+      pumpData: [0, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 ///////////////////////////////////////////////////////////////////////////////
 /** */
 const getRegisteredUser = (req, res) => {
-    res.render('userDashboard');
+  res.render('userDashboard');
 };
 ///////////////////////////////////////////////////////////////////////////////
 const getControllers = (req, res) => {
-    res.render('userControllers', {
-      alertModel: { show: false },
-    });
+  const userName = req.session.user.username;
+  res.render('userControllers', {
+    alertModel: { show: false },
+    userName,
+  });
 };
 ///////////////////////////////////////////////////////////////////////////////
 const getLiveChart = (req, res) => {
-    res.render('liveChart');
-}
+  res.render('liveChart');
+};
 ///////////////////////////////////////////////////////////////////////////////
 /** */
 const getAddDevice = (req, res) => {
-    res.render('userAddDevice', {
-      alertModel: { show: false },
-    });
+  const userName = req.session.user.username;
+  res.render('userAddDevice', {
+    alertModel: { show: false },
+    userName,
+  });
 };
 
 /** */

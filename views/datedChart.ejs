@@ -4,6 +4,12 @@
   <%- include ('partials/nav3',{page:'dashboard',type:'WithLogoutBtn'})%>
   <div id="datedChart">
     <input type="date" name="filteredDate" id="ChartDate" value="<%= chosenDate%>">
+    <select name="device" id="device-select">
+      <% devicesNames.forEach(deviceName => { %>
+      <option value="<%= deviceName%>" <%= chosenDevice===deviceName ? 'selected' : ''%>><%=deviceName%></option>
+      <% }) %>
+
+    </select>
     <div class="chart-container" style="position: relative; height: 20vh; width: 50vw">
       <canvas id="myChart"></canvas>
     </div>
@@ -17,7 +23,6 @@
   <!-- footer -->
   <%- include ('partials/footer')%>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="/js/chartScript.js"></script>
   <script>
     const SoilHumidityData = {
       labels: '<%- labels%>'.split(','),
@@ -77,9 +82,16 @@
   <script src="/js/publicScript.js"></script>
   <script>
     const date = document.getElementById('ChartDate');
+    const device = document.getElementById('device-select');
     date.addEventListener('change', (e) => {
+      const device = document.getElementById('device-select').value;
       const date = e.target.value;
-      window.location.href = `/user/dated-chart/${date}`;
+      window.location.href = `/user/dated-chart/${date}/${device}`;
+    });
+    device.addEventListener('change', (e) => {
+      const date = document.getElementById('ChartDate').value;
+      const device = e.target.value;
+      window.location.href = `/user/dated-chart/${date}/${device}`;
     });
   </script>
 </body>

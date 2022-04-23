@@ -70,6 +70,7 @@ io.on('connection', (socket) => {
     console.log(data);
     io.emit('pumpStatusServerToBrowser', data);
   }); */
+  //Here we push new date values from the raspberry pi to the database User_Product
   socket.on('raspSensorsValues', (data) => {
     //console.log('event from raspSensorsValues has received');
     //console.log(data);

@@ -9,53 +9,44 @@ const {
 } = require('../utils/mails_options');
 const { validationResult } = require('express-validator');
 const { registerUser, findUser } = require('./db_users_Handlers');
+const User_Product = require('../models/db_userProduct_Schema');
+const { ghDbConnect } = require('../models/db_mongo');
 /////////////////////////////////////////////
-const getDashboard = (req, res) => {
+const getDashboard = async (req, res) => {
   if (!req.session.user) {
     res.redirect('/login');
   } else if (req.session.user.userType === 'admin') {
     res.render('adminDashboard');
   } else {
-    res.render('userDashboard');
+    try {
+      const userId = req.session.user.userId;
+      const userName = req.session.user.username;
+      await ghDbConnect();
+      const result = await User_Product.find({ userId: userId });
+      const devicesNames = result.map((item) => item.productNameByUser);
+      res.render('userDashboard', { deviceName: devicesNames[0], userName });
+    } catch (error) {
+      console.log('error', error);
+    }
   }
-}
+};
 
 /****** */
-/* const getHome = (req, res) => {
+const getHome = (req, res) => {
   if (!req.session.user) {
     res.render('index', {
       signed: false,
-      alertModel: { show: false },
-    });
-  } else if (req.session.user.userType === 'admin') {
-    res.render('index', {
-      signed: true,
-      type: 'admin',
+      type: 'noLogOutBtn',
       alertModel: { show: false },
     });
   } else {
     res.render('index', {
       signed: true,
-      type: 'user',
+      type: 'WithLogoutBtn',
       alertModel: { show: false },
     });
   }
-}; */
-const getHome = (req, res) => {
-if (!req.session.user) {
-  res.render('index', {
-    signed: false,
-    type: 'noLogOutBtn',
-    alertModel: { show: false },
-  });
-} else {
-  res.render('index', {
-    signed: true,
-    type: 'WithLogoutBtn',
-    alertModel: { show: false },
-  });
-}
-}
+};
 ////////////////////////////////////
 const getAbout = (req, res) => {
   if (!req.session.user) {
@@ -136,17 +127,6 @@ const postContact = async (req, res) => {
 };
 ////////////////////////////////////
 /************ */
-/* const getLogin = (req, res) => {
-  if (!req.session.user) {
-    //res.redirect('/auth');
-    res.sendFile(path.join(__dirname, '../views/login.html'));
-  } else if (req.session.user.userType === 'admin') {
-    //res.redirect('/admin');
-    res.sendFile(__dirname + '/views/index.html');
-  } else {
-    res.redirect('/user/dashboard');
-  }
-}; */
 /*********** */
 const postLogin = async (req, res) => {
   console.log(req.body);

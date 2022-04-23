@@ -17,7 +17,7 @@ router.get('/logout', logout);
 router.post('/logout', logOutPost);
 router.get('/add-device', getAddDevice);
 router.post('/add-device', postAddDevice);
-router.get('/dated-chart/:date', getDatedChart);
+router.get('/dated-chart/:date/:device', getDatedChart);
 router.get('/live-chart', getLiveChart);
 router.get('/controllers', getControllers);
 
