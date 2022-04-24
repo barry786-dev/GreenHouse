@@ -14,35 +14,37 @@
         <!-- content -->
         <div class="content_switchers">
             <div class="container_switchers ">
-        
-        <div class="switch-holder">
-            <div class="switch-label">
-                <i class="fas fa-water" style="font-size:25px;color:blue"></i><span>Pump</span>
-            </div>
-            <div class="switch-toggle">
-                <input type="checkbox" id="Pump">
-                <label for="Pump"></label>
-            </div>
-        </div>
 
-        <div class="switch-holder">
-            <div class="switch-label">
-                <i class="far fa-lightbulb" style="font-size:25px;color:red"></i><span>Light</span>
-            </div>
-            <div class="switch-toggle">
-                <input type="checkbox" id="Light">
-                <label for="Light"></label>
-            </div>
-        </div>
+                <div class="switch-holder">
+                    <div class="switch-label">
+                        <i class="fas fa-water" style="font-size:25px;color:blue"></i><span>Pump</span>
+                    </div>
+                    <div class="switch-toggle">
+                        <input type="checkbox" id="Pump">
+                        <label for="Pump"></label>
+                    </div>
+                </div>
 
-    </div>
+                <div class="switch-holder">
+                    <div class="switch-label">
+                        <i class="far fa-lightbulb" style="font-size:25px;color:red"></i><span>Light</span>
+                    </div>
+                    <div class="switch-toggle">
+                        <input type="checkbox" id="Light">
+                        <label for="Light"></label>
+                    </div>
+                </div>
+
+            </div>
             <div class="col-8">
                 <form id="add_productSettings_form" action="/user/add-device" method="POST" class="">
                     <h2 class="">Update your product settings</h2>
                     <div class="form-group">
                         <label for="productNameByUser-input"> Product Name</label>
                         <input id="productNameByUser-input" type="text" name="productNameByUser" class=""
-                            placeholder="Add name to your product as example kitchen-plants" minlength="2" maxlength="30"
+                            placeholder="Add name to your product as example kitchen-plants" minlength="2"
+                            maxlength="30" pattern="/^[a-zA-Z0-9]+$/"
+                            data-pristine-pattern-message="the name should has no spaces or special characters"
                             required />
                     </div>
                     <h3>SoilHumidity-Settings</h3>
@@ -69,7 +71,7 @@
                 </form>
             </div>
 
-            
+
         </div>
     </main>
     <!-- footer -->
@@ -90,23 +92,23 @@
     </script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      const messages = document.getElementById('messages');
-      let socket = io();
-      socket.on('connect', () => {
-        console.log('connected');
-      });
-      socket.on('serverEventToBrowser', (data) => {
-        console.log('event from server has received');
-        const item = document.createElement('li');
-        item.textContent = JSON.stringify(data, null, 2);
-        messages.appendChild(item);
-      });
-      socket.on('disconnect', () => {
-        console.log(
-          'the server disconnected, the browser will keep trying to connect or you close the page and try later'
-        );
-      });
-      const pumpInput = document.getElementById('Pump');
+        const messages = document.getElementById('messages');
+        let socket = io();
+        socket.on('connect', () => {
+            console.log('connected');
+        });
+        socket.on('serverEventToBrowser', (data) => {
+            console.log('event from server has received');
+            const item = document.createElement('li');
+            item.textContent = JSON.stringify(data, null, 2);
+            messages.appendChild(item);
+        });
+        socket.on('disconnect', () => {
+            console.log(
+                'the server disconnected, the browser will keep trying to connect or you close the page and try later'
+            );
+        });
+        const pumpInput = document.getElementById('Pump');
         pumpInput.addEventListener('change', (e) => {
             const pump = e.target.checked;
             socket.emit('pumpEventBrowserToServer', { // emit to server when checkbox is checked

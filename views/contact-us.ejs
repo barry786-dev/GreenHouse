@@ -56,10 +56,13 @@
         <form id="contacts_form">
           <div class="form-group"><input type="text" name="name" placeholder="Name" minlength="2" maxlength="40"
               required data-pristine-required-message="You have to enter your name	&uarr;"></div>
-          <div class="form-group"><input type="email" name="email" placeholder="Email" minlength="2" maxlength="40" required data-pristine-required-message="You have to enter your email	&uarr;"></div>
-          <div class="form-group"><input type="text" name="subject" placeholder="Subject" minlength="2" maxlength="20" required data-pristine-required-message="You have to add subject	&uarr;"></div>
-          <div class="form-group"><textarea id="aaa" name="message" placeholder="Wite a message here" minlength="2" maxlength="600"
-              required data-pristine-required-message="You can not send empty message	&uarr;"></textarea></div>
+          <div class="form-group"><input type="email" name="email" placeholder="Email" minlength="2" maxlength="40"
+              required data-pristine-required-message="You have to enter your email	&uarr;"></div>
+          <div class="form-group"><input type="text" name="subject" placeholder="Subject" minlength="2" maxlength="20"
+              required data-pristine-required-message="You have to add subject	&uarr;"></div>
+          <div class="form-group"><textarea id="aaa" name="message" placeholder="Wite a message here" minlength="2"
+              maxlength="600" required
+              data-pristine-required-message="You can not send empty message	&uarr;"></textarea></div>
           <!-- Recaptcha Starting div -->
           <div class="form-group" style="position: relative; display: inline-block;">
             <div class="g-recaptcha" data-sitekey="<%= sitKey %>" data-size="visible" data-callback="recaptchaCallback">
@@ -71,10 +74,10 @@
                 pointer-events: none;
                 position: absolute;
                 bottom: 0;
-              " required data-pristine-required-message="You have to check reCAPTCHA	&uarr;"/>
+              " required data-pristine-required-message="You have to check reCAPTCHA	&uarr;" />
           </div>
           <!-- Recaptcha closing div -->
-          <div id="contact-form-btn_div"><button id="contact-btn" >Send
+          <div id="contact-form-btn_div"><button id="contact-btn">Send
               Message</button></div>
         </form>
       </div>

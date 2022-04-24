@@ -7,6 +7,7 @@ const UserProductSchema = new Schema(
   {
     productNameByUser: {
       type: String,
+      trim: true,
       required: [true, 'product name is required'],
       minLength: [
         2,
@@ -15,6 +16,10 @@ const UserProductSchema = new Schema(
         }`,
       ],
       maxLength: [30, ' product name should be not more than 30 characters'],
+      match: [
+        /^[a-zA-Z0-9]+$/gi,
+        'Product name can not have special characters',
+      ],
     },
     serialNumber: {
       type: String,
