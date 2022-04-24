@@ -21,18 +21,40 @@ Automatic Irrigation System
         - breadBoard
 
     Software:
-        - ReactJS
+        - HTML
+        - CSS
+        - JS
         - NodeJs
         - "dependencies": {
+                "bcryptjs": "^2.4.3",
                 "cors": "^2.8.5",
                 "dotenv": "^16.0.0",
+                "ejs": "^3.1.6",
                 "express": "^4.17.3",
                 "express-session": "^1.17.2",
                 "express-validator": "^6.14.0",
                 "mongoose": "^6.2.7",
                 "mongoose-unique-validator": "^3.0.0",
-                "nodemailer": "^6.7.2"
-                },
+                "node-fetch": "^2.0",
+                "nodemailer": "^6.7.2",
+                "socket.io": "^4.4.1",
+                "pristine.js.org"
+                "reCaptcha"
+                "ChartJs"
+                         },
+        - Raspberry side : 
+                         {
+                "express": "^4.17.3",
+                "gpio": "^0.2.10",
+                "johnny-five": "^2.1.0",
+                "onoff": "^6.0.3",
+                "raspI-io": "^11.0.0",
+                "rpi-gpio": "^2.1.7",
+                "rpiO": "^2.4.2",
+                "socket.io": "^4.4.1",
+                "socket.io-client": "^4.4.1"
+                "node-fetch": "^2.6.1"
+  }
 
 ## project working tree
 

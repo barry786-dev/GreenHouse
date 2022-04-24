@@ -15,41 +15,53 @@ const getDatedChart = async (req, res) => {
   try {
     await ghDbConnect();
     const result = await User_Product.find({ userId: userId });
-    console.log(result);
     const devicesNames = result.map((item) => item.productNameByUser);
+    const resultToChart = result.filter(
+      (item) => item.productNameByUser === chosenDevice
+    );
+    const ValuesObj = resultToChart.map((item) => item.data)[0];
+    const lightArrayValues = ValuesObj.light;
+    const SoilHumidityArrayValues = ValuesObj.SoilHumidity;
+    const pumpArrayValues = ValuesObj.pump;
+    const lightArrayDatedFilter = lightArrayValues.filter(
+      (item) => item.date.toISOString().substr(0, 10) === chosenDate
+    );
+    const SoilHumidityArrayDatedFilter = SoilHumidityArrayValues.filter(
+      (item) => item.date.toISOString().substr(0, 10) === chosenDate
+    );
+    const pumpArrayDatedFilter = pumpArrayValues.filter(
+      (item) => item.date.toISOString().substr(0, 10) === chosenDate
+    );
+    const lightValuesToChart = lightArrayDatedFilter.map((item) => item.value);
+    const lightDatesToChart = lightArrayDatedFilter.map((item) =>
+      item.date.toISOString().substr(11, 5)
+    );
+    const SoilHumidityValuesToChart = SoilHumidityArrayDatedFilter.map(
+      (item) => item.value
+    );
+    const SoilHumidityDatesToChart = SoilHumidityArrayDatedFilter.map((item) =>
+      item.date.toISOString().substr(11, 5)
+    );
+    const pumpValuesToChart = pumpArrayDatedFilter.map((item) => item.value);
+    const pumpDatesToChart = pumpArrayDatedFilter.map((item) =>
+      item.date.toISOString().substr(11, 5)
+    );
+    // console.log(lightValuesToChart);
+    // console.log(lightDatesToChart);
+    // console.log(SoilHumidityValuesToChart);
+    // console.log(SoilHumidityDatesToChart);
+    // console.log(pumpValuesToChart);
+    // console.log(pumpDatesToChart);
     res.render('datedChart', {
-      labels: [
-        '00:00',
-        '01:00',
-        '02:00',
-        '03:00',
-        '04:00',
-        '05:00',
-        '06:00',
-        '07:00',
-        '08:00',
-        '09:00',
-        '10:00',
-        '11:00',
-        '12:00',
-        '13:00',
-        '14:00',
-        '15:00',
-        '16:00',
-        '17:00',
-        '18:00',
-        '19:00',
-        '20:00',
-        '21:00',
-        '22:00',
-        '23:00',
-      ],
+      lightLabels: lightDatesToChart,
+      SoilLabels: SoilHumidityDatesToChart,
+      pumpLabels: pumpDatesToChart,
       chosenDate: chosenDate,
       chosenDevice: chosenDevice,
       devicesNames: devicesNames,
-      SoilHumidityData: [0, 10, 5, 2, 20, 30, 45, 45, 45, 45, 40, 45, 45, 40],
-      lightData: [0, 10, 5, 0, 10, 5, 0],
-      pumpData: [0, 0, 0, 0, 1, 0, 0, 0, 1, 0],
+      SoilHumidityData: SoilHumidityValuesToChart,
+      lightData: lightValuesToChart,
+      pumpData: pumpValuesToChart,
     });
   } catch (error) {
     console.log(error);

@@ -25,7 +25,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     const SoilHumidityData = {
-      labels: '<%- labels%>'.split(','),
+      labels: '<%- SoilLabels%>'.split(','),
       datasets: [{
         label: 'Soil Humidity (in %)',
         backgroundColor: 'rgb(255, 99, 132)',
@@ -42,7 +42,7 @@
     };
     // light Chart data
     const LightData = {
-      labels: '<%- labels%>'.split(','),
+      labels: '<%- lightLabels%>'.split(','),
       datasets: [{
         label: 'light (in lux)',
         backgroundColor: 'rgb(255, 99, 132)',
@@ -59,7 +59,7 @@
     };
     // pump chart data
     const PumpData = {
-      labels: '<%- labels%>'.split(','),
+      labels: '<%- pumpLabels%>'.split(','),
       datasets: [{
         label: 'pump (in 0/1)',
         backgroundColor: 'rgb(255, 99, 132)',
