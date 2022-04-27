@@ -58,7 +58,7 @@
         </div>
         <!-- End Navbar -->
         <!-- start Main -->
-        <!--Section: Contact v.2-->
+        <!--Section: Contact-->
         <section id="contact-wrapper" class="mb-4">
           <!--Section heading-->
           <h2
@@ -76,8 +76,8 @@
 
           <div class="row justify-content-center">
             <!--Grid column-->
-            <div class="col-md-9 mb-md-0 mb-5" style="max-width:20em ;">
-              <form id="contacts_form">
+            <div class="col-md-9 mb-md-0 mb-5" style="max-width: 20em">
+              <form id="contacts_form" class="" >
                 <div class="form-group form-floating mb-3">
                   <input
                     type="text"
@@ -91,6 +91,7 @@
                     data-pristine-required-message="You have to enter your name	&uarr;"
                   />
                   <label for="contactName">Full Name</label>
+                  
                 </div>
                 <div class="form-group form-floating mb-3">
                   <input
@@ -131,8 +132,9 @@
                     maxlength="600"
                     required
                     data-pristine-required-message="You can not send empty message	&uarr;"
+                    style="height: 8em;"
                   ></textarea>
-                    <label for="contactText">Message</label>
+                  <label for="contactText">Message</label>
                 </div>
                 <!-- Recaptcha Starting div -->
                 <div
@@ -144,6 +146,7 @@
                     data-sitekey="<%= sitKey %>"
                     data-size="visible"
                     data-callback="recaptchaCallback"
+                    style="transform:scale(0.77);transform-origin:0 0; margin-top: 15px;"
                   ></div>
                   <input
                     id="recaptcha_check_empty"
@@ -273,5 +276,6 @@
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
       crossorigin="anonymous"
     ></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
   </body>
 </html>
