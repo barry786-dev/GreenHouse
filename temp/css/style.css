@@ -1,5 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Allura&family=Teko:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allura&family=EB+Garamond:ital@1&family=Teko:wght@300&display=swap');
 
+/*
+font-family: 'Allura', cursive;
+font-family: 'EB Garamond', serif;
+font-family: 'Teko', sans-serif;
+*/
 :root {
   --ff-primary: 'Roboto', sans-serif;
   --clr-primary-200: #f0f0f0;
@@ -97,17 +102,20 @@ footer {
   flex-grow: 1;
 }
 #about_sec1 {
+  font-family: 'EB Garamond', serif;
   z-index: 9;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
   letter-spacing: 2px;
 }
 #ourP {
   margin-bottom: 10px;
   padding-left: 15px;
+  font-size: 3rem;
 }
 #ourPT {
+  font-family: 'EB Garamond', serif;
   margin-top: 30px;
   padding-left: 15px;
   padding-right: 15px;
@@ -215,5 +223,18 @@ footer {
   font-size: 1.2rem;
 }
 }
-  
+/*==================Contact us====================*/
+#contact-wrapper{
+  color: #222;
+  font-family: 'EB Garamond', serif;
+}
+#contact-us_h2{
+  color: #fff;
+  font-size: 3rem;
+}
+#contact-text{
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 2rem;
+}
 
