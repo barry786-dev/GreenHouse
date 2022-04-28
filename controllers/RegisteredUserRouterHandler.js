@@ -70,7 +70,8 @@ const getDatedChart = async (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////
 /** */
 const getRegisteredUser = (req, res) => {
-  res.render('userDashboard');
+  //res.render('userDashboard');
+  res.redirect('/dashboard');
 };
 ///////////////////////////////////////////////////////////////////////////////
 const getControllers = (req, res) => {

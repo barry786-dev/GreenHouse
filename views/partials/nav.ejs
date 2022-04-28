@@ -1,8 +1,29 @@
-<nav id="nav-bar">
-  <ul class="site-nav">
-    <li><a href="/" class=<%= page==='index' ? "act" : ''%>>Home</a></li>
-    <li><a href="/about" class=<%= page==='about' ? "act" : ''%>>About Us</a></li>
-    <li><a href="/articles" class=<%= page==='articles' ? "act" : ''%>>Articles</a></li>
-    <li><a href="/contact-us" class=<%= page==='contact' ? "act" : ''%>>Contact Us</a></li>
-  </ul>
-</nav>
+<div class="m-4">
+  <nav class="navbar navbar-expand-sm navbar-light">
+    <div class="container-fluid">
+      <a href="#" class="navbar-brand fs-3">
+        <img src="./images/Gadeden.png" height="60" alt="CoolBrand" />
+        <span>GadEden</span>
+      </a>
+      <button
+        type="button"
+        class="navbar-toggler"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarCollapse"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav fs-3">
+          <a href="/" class="nav-item nav-link <%= page==='index' ? 'active' : ''%>">Home</a>
+          <a href="/about" class="nav-item nav-link <%= page==='about' ? 'active' : ''%>">About</a>
+          <a href="/contact-us" class="nav-item nav-link <%= page==='contact' ? 'active' : ''%>">contact</a>
+          <a href="/dashboard" class="nav-item nav-link <%= page==='dashboard' ? 'active' : ''%>">DashBoard</a>
+        </div>
+        <div class="navbar-nav ms-auto fs-3">
+          <a href="<%= type === 'LogOutBtn' ? '/user/logOut' : '/auth'%>" class="nav-item nav-link <%= page==='auth' ? 'active' : ''%>"><%= type === 'LogOutBtn' ? 'LogOut' : 'LogIn'%></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>

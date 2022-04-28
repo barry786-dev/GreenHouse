@@ -14,7 +14,13 @@ const { ghDbConnect } = require('../models/db_mongo');
 /////////////////////////////////////////////
 const getDashboard = async (req, res) => {
   if (!req.session.user) {
-    res.redirect('/login');
+    req.session.message = {
+      show: true,
+      modelTitle: 'Alert',
+      modelMsg: `You must be logged in first to access Dashboard`,
+      modelType: 'danger',
+    };
+    res.redirect('/auth');
   } else if (req.session.user.userType === 'admin') {
     res.render('adminDashboard');
   } else {
@@ -35,14 +41,14 @@ const getDashboard = async (req, res) => {
 const getHome = (req, res) => {
   if (!req.session.user) {
     res.render('index', {
-      signed: false,
-      type: 'noLogOutBtn',
+      //signed: false,
+      type: 'LogInBtn',
       alertModel: { show: false },
     });
   } else {
     res.render('index', {
-      signed: true,
-      type: 'WithLogoutBtn',
+      //signed: true,
+      type: 'LogOutBtn',
       alertModel: { show: false },
     });
   }
@@ -50,13 +56,13 @@ const getHome = (req, res) => {
 ////////////////////////////////////
 const getAbout = (req, res) => {
   if (!req.session.user) {
-    res.render('about', { type: 'noLogOutBtn' });
+    res.render('about', { type: 'LogInBtn', alertModel: { show: false } });
   } else {
-    res.render('about', { type: 'WithLogoutBtn' });
+    res.render('about', { type: 'LogOutBtn', alertModel: { show: false } });
   }
 };
 /////////////////////////////////////////////
-const getArticles = (req, res) => {
+/* const getArticles = (req, res) => {
   if (!req.session.user) {
     res.render('articles', { type: 'noLogOutBtn' });
   } else {
@@ -69,18 +75,20 @@ const getArticle1 = (req, res) => {
   } else {
     res.render('article-1', { type: 'WithLogoutBtn' });
   }
-};
+}; */
 /////////////////////////////////////////////
 const getContact = (req, res) => {
   if (!req.session.user) {
     res.render('contact-us', {
       sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-      type: 'noLogOutBtn',
+      type: 'LogInBtn',
+      alertModel: { show: false },
     });
   } else {
     res.render('contact-us', {
       sitKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-      type: 'WithLogoutBtn',
+      type: 'LogOutBtn',
+      alertModel: { show: false },
     });
   }
 };
@@ -127,18 +135,35 @@ const postContact = async (req, res) => {
 };
 ////////////////////////////////////
 /************ */
+const getAuth = (req, res) => {
+  if (!req.session.user) {
+    if (req.session.message) {
+      res.render('auth', {
+        type: 'LogInBtn',
+        alertModel: req.session.message,
+      });
+    } else {
+      res.render('auth', { type: 'LogInBtn', alertModel: { show: false } });
+    }
+  } else {
+    res.redirect('/dashboard');
+  }
+};
+
 /*********** */
 const postLogin = async (req, res) => {
   console.log(req.body);
   const { userName, password } = req.body;
   const user = await findUser(userName, 'userName');
   if (user === 'Failed') {
-    return res.render('index', {
-      signed: false,
+    return res.render('auth', {
+      type: 'LogInBtn',
+      //signed: false,
       alertModel: {
         show: true,
         modelTitle: 'errorNu: 0',
         modelMsg: `there is error during trying to reach data , please try again later or contact customer support at : +49 157-8444-6611 or by email at: mbrsyr@yahoo.com`,
+        modelType: 'danger',
       },
     });
     /* return res.json({
@@ -148,24 +173,28 @@ const postLogin = async (req, res) => {
     }); */
   } else {
     if (!user) {
-      return res.render('index', {
-        signed: false,
+      return res.render('auth', {
+        //signed: false,
+        type: 'LogInBtn',
         alertModel: {
           show: true,
           modelTitle: 'LogIn Error, errorNu: 1',
           modelMsg: `User not Found! if you forget your UserName use password forget link in login section`,
+          modelType: 'danger',
         },
       });
       //return res.json({ errorNu: 1, MyMsgToFront: 'User not Found' });
     }
   }
   if (user.status != 'Active') {
-    return res.render('index', {
-      signed: false,
+    return res.render('auth', {
+      //signed: false,
+      type: 'LogInBtn',
       alertModel: {
         show: true,
         modelTitle: 'errorNu: 7',
         modelMsg: `Pending Account. Please Verify Your Email! or contact customer support at : +49 157-8444-6611 or by email at: mbrsyr@yahoo.com`,
+        modelType: 'danger',
       },
     });
     /* return res.status(401).send({
@@ -182,18 +211,20 @@ const postLogin = async (req, res) => {
       userId: user._id,
     };
     if (user.userType === 'admin') {
-      res.redirect('/');
+      res.redirect('/admin');
     } else {
-      res.redirect('/');
+      res.redirect('/user');
       //res.json('success login');
     }
   } else {
-    res.render('index', {
-      signed: false,
+    res.render('auth', {
+      //signed: false,
+      type: 'LogInBtn',
       alertModel: {
         show: true,
         modelTitle: ' LogIn Error, errorNu: 2',
         modelMsg: `Invalid Password! if you forget your password use password forget link in login section`,
+        modelType: 'danger',
       },
     });
     //res.json({ errorNu: 2, myMsg: 'Invalid Password!' });
@@ -337,9 +368,8 @@ const verifyUser = async (req, res) => {
 module.exports = {
   getHome,
   getAbout,
-  getArticles,
-  getArticle1,
   getContact,
+  getAuth,
   postContact,
   postRegister,
   postLogin,

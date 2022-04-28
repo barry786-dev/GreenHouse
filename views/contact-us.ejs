@@ -1,102 +1,131 @@
 <%- include ('partials/head',{title: 'Gad Eden | contact-us'})%>
 
-<body id="body">
-  <!--main-->
-  <!-- header -->
-  <header id="header">
-    <%- include ('partials/nav3',{page:'index',type:type})%>
-  </header>
-  <!--main-->
-  <main id="main">
-    <!-- content -->
-    <div class="contact-content">
-      <!-- <div id="contact-img" class="contact-cel-2"></div> -->
-      <div class="contact-cel-1">
-        <h2>Contact Us</h2>
-        <p>
-          If you have any questions or comments, please feel free to contact us
-          using the form below.
+<body>
+  <div id="transparent_back">
+    <div id="content" class="min-vh-100 d-flex flex-column">
+      <!-- start Navbar -->
+      <%- include ('partials/nav',{page:'contact',type:type})%>
+      <!-- End Navbar -->
+      <!-- start Main -->
+      <% if (alertModel.show===true) { %> <%- include
+      ('partials/alertModel',{modelTitle:alertModel.modelTitle,modelMsg:alertModel.modelMsg,modelType:alertModel.modelType})%>
+      <% } %>
+      <!--Section: Contact-->
+      <section id="contact-wrapper" class="mb-4">
+        <!--Section heading-->
+        <h2 id="contact-us_h2" class="h1-responsive font-weight-bold text-center my-4">
+          Contact us
+        </h2>
+        <!--Section description-->
+        <p id="contact-text" class="text-center w-responsive mx-auto mb-5">
+          Do you have any questions? Please do not hesitate to contact us
+          directly. Our team will come back to you within a matter of hours to
+          help you.
         </p>
-      </div>
-      <div class="contact-cel-2">
-        <table style="width: 100%; text-align: left;">
-          <tr>
-            <th valign=left style="width:30%">
-              <h2>Address</h2>
-            </th>
-            <th style="width:30%">
-              <h2>Email</h2>
-            </th>
-            <th style="width:30%">
-              <h2>Phone</h2>
-            </th>
-          </tr>
-          <tr>
-            <td>MühlenStraße 29 <br> 35947 Nettersheim <br> Germany</td>
-            <td valign=top>mbrsyr@yahoo.com</td>
-            <td valign=top>+49 1578 4446611</td>
-          </tr>
-        </table>
-      </div>
-      <div class="contact-cel-3">
-        <div id="received" style="display: none;">
-          <p id="received-msg">Thanks you we have received your email, we will contact you soon!</p>
-          <div id="received-form-btn_div"><button type="submit" onclick="backToContactUsForm()">go back</button></div>
-        </div>
-        <div id="failed" style="display: none;">
-          <p id="failed-msg">Problem in Email sending from the company side, May you try again OR please contact us at
-            this email <bold>mbrsyr@yahoo.com,</bold> or call our customer support at : +49 157-8444-6611</p>
-          <div id="failed-form-btn_div"><button type="submit" onclick="backToContactUsForm()">go back</button></div>
-        </div>
-        <div id="captcha" style="display: none;">
-          <p id="captcha-msg">recaptcha failed, May you try again OR please contact us at
-            this email <bold>mbrsyr@yahoo.com,</bold> or call our customer support at : +49 157-8444-6611</p>
-          <div id="captcha-form-btn_div"><button type="submit" onclick="backToContactUsForm()">go back</button></div>
-        </div>
-        <form id="contacts_form">
-          <div class="form-group"><input type="text" name="name" placeholder="Name" minlength="2" maxlength="40"
-              required data-pristine-required-message="You have to enter your name	&uarr;"></div>
-          <div class="form-group"><input type="email" name="email" placeholder="Email" minlength="2" maxlength="40"
-              required data-pristine-required-message="You have to enter your email	&uarr;"></div>
-          <div class="form-group"><input type="text" name="subject" placeholder="Subject" minlength="2" maxlength="20"
-              required data-pristine-required-message="You have to add subject	&uarr;"></div>
-          <div class="form-group"><textarea id="aaa" name="message" placeholder="Wite a message here" minlength="2"
-              maxlength="600" required
-              data-pristine-required-message="You can not send empty message	&uarr;"></textarea></div>
-          <!-- Recaptcha Starting div -->
-          <div class="form-group" style="position: relative; display: inline-block;">
-            <div class="g-recaptcha" data-sitekey="<%= sitKey %>" data-size="visible" data-callback="recaptchaCallback">
+
+        <div class="row justify-content-center">
+          <!--Grid column-->
+          <div class="col-md-9 mb-md-0 mb-5" style="max-width: 20em">
+<!-- message modals -->
+            <div id="received" style="display: none;">
+              <p id="received-msg">Thanks you we have received your email, we will contact you soon!</p>
+              <button type="submit" class="btn btn-success" onclick="backToContactUsForm()">go back</button>
             </div>
-            <input id="recaptcha_check_empty" type="checkbox" name="future" tabindex="-1" style="
-                width: 50px;
-                height: 0;
-                opacity: 0;
-                pointer-events: none;
-                position: absolute;
-                bottom: 0;
-              " required data-pristine-required-message="You have to check reCAPTCHA	&uarr;" />
+            <div id="failed" style="display: none;">
+              <p id="failed-msg">Problem in Email sending from the company side, May you try again OR please contact us
+                at
+                this email <bold>mbrsyr@yahoo.com,</bold> or call our customer support at : +49 157-8444-6611</p>
+              <button type="submit" class="btn btn-success" onclick="backToContactUsForm()">go back</button>
+            </div>
+            <div id="captcha" style="display: none;">
+              <p id="captcha-msg">recaptcha failed, May you try again OR please contact us at
+                this email <bold>mbrsyr@yahoo.com,</bold> or call our customer support at : +49 157-8444-6611</p>
+              <button type="submit" class="btn btn-success" onclick="backToContactUsForm()">go back</button>
+            </div>
+<!-- message modals -->
+<!-- contact us form -->
+            <form id="contacts_form" class="">
+              <div class="form-group form-floating mb-3">
+                <input type="text" class="form-control" id="contactName" name="name" placeholder="Name" minlength="2"
+                  maxlength="40" required data-pristine-required-message="You have to enter your name	&uarr;" />
+                <label for="contactName">Full Name</label>
+              </div>
+              <div class="form-group form-floating mb-3">
+                <input type="email" class="form-control" id="contactEmail" name="email" placeholder="Email"
+                  minlength="2" maxlength="40" required
+                  data-pristine-required-message="You have to enter your email	&uarr;" />
+                <label for="contactEmail">Email</label>
+              </div>
+              <div class="form-group form-floating mb-3">
+                <input type="text" class="form-control" id="contactSubject" name="subject" placeholder="Subject"
+                  minlength="2" maxlength="20" required
+                  data-pristine-required-message="You have to add subject	&uarr;" />
+                <label for="contactSubject">Subject</label>
+              </div>
+              <div class="form-group form-floating">
+                <textarea class="form-control" id="conactText" name="message" placeholder="Wite a message here"
+                  minlength="2" maxlength="600" required
+                  data-pristine-required-message="You can not send empty message	&uarr;"
+                  style="height: 8em;"></textarea>
+                <label for="contactText">Message</label>
+              </div>
+              <!-- Recaptcha Starting div -->
+              <div class="form-group" style="position: relative; display: inline-block">
+                <div class="g-recaptcha" data-sitekey="<%= sitKey %>" data-size="visible"
+                  data-callback="recaptchaCallback"
+                  style="transform:scale(0.77);transform-origin:0 0; margin-top: 15px;"></div>
+                <input id="recaptcha_check_empty" type="checkbox" name="future" tabindex="-1" style="
+                      width: 50px;
+                      height: 0;
+                      opacity: 0;
+                      pointer-events: none;
+                      position: absolute;
+                      bottom: 0;
+                    " required data-pristine-required-message="You have to check reCAPTCHA	&uarr;" />
+              </div>
+              <!-- Recaptcha closing div -->
+              <div id="contact-form-btn_div">
+                <button id="contact-btn" class="btn btn-success">Send Message</button>
+              </div>
+            </form>
+            <!-- contact us form ends -->
           </div>
-          <!-- Recaptcha closing div -->
-          <div id="contact-form-btn_div"><button id="contact-btn">Send
-              Message</button></div>
-        </form>
-      </div>
-      <div class="contact-cel-4">
-        <h2>Follow us here</h2>
-        <p>
-          <a href="#">Facebook</a>
-          <a href="#">Twitter</a>
-          <a href="#">Instagram</a>
-        </p>
-      </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-md-3 text-center h4">
+            <ul class="list-unstyled mb-0">
+              <li>
+                <i class="fas fa-map-marker-alt fa-2x"></i>
+                <p>Berlin, DCI Street 94126, Germany</p>
+              </li>
+
+              <li>
+                <i class="fas fa-phone mt-4 fa-2x"></i>
+                <p>+ 49 1578 444 6611</p>
+              </li>
+
+              <li>
+                <i class="fas fa-envelope mt-4 fa-2x"></i>
+                <p>mbrsyr@yahoo.com</p>
+              </li>
+            </ul>
+          </div>
+          <!--Grid column-->
+        </div>
+      </section>
+      <!--Section: Contact v.2-->
+      <!--end Main-->
     </div>
-  </main>
-  <!-- footer -->
+  </div>
+
+  <!-- start footer -->
   <%- include ('partials/footer')%>
+  <!-- End footer -->
+  <%- include ('partials/script')%>
   <script src="https://www.google.com/recaptcha/api.js"></script>
   <script src="/js/pristine/dist/pristine.min.js"></script>
   <script src="/js/contactScript.js"></script>
-  <script src="/js/publicScript.js"></script>
 </body>
 
 </html>

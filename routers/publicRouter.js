@@ -8,10 +8,9 @@ const {
 const {
   getHome,
   getAbout,
-  getArticles,
-  getArticle1,
   getContact,
   postContact,
+  getAuth,
   postRegister,
   postLogin,
   verifyUser,
@@ -23,11 +22,11 @@ const router = express.Router();
 router.get('/', getHome);
 router.get('/index', getHome);
 router.get('/about', getAbout);
-router.get('/articles', getArticles);
-router.get('/article/article-1', getArticle1);
+/* router.get('/articles', getArticles);
+router.get('/article/article-1', getArticle1); */
 router.get('/contact-us', getContact);
 router.post('/contact-us/:captchaResponse', validation_contact_us, postContact);
-router.get('/login', getHome);
+router.get('/auth', getAuth);
 router.post('/login', postLogin);
 router.get('/register', getHome);
 router.post('/register', Validation_register_user, postRegister);
