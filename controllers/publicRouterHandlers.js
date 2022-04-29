@@ -14,23 +14,33 @@ const { ghDbConnect } = require('../models/db_mongo');
 /////////////////////////////////////////////
 const getDashboard = async (req, res) => {
   if (!req.session.user) {
-    req.session.message = {
-      show: true,
-      modelTitle: 'Alert',
-      modelMsg: `You must be logged in first to access Dashboard`,
-      modelType: 'danger',
-    };
-    res.redirect('/auth');
+    res.render('auth', {
+      type: 'LogInBtn',
+      alertModel: {
+        show: true,
+        modelTitle: 'Alert',
+        modelMsg: `You must be logged in first to access Dashboard`,
+        modelType: 'danger',
+      },
+    });
   } else if (req.session.user.userType === 'admin') {
-    res.render('adminDashboard');
+    res.render('adminDashboard', {
+      type: 'LogOutBtn',
+      alertModel: { show: false },
+    });
   } else {
     try {
+      console.log('user')
       const userId = req.session.user.userId;
       const userName = req.session.user.username;
       await ghDbConnect();
       const result = await User_Product.find({ userId: userId });
       const devicesNames = result.map((item) => item.productNameByUser);
-      res.render('userDashboard', { deviceName: devicesNames[0], userName });
+      res.render('userDashboard', {
+        type: 'LogOutBtn',
+        deviceName: devicesNames[0],
+        userName,
+      });
     } catch (error) {
       console.log('error', error);
     }
@@ -62,20 +72,6 @@ const getAbout = (req, res) => {
   }
 };
 /////////////////////////////////////////////
-/* const getArticles = (req, res) => {
-  if (!req.session.user) {
-    res.render('articles', { type: 'noLogOutBtn' });
-  } else {
-    res.render('articles', { type: 'WithLogoutBtn' });
-  }
-};
-const getArticle1 = (req, res) => {
-  if (!req.session.user) {
-    res.render('article-1', { type: 'noLogOutBtn' });
-  } else {
-    res.render('article-1', { type: 'WithLogoutBtn' });
-  }
-}; */
 /////////////////////////////////////////////
 const getContact = (req, res) => {
   if (!req.session.user) {
@@ -137,14 +133,7 @@ const postContact = async (req, res) => {
 /************ */
 const getAuth = (req, res) => {
   if (!req.session.user) {
-    if (req.session.message) {
-      res.render('auth', {
-        type: 'LogInBtn',
-        alertModel: req.session.message,
-      });
-    } else {
-      res.render('auth', { type: 'LogInBtn', alertModel: { show: false } });
-    }
+    res.render('auth', { type: 'LogInBtn', alertModel: { show: false } });
   } else {
     res.redirect('/dashboard');
   }

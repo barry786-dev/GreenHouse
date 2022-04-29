@@ -22,15 +22,14 @@ const router = express.Router();
 router.get('/', getHome);
 router.get('/index', getHome);
 router.get('/about', getAbout);
-/* router.get('/articles', getArticles);
-router.get('/article/article-1', getArticle1); */
 router.get('/contact-us', getContact);
 router.post('/contact-us/:captchaResponse', validation_contact_us, postContact);
 router.get('/auth', getAuth);
+router.get('/login', getAuth);
 router.post('/login', postLogin);
-router.get('/register', getHome);
+router.get('/register', getAuth); //take care of this add param
 router.post('/register', Validation_register_user, postRegister);
-router.get('/api/auth/confirm/:confirmationCode', verifyUser);
+router.get('/api/auth/confirm/:confirmationCode', verifyUser);// deal later with the router if someone try to access this route
 router.get('/dashboard', getDashboard);
 
 module.exports = router;

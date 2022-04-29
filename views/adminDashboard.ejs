@@ -1,66 +1,26 @@
 <%- include ('partials/head',{title: 'Gad Eden | Admin-Dash'})%>
+<body>
+  <div id="transparent_back">
+    <div id="content" class="min-vh-100 d-flex flex-column">
+      <!-- start Navbar -->
+      <%- include ('partials/nav',{page:'dashboard',type:type})%>
+      <!-- End Navbar -->
+      <!-- start Main -->
+      <% if (alertModel.show===true) { %> <%- include
+      ('partials/alertModel',{modelTitle:alertModel.modelTitle,modelMsg:alertModel.modelMsg,modelType:alertModel.modelType})%>
+      <% } %>
 
-<body id="body">
-    <!-- header -->
-    <header id="header">
-        <%- include ('partials/nav3',{page:'dashboard',type:'WithLogoutBtn'})%>
-    </header>
-    <!--main-->
-    <main id="main">
-        <h1>Hello admin</h1>
-        <!-- content -->
-        <div class="content">
-            <section class="cell-5">
-                <h2>Add new products item!</h2>
-                <div style="height: 80px;">
-                    <h4>
-                        Here you can go to the form where you can add new item of your products, give it serial number ,
-                        print this serial number to label it on your product item, so the customer can proof his access
-                        to this product using this serial number.
-                    </h4>
-                </div>
-                <button class="admin_btn" onclick="routeToAddProduct()">Add item</button>
-            </section>
-            <section class="cell-6">
-                <h2>Customers List!</h2>
-                <div style="height: 80px;">
-                    <h4>
-                        Here you can find and print a list of your actual customers who are using product which they
-                        bought it.
-                    </h4>
-                </div>
-                <button class="admin_btn">Customers List</button>
-            </section>
-            <section class="cell-7">
-                <h2>Signed Up list!</h2>
-                <div style="height: 80px;">
-                    <h4>
-                        Here you can find and print a list of your actual signed up persons to your page, so may you can
-                        contact them later as a proper future customers.
-                    </h4>
-                </div>
-                <button class="admin_btn">Signed Up List</button>
-            </section>
-            <section class="cell-8">
-                <h2>Products list!</h2>
-                <div>
-                    <h4 style="height: 80px;">
-                        Here you can find and print a list of your products .
-                    </h4>
-                </div>
-                <button class="admin_btn">products List</button>
-            </section>
-        </div>
-    </main>
-    <!-- footer -->
-    <%- include ('partials/footer')%>
-    <!-- <script src="/js/pristine/dist/pristine.min.js"></script> -->
-    <script src="/js/publicScript.js"></script>
+
+
+  </div>
+    <!-- start footer -->
+  <%- include ('partials/footer')%>
+  <!-- End footer -->
+  <%- include ('partials/script')%>
     <script>
         function routeToAddProduct() {
             window.location.href = "/admin/add-product";
         }
     </script>
 </body>
-
 </html>

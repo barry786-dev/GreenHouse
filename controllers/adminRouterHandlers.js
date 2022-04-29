@@ -3,7 +3,11 @@ const path = require('path');
 const { addNewProduct } = require('./db_products_Handlers');
 
 const adminDashboard = (req, res) => {
-    res.render('adminDashboard');
+    /* res.render('adminDashboard', {
+      type: 'LogOutBtn',
+      alertModel: { show: false },
+    }); */
+    res.redirect('/dashboard');
 };
 
 const getAddProduct = (req, res) => {
