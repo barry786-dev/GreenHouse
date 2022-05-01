@@ -637,6 +637,7 @@ h6 span {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-top: #000 solid 2px;
 }
 #admin-side-bar i {
   font-size: 1.5em;
