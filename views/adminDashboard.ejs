@@ -1,211 +1,182 @@
 <%- include ('partials/head',{title: 'Gad Eden | Admin-Dash'})%>
+
 <body>
-    
-  <div id="transparent_back">
-      
-    <div id="content" class="min-vh-100 d-flex flex-column">
-      <!-- start Navbar -->
-      <%- include ('partials/nav',{page:'dashboard',type:type})%>
-      <!-- End Navbar -->
-      <!-- start Main -->
-      <% if (alertModel.show===true) { %> <%- include
+
+    <div id="transparent_back">
+
+        <div id="content" class="min-vh-100 d-flex flex-column">
+            <!-- start Navbar -->
+            <%- include ('partials/nav',{page:'dashboard',type:type})%>
+            <!-- End Navbar -->
+            <!-- start Main -->
+            <% if (alertModel.show===true) { %>
+            <%- include
       ('partials/alertModel',{modelTitle:alertModel.modelTitle,modelMsg:alertModel.modelMsg,modelType:alertModel.modelType})%>
-      <% } %>
+            <% } %>
+
+            <div id="admin-side-bar" class="container-fluid ">
+                <div class="row flex-nowrap">
+                    <div class="col-sm-2  px-1 collapse show collapse-horizontal overflow-hidden" id="sidebar">
+                        <div id="transparent_back">
+                            <div class="offcanvas-header">
+                                <h5 class="d-none d-sm-block" id="offcanvas">Menu</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-toggle="collapse"
+                                    data-bs-target="#sidebar" role="button"></button>
+                            </div>
+                            <div class="list-group border-0 text-center text-sm-start min-vh-100" id="sidebar-menu">
+                                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                                    <li class="nav-item">
+                                        <a href="/" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-home"></i><span
+                                                class="ms-1 d-none d-sm-inline">Home</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link">
+                                            <i class="fs-2 fa fa-dashboard"></i>
+                                            <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                                        </a>
+                                        <ul class="collapse show nav flex-column ms-1" id="submenu1"
+                                            data-bs-parent="#menu">
+                                            <li class="w-100">
+                                                <a href="#" class="nav-link px-4">
+                                                    <i class="fs-1 fa fa-barcode" aria-hidden="true"
+                                                        style="color: #F26533;padding-right:15px"></i>
+                                                    <span class="d-none d-sm-inline">Add item</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="nav-link px-4">
+                                                    <i class="fs-1 fa fa-handshake-o"
+                                                        style="color: #F26533;padding-right:15px;"></i>
+                                                    <span class="d-none d-sm-inline">Customers List</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="nav-link px-4">
+                                                    <i class="fs-1 fa fa-address-book-o"
+                                                        style="color: #F26533;padding-right:15px"></i>
+                                                    <span class="d-none d-sm-inline">Signed Up List</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#" class="nav-link px-4">
+                                                    <i class="fs-1 fa fa-cubes"
+                                                        style="color: #F26533;padding-right:15px"></i>
+                                                    <span class="d-none d-sm-inline">products List</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="/contact-us" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-paper-plane"></i><span
+                                                class="ms-1 d-none d-sm-inline">Contact us</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="/about" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-group"></i><span
+                                                class="ms-1 d-none d-sm-inline">About</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="/user/logout" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-sign-out"></i><span class="ms-1 d-none d-sm-inline">Log
+                                                out</span>
+                                        </a>
+                                    </li>
+                                    <div class="dropdown pb-4" style="margin: 20px;">
+                                        <a href="#"
+                                            class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="/images/2page-img1.png" alt="hugenerd" width="30" height="30"
+                                                class="rounded-circle" />
+                                            <span class="d-none d-sm-inline mx-1"
+                                                style="color: rgb(16, 15, 15);">Admin</span>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider" />
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                                        </ul>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="admin-dash-cont" class="col min-vh-100 p-4">
+                        <!-- toggler -->
+                        <button class="btn float-end" data-bs-toggle="collapse" data-bs-target="#sidebar" role="button">
+                            <i class="fa fa-reorder fs-3" data-bs-toggle="collapse" data-bs-target="#sidebar"></i>
+                        </button>
+                        <h3>Hello admin...</h3>
+                        <h5>
+                            What do you can do in this dashboard.
+                        </h5>
+                        <div>
+                            <a href="#" class=" px-4">
+                                <i class="fs-1 fa fa-barcode" aria-hidden="true"
+                                    style="color: #F26533;padding-right:15px"></i>
+                                <span class=" d-sm-inline">Add item</span>
+                            </a>
+                            <h5>
+                                Here you can go to the form where you can add new item of your products, give it serial
+                                number ,
+                                print this serial number to label it on your product item, so the customer can proof his
+                                access
+                                to this product using this serial number.
+                            </h5>
+                        </div>
+                        <div>
+                            <a href="#" class="nav-link px-4">
+                                <i class="fs-1 fa fa-handshake-o" style="color: #F26533;padding-right:15px;"></i>
+                                <span class="d-none d-sm-inline">Customers List!</span>
+                            </a>
+                            <h5>
+                                Here you can find and print a list of your actual customers who are using product which
+                                they
+                                bought it.
+                            </h5>
+                        </div>
+                        <div>
+                            <a href="#" class="nav-link px-4">
+                                <i class="fs-1 fa fa-address-book-o" style="color: #F26533;padding-right:15px"></i>
+                                <span class="d-none d-sm-inline">Signed Up List</span>
+                            </a>
+                            <h5>
+                                Here you can find and print a list of your actual signed up persons to your page, so may
+                                you can
+                                contact them later as a proper future customers.
+                            </h5>
+                        </div>
+                        <div>
+                            <a href="#" class="nav-link px-4">
+                                <i class="fs-1 fa fa-cubes" style="color: #F26533;padding-right:15px"></i>
+                                <span class="d-none d-sm-inline">products List</span>
+                            </a>
+                            <h5>
+                                Here you can find and print a list of your products .
+                            </h5>
+                        </div>
+                    </div>
 
 
-    <div class="container-fluid ">
-            <div class="row flex-nowrap">
-               
-                     
-                        <div class="col-sm-2 col-auto px-0 collapse collapse-horizontal overflow-hidden" id="sidebar">
-            
-                        <div class="offcanvas-header">
-                          <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Menu</h6>
-                          <button
-                            type="button"
-                            class="btn-close text-reset"
-                            data-bs-toggle="collapse"
-                    data-bs-target="#sidebar"
-                    role="button"
-                          ></button>
-                        </div>
-            <div class="list-group border-0 text-center text-sm-start min-vh-100" id="sidebar-menu">
-                <a href="#" class="list-group-item border-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="fa fa-dashboard"></i> <span class="d-none d-sm-inline">Item 1</span> </a>
-                <a href="#" class="list-group-item border-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="fa fa-film"></i> <span class="d-none d-sm-inline">Item 2</span></a>
-                <a href="#" class="list-group-item border-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="fa fa-heart"></i> <span class="d-none d-sm-inline">Item 4</span></a>
-                <a href="#" class="list-group-item border-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="fa fa-list"></i> <span class="d-none d-sm-inline">Item 5</span></a>
-                <a href="#" class="list-group-item border-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="fa fa-clock-o"></i> <span class="d-none d-sm-inline">Link</span></a>
-                <a href="#" class="list-group-item border-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="fa fa-th"></i> <span class="d-none d-sm-inline">Link</span></a>
-                <a href="#" class="list-group-item border-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="fa fa-gear"></i> <span class="d-none d-sm-inline">Link</span></a>
-                <a href="#" class="list-group-item border-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="fa fa-calendar"></i> <span class="d-none d-sm-inline">Link</span></a>
-                <a href="#" class="list-group-item border-0 d-inline-block text-truncate" data-bs-parent="#sidebar"><i class="fa fa-envelope"></i> <span class="d-none d-sm-inline">Link</span></a>
-                <div class="dropdown pb-4">
-                          <a
-                            href="#"
-                            class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                            id="dropdownUser1"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                          >
-                            <img
-                              src="https://github.com/mdo.png"
-                              alt="hugenerd"
-                              width="30"
-                              height="30"
-                              class="rounded-circle"
-                            />
-                            <span class="d-none d-sm-inline mx-1">loser</span>
-                          </a>
-                          <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li>
-                              <hr class="dropdown-divider" />
-                            </li>
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
-                          </ul>
-                        </div>
-                      </div>
-            </div>
-       
-                        <!-- <div class="offcanvas-body px-0">
-                          <ul
-                            class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start"
-                            id="menu"
-                          >
-                            <li class="nav-item">
-                              <a href="#" class="nav-link text-truncate">
-                                <i class="fs-2 fa fa-home"></i
-                                ><span class="ms-1 d-none d-sm-inline">Home</span>
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                href="#submenu1"
-                                data-bs-toggle="collapse"
-                                class="nav-link"
-                                style="color: black"
-                              >
-                                <i class="fs-2 fa fa-dashboard"></i>
-                                <span class="ms-1 d-none d-sm-inline">Dashboard</span>
-                              </a>
-                              <ul
-                                class="collapse show nav flex-column ms-1"
-                                id="submenu1"
-                                data-bs-parent="#menu"
-                                style="color: black"
-                              >
-                                <li class="w-100" style="color: black">
-                                  <a href="#" class="nav-link px-4" style="color: black">
-                                    <i class="fs-1 fa fa-barcode"></i>
-                                    <span class="d-none d-sm-inline">Add item</span>
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="#" class="nav-link px-4" style="color: black">
-                                    <i class="fs-1 fa fa-handshake-o"></i>
-                                    <span class="d-none d-sm-inline">Customers List</span>
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="#" class="nav-link px-4" style="color: black">
-                                    <i class="fs-1 fa fa-address-book-o"></i>
-                                    <span class="d-none d-sm-inline">Signed Up List</span>
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="#" class="nav-link px-4" style="color: black">
-                                    <i class="fs-1 fa fa-cubes"></i>
-                                    <span class="d-none d-sm-inline">products List</span>
-                                  </a>
-                                </li>
-                              </ul>
-                            </li>
-                            <li>
-                              <a href="#" class="nav-link text-truncate">
-                                <i class="fs-2 fa fa-paper-plane"></i
-                                ><span class="ms-1 d-none d-sm-inline">Contact us</span></a
-                              >
-                            </li>
-                            <li>
-                              <a href="#" class="nav-link text-truncate">
-                                <i class="fs-2 fa fa-group"></i
-                                ><span class="ms-1 d-none d-sm-inline">About</span></a
-                              >
-                            </li>
-                
-                            <li>
-                              <a href="#" class="nav-link text-truncate">
-                                <i class="fs-2 fa fa-sign-out"></i
-                                ><span class="ms-1 d-none d-sm-inline">Log out</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </div> -->
-                        
-                    
-                    <div class="col min-vh-100 p-4">
-                  <!-- toggler -->
-                  <button
-                    class="btn float-end"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#sidebar"
-                    role="button"
-                  >
-                    <i
-                      class="fa fa-reorder fs-3"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#sidebar"
-                    ></i>
-                  </button>
-                  <h3>Sample Content...</h3>
-                  <p>
-                    Sriracha biodiesel taxidermy organic post-ironic, Intelligentsia
-                    salvia mustache 90's code editing brunch. Butcher polaroid VHS art
-                    party, hashtag Brooklyn deep v PBR narwhal sustainable mixtape swag
-                    wolf squid tote bag. Tote bag cronut semiotics, raw denim deep v
-                    taxidermy messenger bag. Tofu YOLO Etsy, direct trade ethical Odd
-                    Future jean shorts paleo. Forage Shoreditch tousled aesthetic irony,
-                    street art organic Bushwick artisan cliche semiotics ugh synth
-                    chillwave meditation. Shabby chic lomo plaid vinyl chambray Vice.
-                    Vice sustainable cardigan, Williamsburg master cleanse hella DIY
-                    90's blog.
-                  </p>
-                  <p>
-                    Ethical Kickstarter PBR asymmetrical lo-fi. Dreamcatcher street art
-                    Carles, stumptown gluten-free Kickstarter artisan Wes Anderson wolf
-                    pug. Godard sustainable you probably haven't heard of them, vegan
-                    farm-to-table Williamsburg slow-carb readymade disrupt deep v.
-                    Meggings seitan Wes Anderson semiotics, cliche American Apparel
-                    whatever. Helvetica cray plaid, vegan brunch Banksy leggings +1
-                    direct trade. Wayfarers codeply PBR selfies. Banh mi McSweeney's
-                    Shoreditch selfies, forage fingerstache food truck occupy YOLO
-                    Pitchfork fixie iPhone fanny pack art party Portland.
-                  </p>
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-                  ab illo inventore veritatis et quasi architecto beatae vitae dicta
-                  sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-                  aspernatur aut odit aut fugit, sed quia cor magni dolores eos qui
-                  ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-                  dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed
-                  quia non numquam eius modi tempora incidunt ut labore et dolore magnam
-                  aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-                  exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex
-                  ea commodi consequatur?
                 </div>
-            </div>
-    </div>
 
+            </div>
+
+        </div>
     </div>
-  </div>
     <!-- start footer -->
-  <%- include ('partials/footer')%>
-  <!-- End footer -->
-  <%- include ('partials/script')%>
+    <%- include ('partials/footer')%>
+    <!-- End footer -->
+    <%- include ('partials/script')%>
     <script>
         function routeToAddProduct() {
             window.location.href = "/admin/add-product";
         }
     </script>
 </body>
+
 </html>

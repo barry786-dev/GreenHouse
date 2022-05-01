@@ -362,7 +362,6 @@ h6 span {
   height: 100%;
   background-color: rgb(159, 236, 43, 1);
   border: #0cc358 solid 1px;
-  border-radius: 10px;
   background-image: url('/images/full-screen-image-3.jpg');
   background-position: bottom center;
   background-repeat: no-repeat;
@@ -625,4 +624,56 @@ h6 span {
 }
 #received-msg {
   color: green;
+}
+/* ======================admin dashboard==================== */
+#admin-side-bar {
+  width: 100%;
+  height: auto;
+  background-color: #fff;
+  /* padding: 20px; */
+  /* border-radius: 10px; */
+  /* box-shadow: 5px 20px 50px #000; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+#admin-side-bar i {
+  font-size: 1.5em;
+  color: #ffeba7;
+}
+#sidebar{
+  background-color: rgb(159, 236, 43, 1);
+  /* border: #0cc358 solid 1px; */
+  background-image: url('/images/full-screen-image-3.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* border-radius: 6px; */
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+  max-width: 20%;
+  padding: 0 !important;
+}
+#sidebar span{
+  color: black;
+  font-size: 1.2em;
+}
+#sidebar i{
+  font-size: 1.5em;
+  color: #0855f0;
+}
+#admin-dash-cont *{
+  padding: 0.5rem;
+}
+#admin-dash-cont{
+  height: auto;
+}
+#admin-dash-cont a{
+  text-decoration: none;
+  color: #0855f0;
+  font-size: 1.2em;
 }
