@@ -619,14 +619,15 @@ h6 span {
   font-weight: bold;
   margin-top: 15px;
 }
-#captcha-msg,#failed-msg {
+#captcha-msg,
+#failed-msg {
   color: red;
 }
 #received-msg {
   color: green;
 }
 /* ======================admin dashboard==================== */
-#menu i{
+#menu i {
   padding: 7px;
 }
 #admin-side-bar {
@@ -644,7 +645,7 @@ h6 span {
   font-size: 1.5em;
   color: #ffeba7;
 }
-#sidebar{
+#sidebar {
   background-color: rgb(159, 236, 43, 1);
   /* border: #0cc358 solid 1px; */
   background-image: url('/images/sidebar-5.jpg');
@@ -660,30 +661,36 @@ h6 span {
   max-width: 20%;
   padding: 0 !important;
 }
-#sidebar span{
+#sidebar span {
   color: black;
   font-size: 1.2em;
 }
-#sidebar i{
+#sidebar i {
   font-size: 1.5em;
   color: #0855f0;
 }
-#admin-dash-cont *{
+#admin-dash-cont * {
   padding: 0.5rem;
-  
 }
-#admin-dash-cont{
+#admin-dash-cont {
   height: auto;
   color: #222;
   font-family: 'EB Garamond', serif;
 }
-#admin-dash-cont a{
+#admin-dash-cont a {
   text-decoration: none;
   color: #0855f0;
   font-size: 1.2em;
 }
+#submenu1 i {
+  color: #f26533;
+}
+#admin-dash-cont i {
+  color: #f26533;
+  padding-right: 15px;
+}
 /* ======================add_product_form====================  */
-#add_product_form input{
+#add_product_form input {
   width: 100%;
   padding: 10px;
   border: none;
@@ -693,11 +700,11 @@ h6 span {
   font-size: 1.2em;
   font-family: 'Courier New', Courier, monospace;
 }
-#add_product_form input:focus{
+#add_product_form input:focus {
   outline: none;
 }
-#add_product_form label{
+#add_product_form label {
   font-size: 1.2em;
   font-weight: bold;
-  color: #F26533;
+  color: #f26533;
 }

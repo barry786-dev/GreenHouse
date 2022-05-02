@@ -40,25 +40,25 @@
                                             <li class="w-100">
                                                 <a id="add_device" href="#collapseExample" class="nav-link " data-toggle="collapse"
                                                     aria-expanded="false" aria-controls="collapseExample">
-                                                    <i class="fs-2 fa fa-barcode" style="color: #ff4907;"></i>
+                                                    <i class="fs-2 fa fa-barcode" ></i>
                                                     <span class="d-none d-sm-inline">Add device</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#" class="nav-link ">
-                                                    <i class="fs-2 fa fa-handshake-o" style="color: #ff4907; "></i>
+                                                    <i class="fs-2 fa fa-handshake-o" ></i>
                                                     <span class="d-none d-sm-inline">Customers List</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#" class="nav-link">
-                                                    <i class="fs-2 fa fa-address-book-o" style="color: #F26533;"></i>
+                                                    <i class="fs-2 fa fa-address-book-o" ></i>
                                                     <span class="d-none d-sm-inline">Signed Up List</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#" class="nav-link ">
-                                                    <i class="fs-2 fa fa-cubes" style="color: #F26533;"></i>
+                                                    <i class="fs-2 fa fa-cubes" ></i>
                                                     <span class="d-none d-sm-inline">products List</span>
                                                 </a>
                                             </li>
@@ -84,7 +84,7 @@
                                         <a href="#"
                                             class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                                             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <img src="/images/2page-img1.png" alt="hugenerd" width="30" height="30"
+                                            <img src="/images/2page-img1.png" alt="Mohamed Barry" width="30" height="30"
                                                 class="rounded-circle" />
                                             <span class="d-none d-sm-inline mx-1"
                                                 style="color: rgb(16, 15, 15);">Admin</span>
@@ -106,14 +106,14 @@
                         <button class="btn float-end" data-bs-toggle="collapse" data-bs-target="#sidebar" role="button">
                             <i class="fa fa-reorder fs-3 text-success" data-bs-toggle="collapse" data-bs-target="#sidebar"></i>
                         </button>
-                        <h2>Hello admin...</h2>
+                        <h2>Hello admin &#129312;...</h2>
+                        <!-- &#128515; -->
                         <h2>
                             What do you can do in this dashboard.
                         </h2>
-                        <div>
-                            <a href="" class="px-4">
-                                <i class="fs-1 fa fa-barcode" aria-hidden="true"
-                                    style="color: #F26533;padding-right:15px"></i>
+                        <div id="admin_dash_explain">
+                            <a href="#" class="px-4">
+                                <i class="fs-1 fa fa-barcode" aria-hidden="true"></i>
                             </a>
                             <h3>
                                 Here you can go to the form where you can add new item of your products, give it serial
@@ -159,7 +159,7 @@
                         </div>
                         <div>
                             <a href="#" class=" px-4">
-                                <i class="fs-1 fa fa-handshake-o" style="color: #F26533;padding-right:15px;"></i>
+                                <i class="fs-1 fa fa-handshake-o" ></i>
                             </a>
                             <h3>
                                 Here you can find and print a list of your actual customers who are using product which
@@ -169,7 +169,7 @@
                         </div>
                         <div>
                             <a href="#" class=" px-4">
-                                <i class="fs-1 fa fa-address-book-o" style="color: #F26533;padding-right:15px"></i>
+                                <i class="fs-1 fa fa-address-book-o"></i>
                             </a>
                             <h3>
                                 Here you can find and print a list of your actual signed up persons to your page, so may
@@ -179,7 +179,7 @@
                         </div>
                         <div>
                             <a href="#" class="px-4">
-                                <i class="fs-1 fa fa-cubes" style="color: #F26533;padding-right:15px"></i>
+                                <i class="fs-1 fa fa-cubes"></i>
                             </a>
                             <h3>
                                 Here you can find and print a list of your products .
@@ -194,11 +194,11 @@
     <%- include ('partials/footer')%>
     <!-- End footer -->
     <%- include ('partials/script')%>
-    <script>
+    <!-- <script>
         function routeToAddProduct() {
             window.location.href = "/admin/add-product";
         }
-    </script>
+    </script> -->
     <script>
         const addProductForm = document.getElementById('add_product_form');
         const addProductBtn = document.getElementById('addProduct_btn');

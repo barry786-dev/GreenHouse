@@ -6,6 +6,34 @@ const { addUserToProduct } = require('./db_products_Handlers.js');
 const { addUserProductSettings } = require('./db_userProduct_Handlers.js');
 const User_Product = require('../models/db_userProduct_Schema');
 const { ghDbConnect } = require('../models/db_mongo');
+
+///////////////////////////////////////////////////////////////////////////////
+/** */
+const getRegisteredUser = (req, res) => {
+  //res.render('userDashboard');
+  res.redirect('/user/dashboard');
+};
+const userDashboard = async (req, res) => {
+  /* res.render('userDashboard', {
+    type: 'LogOutBtn',
+    alertModel: { show: false },
+  }); */
+  try {
+      console.log('user');
+      const userId = req.session.user.userId;
+      const userName = req.session.user.username;
+      await ghDbConnect();
+      const result = await User_Product.find({ userId: userId });
+      const devicesNames = result.map((item) => item.productNameByUser);
+      res.render('userDashboard', {
+        type: 'LogOutBtn',
+        deviceName: devicesNames[0],
+        userName,
+      });
+    } catch (error) {
+      console.log('error', error);
+    }
+};
 ///////////////////////////////////////////////////////////////////////////////
 const getDatedChart = async (req, res) => {
   // here you need to filter the data according to chosen date
@@ -66,12 +94,6 @@ const getDatedChart = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-};
-///////////////////////////////////////////////////////////////////////////////
-/** */
-const getRegisteredUser = (req, res) => {
-  //res.render('userDashboard');
-  res.redirect('/dashboard');
 };
 ///////////////////////////////////////////////////////////////////////////////
 const getControllers = (req, res) => {
@@ -223,6 +245,7 @@ const logOutPost = (req, res) => {
 
 module.exports = {
   getRegisteredUser,
+  userDashboard,
   logout,
   logOutPost,
   getAddDevice,

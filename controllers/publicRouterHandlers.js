@@ -12,7 +12,7 @@ const { registerUser, findUser } = require('./db_users_Handlers');
 const User_Product = require('../models/db_userProduct_Schema');
 const { ghDbConnect } = require('../models/db_mongo');
 /////////////////////////////////////////////
-const getDashboard = async (req, res) => {
+const getDashboard = (req, res) => {
   if (!req.session.user) {
     res.render('auth', {
       type: 'LogInBtn',
@@ -30,7 +30,8 @@ const getDashboard = async (req, res) => {
     }); */
     res.redirect('/admin/dashboard');
   } else {
-    try {
+    res.redirect('/user/dashboard');
+    /* try {
       console.log('user');
       const userId = req.session.user.userId;
       const userName = req.session.user.username;
@@ -44,7 +45,7 @@ const getDashboard = async (req, res) => {
       });
     } catch (error) {
       console.log('error', error);
-    }
+    } */
   }
 };
 

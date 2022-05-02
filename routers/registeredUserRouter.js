@@ -3,6 +3,7 @@ const router = express.Router();
 
 const {
   getRegisteredUser,
+  userDashboard,
   logout,
   logOutPost,
   getAddDevice,
@@ -13,6 +14,7 @@ const {
 } = require('../controllers/RegisteredUserRouterHandler');
 
 router.get('/', getRegisteredUser);
+router.get('/dashboard', userDashboard);
 router.get('/logout', logout);
 router.post('/logout', logOutPost);
 router.get('/add-device', getAddDevice);
