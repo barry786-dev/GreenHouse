@@ -31,7 +31,7 @@ const getDashboard = async (req, res) => {
     res.redirect('/admin/dashboard');
   } else {
     try {
-      console.log('user')
+      console.log('user');
       const userId = req.session.user.userId;
       const userName = req.session.user.username;
       await ghDbConnect();
@@ -142,84 +142,98 @@ const getAuth = (req, res) => {
 
 /*********** */
 const postLogin = async (req, res) => {
-  console.log(req.body);
-  const { userName, password } = req.body;
-  const user = await findUser(userName, 'userName');
-  if (user === 'Failed') {
-    return res.render('auth', {
-      type: 'LogInBtn',
-      //signed: false,
-      alertModel: {
-        show: true,
-        modelTitle: 'errorNu: 0',
-        modelMsg: `there is error during trying to reach data , please try again later or contact customer support at : +49 157-8444-6611 or by email at: mbrsyr@yahoo.com`,
-        modelType: 'danger',
-      },
-    });
-    /* return res.json({
+  try {
+    console.log(req.body);
+    const { userName, password } = req.body;
+    const user = await findUser(userName, 'userName');
+    if (user === 'Failed') {
+      return res.render('auth', {
+        type: 'LogInBtn',
+        //signed: false,
+        alertModel: {
+          show: true,
+          modelTitle: 'errorNu: 0',
+          modelMsg: `there is error during trying to reach data , please try again later or contact customer support at : +49 157-8444-6611 or by email at: mbrsyr@yahoo.com`,
+          modelType: 'danger',
+        },
+      });
+      /* return res.json({
       errorNu: 0,
       MyMsgToFront:
         'there is error during trying to reach data , please try again or contact the admin',
     }); */
-  } else {
-    if (!user) {
+    } else {
+      if (!user) {
+        return res.render('auth', {
+          //signed: false,
+          type: 'LogInBtn',
+          alertModel: {
+            show: true,
+            modelTitle: 'LogIn Error, errorNu: 1',
+            modelMsg: `User not Found! if you forget your UserName use password forget link in login section`,
+            modelType: 'danger',
+          },
+        });
+        //return res.json({ errorNu: 1, MyMsgToFront: 'User not Found' });
+      }
+    }
+    if (user.status != 'Active') {
       return res.render('auth', {
         //signed: false,
         type: 'LogInBtn',
         alertModel: {
           show: true,
-          modelTitle: 'LogIn Error, errorNu: 1',
-          modelMsg: `User not Found! if you forget your UserName use password forget link in login section`,
+          modelTitle: 'errorNu: 7',
+          modelMsg: `Pending Account. Please Verify Your Email! or contact customer support at : +49 157-8444-6611 or by email at: mbrsyr@yahoo.com`,
           modelType: 'danger',
         },
       });
-      //return res.json({ errorNu: 1, MyMsgToFront: 'User not Found' });
-    }
-  }
-  if (user.status != 'Active') {
-    return res.render('auth', {
-      //signed: false,
-      type: 'LogInBtn',
-      alertModel: {
-        show: true,
-        modelTitle: 'errorNu: 7',
-        modelMsg: `Pending Account. Please Verify Your Email! or contact customer support at : +49 157-8444-6611 or by email at: mbrsyr@yahoo.com`,
-        modelType: 'danger',
-      },
-    });
-    /* return res.status(401).send({
+      /* return res.status(401).send({
       errorNu: 7,
       message: 'Pending Account. Please Verify Your Email!',
     }); */
-  }
-  const passwordIsValid = bcrypt.compareSync(password, user.password);
-  if (passwordIsValid) {
-    // fill session with data
-    req.session.user = {
-      username: user.userName,
-      userType: user.userType,
-      userId: user._id,
-    };
-    if (user.userType === 'admin') {
-      res.redirect('/admin');
-    } else {
-      res.redirect('/user');
-      //res.json('success login');
     }
-  } else {
+    const passwordIsValid = bcrypt.compareSync(password, user.password);
+    if (passwordIsValid) {
+      // fill session with data
+      req.session.user = {
+        username: user.userName,
+        userType: user.userType,
+        userId: user._id,
+      };
+      if (user.userType === 'admin') {
+        res.redirect('/admin');
+      } else {
+        res.redirect('/user');
+        //res.json('success login');
+      }
+    } else {
+      res.render('auth', {
+        //signed: false,
+        type: 'LogInBtn',
+        alertModel: {
+          show: true,
+          modelTitle: ' LogIn Error, errorNu: 2',
+          modelMsg: `Invalid Password! if you forget your password use password forget link in login section`,
+          modelType: 'danger',
+        },
+      });
+      //res.json({ errorNu: 2, myMsg: 'Invalid Password!' });
+    }
+  } catch (error) {
+    log(error);
     res.render('auth', {
       //signed: false,
       type: 'LogInBtn',
       alertModel: {
         show: true,
-        modelTitle: ' LogIn Error, errorNu: 2',
-        modelMsg: `Invalid Password! if you forget your password use password forget link in login section`,
-        modelType: 'danger',
+        modelTitle: 'errorNu: 3',
+        modelMsg: `there is error during trying to reach data , please try again later!`,
       },
     });
-    //res.json({ errorNu: 2, myMsg: 'Invalid Password!' });
   }
-};
+}; // login end
+
 /////////////////////////////////////////////
 
 /***** */

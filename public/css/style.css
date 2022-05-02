@@ -670,12 +670,34 @@ h6 span {
 }
 #admin-dash-cont *{
   padding: 0.5rem;
+  
 }
 #admin-dash-cont{
   height: auto;
+  color: #222;
+  font-family: 'EB Garamond', serif;
 }
 #admin-dash-cont a{
   text-decoration: none;
   color: #0855f0;
   font-size: 1.2em;
+}
+/* ======================add_product_form====================  */
+#add_product_form input{
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  font-family: 'Courier New', Courier, monospace;
+}
+#add_product_form input:focus{
+  outline: none;
+}
+#add_product_form label{
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #F26533;
 }

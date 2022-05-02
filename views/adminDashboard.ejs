@@ -104,46 +104,48 @@
                     <div id="admin-dash-cont" class="col min-vh-100 p-4">
                         <!-- toggler -->
                         <button class="btn float-end" data-bs-toggle="collapse" data-bs-target="#sidebar" role="button">
-                            <i class="fa fa-reorder fs-3" data-bs-toggle="collapse" data-bs-target="#sidebar"></i>
+                            <i class="fa fa-reorder fs-3 text-success" data-bs-toggle="collapse" data-bs-target="#sidebar"></i>
                         </button>
-                        <h3>Hello admin...</h3>
-                        <h5>
+                        <h2>Hello admin...</h2>
+                        <h2>
                             What do you can do in this dashboard.
-                        </h5>
+                        </h2>
                         <div>
                             <a href="" class="px-4">
                                 <i class="fs-1 fa fa-barcode" aria-hidden="true"
                                     style="color: #F26533;padding-right:15px"></i>
                             </a>
-                            <h5>
+                            <h3>
                                 Here you can go to the form where you can add new item of your products, give it serial
                                 number ,
                                 print this serial number to label it on your product item, so the customer can proof his
                                 access
                                 to this product using this serial number.
-                            </h5>
-                            <div class="collapse" id="collapseExample">
-                                <div class="card card-body">
+                            </h3>
+                            <div class="col-md-9 mb-md-0 mb-5" style="max-width: 40em;">
+                            <div class="collapse" id="collapseExample" style="background-color: aliceblue;">
+                                <div class="card card-body" style="background-color: antiquewhite;">
+                                    
                                     <form id="add_product_form" action="/admin/dashboard" method="POST" class="">
-                                        <h2 class="">add serial number to product Form</h2>
-                                        <div class="form-group">
-                                            <label for="productName-input"> Product Name</label>
-                                            <input id="productName-input" type="text" name="productName" class=""
+                                        <h2 class="">add your device serial number</h2>
+                                        <div class="form-group form-floating mb-3">
+                                            <input id="productName-input" type="text" name="productName" class="form-control"
                                                 placeholder="product's Name" minlength="2" maxlength="30" required />
+                                                <label for="productName-input"> Product Name</label>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="serialNumber-input"> serialNumber</label>
+                                        <div class="form-group form-floating mb-3">
                                             <input id="serialNumber-input" type="text" name="serialNumber"
-                                                maxlength="12" class="" placeholder="serialNumber" autocomplete
+                                                maxlength="12" class="form-control" placeholder="serialNumber" autocomplete
                                                 pattern="/^([A-Z]{2})([0-9]{3})([A-Z]{1})([0-9]{6})/"
                                                 data-pristine-pattern-message="the serial number should has this form XX000X000000 "
                                                 required />
+                                                <label for="serialNumber-input"> serialNumber</label>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="productDescription-input"> Description</label>
+                                        <div class="form-group form-floating mb-3">
                                             <input id="productDescription-input" type="textarea"
-                                                name="productDescription" class="" placeholder="product's Description"
+                                                name="productDescription" class="form-control" placeholder="product's Description"
                                                 maxlength="200" autocomplete />
+                                                <label for="productDescription-input"> Description</label>
                                         </div>
                                         <div class="form-group">
                                             <button type="submit" id="addProduct_btn" class="btn btn-primary">
@@ -151,6 +153,7 @@
                                             </button>
                                         </div>
                                     </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -158,29 +161,29 @@
                             <a href="#" class=" px-4">
                                 <i class="fs-1 fa fa-handshake-o" style="color: #F26533;padding-right:15px;"></i>
                             </a>
-                            <h5>
+                            <h3>
                                 Here you can find and print a list of your actual customers who are using product which
                                 they
                                 bought it.
-                            </h5>
+                            </h3>
                         </div>
                         <div>
                             <a href="#" class=" px-4">
                                 <i class="fs-1 fa fa-address-book-o" style="color: #F26533;padding-right:15px"></i>
                             </a>
-                            <h5>
+                            <h3>
                                 Here you can find and print a list of your actual signed up persons to your page, so may
                                 you can
                                 contact them later as a proper future customers.
-                            </h5>
+                            </h3>
                         </div>
                         <div>
                             <a href="#" class="px-4">
                                 <i class="fs-1 fa fa-cubes" style="color: #F26533;padding-right:15px"></i>
                             </a>
-                            <h5>
+                            <h3>
                                 Here you can find and print a list of your products .
-                            </h5>
+                            </h3>
                         </div>
                     </div>
                 </div>
