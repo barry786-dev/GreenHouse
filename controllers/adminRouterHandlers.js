@@ -2,18 +2,22 @@ const { log } = require('console');
 const path = require('path');
 const { addNewProduct } = require('./db_products_Handlers');
 
+const getAdmin = (req, res) => {
+  res.redirect('/admin/dashboard');
+}
+
 const adminDashboard = (req, res) => {
-    /* res.render('adminDashboard', {
+    res.render('adminDashboard', {
       type: 'LogOutBtn',
       alertModel: { show: false },
-    }); */
-    res.redirect('/dashboard');
+    });
+    //res.redirect('/dashboard');
 };
 
 const getAddProduct = (req, res) => {
-  res.render('adminAddProduct', {
+  /* res.render('adminAddProduct', {
     alertModel: { show: false },
-  });
+  }); */
 };
 
 const postAddProduct = (req, res) => {
@@ -25,12 +29,13 @@ const postAddProduct = (req, res) => {
     };
     addNewProduct(newProduct)
       .then((result) => {
-        res.render('adminAddProduct', {
-          signed: false,
+        res.render('adminDashboard', {
+          type: 'LogOutBtn',
           alertModel: {
             show: true,
             modelTitle: 'Susses',
             modelMsg: `product added successfully`,
+            modelType: 'addProduct',
           },
         });
         //res.json({ message: 'product added successfully' });
@@ -46,14 +51,15 @@ const postAddProduct = (req, res) => {
             error.err.message,
             error.myMsg,
           ]);
-          res.render('adminAddProduct', {
-            signed: false,
+          res.render('adminDashboard', {
+            type: 'LogOutBtn',
             alertModel: {
               show: true,
               modelTitle: 'Failed',
               modelMsg: `An product with that ${JSON.stringify(
                 error.err.keyValue
               )} already exists`,
+              modelType: 'danger',
             },
           });
           /* res.json({
@@ -79,4 +85,4 @@ const postAddProduct = (req, res) => {
       });
 };
 
-module.exports = { adminDashboard, postAddProduct, getAddProduct };
+module.exports = { getAdmin,adminDashboard, postAddProduct, getAddProduct };

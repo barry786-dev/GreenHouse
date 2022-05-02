@@ -24,10 +24,11 @@ const getDashboard = async (req, res) => {
       },
     });
   } else if (req.session.user.userType === 'admin') {
-    res.render('adminDashboard', {
+    /* res.render('adminDashboard', {
       type: 'LogOutBtn',
       alertModel: { show: false },
-    });
+    }); */
+    res.redirect('/admin/dashboard');
   } else {
     try {
       console.log('user')

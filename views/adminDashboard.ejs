@@ -13,7 +13,6 @@
             <%- include
       ('partials/alertModel',{modelTitle:alertModel.modelTitle,modelMsg:alertModel.modelMsg,modelType:alertModel.modelType})%>
             <% } %>
-
             <div id="admin-side-bar" class="container-fluid ">
                 <div class="row flex-nowrap">
                     <div class="col-sm-2  px-1 collapse show collapse-horizontal overflow-hidden" id="sidebar">
@@ -28,7 +27,7 @@
                                     <li class="nav-item">
                                         <a href="/" class="nav-link text-truncate">
                                             <i class="fs-2 fa fa-home"></i><span
-                                                class="ms-1 d-none d-sm-inline" >Home</span>
+                                                class="ms-1 d-none d-sm-inline">Home</span>
                                         </a>
                                     </li>
                                     <li>
@@ -39,30 +38,27 @@
                                         <ul class="collapse show nav flex-column ms-0 " id="submenu1"
                                             data-bs-parent="#menu">
                                             <li class="w-100">
-                                                <a href="#collapseExample" class="nav-link " data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample">
-                                                    <i class="fs-2 fa fa-barcode" 
-                                                        style="color: #ff4907;"></i>
+                                                <a id="add_device" href="#collapseExample" class="nav-link " data-toggle="collapse"
+                                                    aria-expanded="false" aria-controls="collapseExample">
+                                                    <i class="fs-2 fa fa-barcode" style="color: #ff4907;"></i>
                                                     <span class="d-none d-sm-inline">Add device</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#" class="nav-link ">
-                                                    <i class="fs-2 fa fa-handshake-o"
-                                                        style="color: red "></i>
+                                                    <i class="fs-2 fa fa-handshake-o" style="color: #ff4907; "></i>
                                                     <span class="d-none d-sm-inline">Customers List</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#" class="nav-link">
-                                                    <i class="fs-2 fa fa-address-book-o"
-                                                        style="color: #F26533;"></i>
+                                                    <i class="fs-2 fa fa-address-book-o" style="color: #F26533;"></i>
                                                     <span class="d-none d-sm-inline">Signed Up List</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="#" class="nav-link ">
-                                                    <i class="fs-2 fa fa-cubes"
-                                                        style="color: #F26533;"></i>
+                                                    <i class="fs-2 fa fa-cubes" style="color: #F26533;"></i>
                                                     <span class="d-none d-sm-inline">products List</span>
                                                 </a>
                                             </li>
@@ -128,9 +124,33 @@
                             </h5>
                             <div class="collapse" id="collapseExample">
                                 <div class="card card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry
-                                    richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson
-                                    cred nesciunt sapiente ea proident.
+                                    <form id="add_product_form" action="/admin/dashboard" method="POST" class="">
+                                        <h2 class="">add serial number to product Form</h2>
+                                        <div class="form-group">
+                                            <label for="productName-input"> Product Name</label>
+                                            <input id="productName-input" type="text" name="productName" class=""
+                                                placeholder="product's Name" minlength="2" maxlength="30" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="serialNumber-input"> serialNumber</label>
+                                            <input id="serialNumber-input" type="text" name="serialNumber"
+                                                maxlength="12" class="" placeholder="serialNumber" autocomplete
+                                                pattern="/^([A-Z]{2})([0-9]{3})([A-Z]{1})([0-9]{6})/"
+                                                data-pristine-pattern-message="the serial number should has this form XX000X000000 "
+                                                required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="productDescription-input"> Description</label>
+                                            <input id="productDescription-input" type="textarea"
+                                                name="productDescription" class="" placeholder="product's Description"
+                                                maxlength="200" autocomplete />
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" id="addProduct_btn" class="btn btn-primary">
+                                                Add & print
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -176,6 +196,23 @@
             window.location.href = "/admin/add-product";
         }
     </script>
+    <script>
+        const addProductForm = document.getElementById('add_product_form');
+        const addProductBtn = document.getElementById('addProduct_btn');
+        addProductBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const pristine = new Pristine(add_product_form);
+            const valid = pristine.validate();
+            if (valid) {
+                addProductForm.submit();
+            }
+        });
+    </script>
+    <% if(alertModel.show===true && alertModel.modelMsg.indexOf('product')!==-1){%>
+                <script>
+                    document.getElementById('add_device').click();
+                </script>
+                <%}%>
 </body>
 
 </html>
