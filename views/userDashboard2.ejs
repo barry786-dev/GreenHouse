@@ -1,0 +1,86 @@
+<%- include ('partials/head',{title: 'Gad Eden | Admin-Dash'})%>
+
+<body id="body">
+    <!-- header -->
+    <header id="header">
+        <!-- <#%- include ('partials/nav3',{page:'dashboard',type:'WithLogoutBtn'})%> -->
+    </header>
+    <!--main-->
+    <main id="main">
+        <h1>Hello <%= userName%></h1>
+        <!-- content -->
+        <div class="content">
+            <section class="cell-5">
+                <h2><i class="fa fa-edit" style="font-size:20px;color:red"></i>Register your device!</h2>
+                <div style="height: 80px;">
+                    <h4>
+                        your device has special serial number, you need to register it by entering this number here and
+                        then you can also add information about how you like to ue it, by giving name and values to its
+                        functionality.
+                    </h4>
+                </div>
+                <button class="admin_btn" onclick="routeToAddDevice()">Register device</button>
+            </section>
+            <section class="cell-6">
+                <h2><i class="fa fa-bar-chart" style="font-size:20px;color:red"></i></i>Live Chart!</h2>
+                <div style="height: 80px;">
+                    <h4>
+                        Here you can watch live chart of the environment of your plants, like temperature and humidity
+                        present situation. these values are updated every 10 seconds.
+                    </h4>
+                </div>
+                <button class="admin_btn" onclick="routeToLiveChart()">Live Chart</button>
+            </section>
+            <section class="cell-7">
+                <h2><i class="fa fa-pie-chart" style="font-size:20px;color:red"></i>Dated Chart!</h2>
+                <div style="height: 80px;">
+                    <h4>
+                        Here you can watch Dated chart of the environment of your plants, like temperature and humidity
+                        present situation. these values are updated according to specific chosen date and get updated
+                        each 1 hour.
+                    </h4>
+                </div>
+                <button class="admin_btn" onclick="routeToDatedChart()">Dated Chart</button>
+            </section>
+            <section class="cell-8">
+                <h2><i class='fa fa-gear fa-spin' style="font-size:20px;color:red;"></i>controls!</h2>
+                <div>
+                    <h4 style="height: 80px;">
+                        Here you can add specific values which you want to add to your device to control your plant
+                        environment according to it, and you can switch off and on the fan or water pump.
+                    </h4>
+                </div>
+                <button class="admin_btn" onclick="routeToControllers()">controls</button>
+            </section>
+        </div>
+    </main>
+    <!-- footer -->
+    <%- include ('partials/footer')%>
+    <!-- <script src="/js/pristine/dist/pristine.min.js"></script> -->
+    <script src="/js/publicScript.js"></script>
+    <script>
+         const today = new Date();
+        // const date1 = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        // const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        // const dateTime = date1 + ' ' + time;
+        const date = today.toISOString().substr(0, 10);
+
+        function routeToAddDevice() {
+            window.location.href = "/user/add-device";
+        }
+
+        function routeToDatedChart() {
+            window.location.href = `/user/dated-chart/${date}/<%- deviceName%>`;
+        }
+
+        function routeToControllers() {
+            window.location.href = "/user/controllers";
+        }
+
+        function routeToLiveChart() {
+            window.location.href = "/user/live-chart";
+        }
+    </script>
+</body>
+
+</html>

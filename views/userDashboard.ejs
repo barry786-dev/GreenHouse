@@ -1,85 +1,412 @@
-<%- include ('partials/head',{title: 'Gad Eden | Admin-Dash'})%>
+<%- include ('partials/head',{title: 'Gad Eden | '+userName+'-Dash'})%>
 
-<body id="body">
-    <!-- header -->
-    <header id="header">
-        <!-- <#%- include ('partials/nav3',{page:'dashboard',type:'WithLogoutBtn'})%> -->
-    </header>
-    <!--main-->
-    <main id="main">
-        <h1>Hello <%= userName%></h1>
-        <!-- content -->
-        <div class="content">
-            <section class="cell-5">
-                <h2><i class="fa fa-edit" style="font-size:20px;color:red"></i>Register your device!</h2>
-                <div style="height: 80px;">
-                    <h4>
-                        your device has special serial number, you need to register it by entering this number here and
-                        then you can also add information about how you like to ue it, by giving name and values to its
-                        functionality.
-                    </h4>
+<body>
+
+    <div id="transparent_back">
+
+        <div id="content" class="min-vh-100 d-flex flex-column">
+            <!-- start Navbar -->
+            <%- include ('partials/nav',{page:'dashboard',type:type})%>
+            <!-- End Navbar -->
+            <!-- start Main -->
+            <% if (alertModel.show===true) { %>
+            <%- include
+      ('partials/alertModel',{modelTitle:alertModel.modelTitle,modelMsg:alertModel.modelMsg,modelType:alertModel.modelType})%>
+            <% } %>
+            <div id="admin-side-bar" class="container-fluid ">
+                <div class="row flex-nowrap">
+                    <div class="col-sm-2  px-1 collapse show collapse-horizontal overflow-hidden" id="sidebar">
+                        <div id="transparent_back">
+                            <div class="offcanvas-header">
+                                <h5 class="d-none d-sm-block" id="offcanvas">Menu</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-toggle="collapse"
+                                    data-bs-target="#sidebar" role="button"></button>
+                            </div>
+                            <div class="list-group border-0 text-center text-sm-start min-vh-100" id="sidebar-menu">
+                                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                                    <li class="nav-item">
+                                        <a href="/" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-home"></i><span
+                                                class="ms-1 d-none d-sm-inline">Home</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-dashboard"></i>
+                                            <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                                        </a>
+                                        <ul class="collapse show nav flex-column ms-0 " id="submenu1"
+                                            data-bs-parent="#menu">
+                                            <li class="w-100">
+                                                <a id="reg_device" href="#collapseOne" class="nav-link "
+                                                    data-toggle="collapse" aria-expanded="true"
+                                                    aria-controls="collapseOne">
+                                                    <i class="fs-2 fa fa-edit"></i>
+                                                    <span class="d-none d-sm-inline">RegStr device</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#collapseTwo" class="nav-link " data-toggle="collapse"
+                                                    aria-expanded="true" aria-controls="collapseTwo">
+                                                    <i class="fs-2 fa fa-bar-chart"></i>
+                                                    <span class="d-none d-sm-inline">Live Chart</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#collapseThree" class="nav-link " data-toggle="collapse"
+                                                    aria-expanded="true" aria-controls="collapseThree">
+                                                    <i class="fs-2 fa fa-pie-chart"></i>
+                                                    <span class="d-none d-sm-inline">Dated Chart</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#collapseFour" class="nav-link " data-toggle="collapse"
+                                                    aria-expanded="true" aria-controls="collapseFour">
+                                                    <i class="fs-2 fa fa-gear fa-spin"></i>
+                                                    <span class="d-none d-sm-inline">controls</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="/contact-us" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-paper-plane"></i><span
+                                                class="ms-1 d-none d-sm-inline">Contact us</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="/about" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-group"></i><span
+                                                class="ms-1 d-none d-sm-inline">About</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="/user/logout" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-sign-out"></i><span class="ms-1 d-none d-sm-inline">Log
+                                                out</span>
+                                        </a>
+                                    </li>
+                                    <div class="dropdown pb-4" style="margin: 20px;">
+                                        <a href="#"
+                                            class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="/images/preview.svg" alt="Mohamed Barry" width="30" height="30"
+                                                class="rounded-circle" />
+                                            <span class="d-none d-sm-inline mx-1"
+                                                style="color: rgb(16, 15, 15);"><%= userName%></span>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider" />
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                                        </ul>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="admin-dash-cont" class="col min-vh-100 p-4">
+                        <!-- toggler -->
+                        <button class="btn float-end" data-bs-toggle="collapse" data-bs-target="#sidebar" role="button">
+                            <i class="fa fa-reorder fs-3 text-success" data-bs-toggle="collapse"
+                                data-bs-target="#sidebar"></i>
+                        </button>
+                        <h2>Hello <%= userName%> &#128512;...</h2>
+                        <!-- &#128515; -->
+                        <div id="nesting" class="col-md-9 mb-md-0 mb-5" style="max-width: 40em;">
+                            <div id="accordion">
+                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                                    data-parent="#accordion">
+                                    <div class="card card-body" style="background-color: antiquewhite;">
+                                        <form id="add_device_form" action="/user/dashboard" method="POST" class="">
+                                            <h2 class="">add device serial Nu</h2>
+                                            <div class="form-group form-floating mb-3">
+                                                <input id="serialNumber-input1" type="text" name="serialNumber"
+                                                    maxlength="12" class="form-control" placeholder="serialNumber"
+                                                    autocomplete pattern="/^([A-Z]{2})([0-9]{3})([A-Z]{1})([0-9]{6})/"
+                                                    data-pristine-pattern-message="the serial number should has this form XX000X000000 "
+                                                    required />
+                                                <label for="serialNumber-input1"> serialNumber</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" id="addSN-button" style="width: 90px;">
+                                                    Add
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="card card-body"
+                                        style="background-color: antiquewhite;margin-top: 10px;">
+                                        <form id="add_productSettings_form" action="/user/dashboard" method="POST"
+                                            class="">
+                                            <h2 class="">Device settings</h2>
+                                            <div class="form-group form-floating mb-3">
+                                                <input id="productNameByUser-input" type="text" name="productNameByUser"
+                                                    class="form-control"
+                                                    placeholder="Add name to your product as example kitchen-plants"
+                                                    minlength="2" maxlength="30" pattern="/^[a-zA-Z0-9]+$/"
+                                                    data-pristine-pattern-message="the name should has no spaces or special characters "
+                                                    required="" />
+                                                <label for="productNameByUser-input"> Device Name</label>
+                                            </div>
+                                            <div class="form-group form-floating mb-3">
+                                                <input id="serialNumber-input2" type="text" name="serialNumber"
+                                                    maxlength="12" class="form-control" placeholder="serialNumber"
+                                                    autocomplete pattern="/^([A-Z]{2})([0-9]{3})([A-Z]{1})([0-9]{6})/"
+                                                    data-pristine-pattern-message="the serial number should has this form XX000X000000 "
+                                                    required="" />
+                                                <label for="serialNumber-input2"> serialNumber</label>
+                                            </div>
+                                            <h3>SoilHumidity-Settings</h3>
+                                            <div class="form-group form-floating mb-3">
+                                                <input id="minValue-input" type="number" name="minValue" min="0"
+                                                    max="999" class="form-control"
+                                                    placeholder="min humidity value on scale of 1000" autocomplete />
+                                                <label for="minValue-input"> Minimum Value(from
+                                                    1000)</label>
+                                            </div>
+                                            <div class="form-group form-floating mb-3">
+                                                <input id="period-input" type="number" name="period" min="0" max="168"
+                                                    class="form-control"
+                                                    placeholder="water pump starting each how many (hours)"
+                                                    autocomplete />
+                                                <label for="period-input"> start each (Hours)</label>
+                                            </div>
+                                            <div class="form-group form-floating mb-3">
+                                                <input id="runTime-input" type="number" name="runTime" min="0" max="600"
+                                                    class="form-control" placeholder="runTime by seconds"
+                                                    autocomplete />
+                                                <label for="runTime-input"> Run time(seconds)</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <button type="submit" id="addSettings-button">
+                                                    confirm sittings
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- end of register device -->
+                                <div>
+
+                                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            live charting
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                        data-parent="#accordion">
+                                        <div class="card-body">
+                                            dated chart
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- starting of control -->
+                                <div>
+                                    <div id="collapseFour" class="collapse" aria-labelledby="headingThree"
+                                        data-parent="#accordion">
+                                        <div class="card card-body" style="background-color: antiquewhite;">
+                                            <div class="container_switchers ">
+                                                <div class="switch-holder">
+                                                    <div class="switch-label">
+                                                        <i class="fas fa-water"
+                                                            style="font-size:25px;color:blue"></i><span>Pump</span>
+                                                    </div>
+                                                    <div class="switch-toggle">
+                                                        <input type="checkbox" id="Pump">
+                                                        <label for="Pump"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="switch-holder">
+                                                    <div class="switch-label">
+                                                        <i class="far fa-lightbulb"
+                                                            style="font-size:25px;color:red"></i><span>Light</span>
+                                                    </div>
+                                                    <div class="switch-toggle">
+                                                        <input type="checkbox" id="Light">
+                                                        <label for="Light"></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card card-body"
+                                            style="background-color: antiquewhite; margin-top: 10px;">
+                                            <form id="edit_productSettings_form" action="/user/dashboard" method="POST"
+                                                class="">
+                                                <h2 class="">Update device settings</h2>
+                                                <div class="form-group form-floating mb-3">
+                                                    <input id="productNameByUser-input2" type="text"
+                                                        name="productNameByUser" class="form-control"
+                                                        placeholder="Add name to your product as example kitchen-plants"
+                                                        minlength="2" maxlength="30" pattern="/^[a-zA-Z0-9]+$/"
+                                                        data-pristine-pattern-message="the name should has no spaces or special characters "
+                                                        required="" />
+                                                    <label for="productNameByUser-input2"> Device Name</label>
+                                                </div>
+                                                <h3>SoilHumidity-Settings</h3>
+                                                <div class="form-group form-floating mb-3">
+                                                    <input id="newMinValue-input" type="number" name="minValue" min="0"
+                                                        max="999" class="form-control"
+                                                        placeholder="min humidity value on scale of 1000"
+                                                        autocomplete />
+                                                    <label for="newMinValue-input"> Minimum Value(from
+                                                        1000)</label>
+                                                </div>
+                                                <div class="form-group form-floating mb-3">
+                                                    <input id="newPeriod-input" type="number" name="period" min="0"
+                                                        max="168" class="form-control"
+                                                        placeholder="water pump starting each how many (hours)"
+                                                        autocomplete />
+                                                    <label for="newPeriod-input"> start each (Hours)</label>
+                                                </div>
+                                                <div class="form-group form-floating mb-3">
+                                                    <input id="newRunTime-input" type="number" name="runTime" min="0"
+                                                        max="600" class="form-control" placeholder="runTime by seconds"
+                                                        autocomplete />
+                                                    <label for="newRunTime-input"> Run time(seconds)</label>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" id="editSettings-button">
+                                                        Update sittings
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>
+                            What do you can do in this dashboard.
+                        </h2>
+                        <div id="admin_dash_explain">
+                            <a href="#" class="px-4">
+                                <i class="fs-1 fa fa-edit" aria-hidden="true"></i>
+                            </a>
+                            <h3>
+                                Your device has special serial number, you need to register it by entering this number
+                                here and
+                                then you can also add information about how you like to ue it, by giving name and values
+                                to its
+                                functionality.
+                            </h3>
+                        </div>
+                        <div>
+                            <a href="#" class=" px-4">
+                                <i class="fs-1 fa fa-bar-chart"></i>
+                            </a>
+                            <h3>
+                                By clicking in this icon in dashboard you can watch live chart of the environment of
+                                your plants, like temperature and
+                                humidity
+                                present situation. these values are updated every 10 seconds.
+                            </h3>
+                        </div>
+                        <div>
+                            <a href="#" class=" px-4">
+                                <i class="fs-1 fa fa-pie-chart"></i>
+                            </a>
+                            <h3>
+                                By clicking in this icon in dashboard you can watch Dated chart of the environment of
+                                your plants, like temperature and
+                                humidity
+                                present situation. these values are updated according to specific chosen date and get
+                                updated
+                                each 1 hour.
+                            </h3>
+                        </div>
+                        <div>
+                            <a href="#" class="px-4">
+                                <i class="fs-1 fa fa-gear fa-spin"></i>
+                            </a>
+                            <h3>
+                                By clicking in this icon in dashboard you can add specific values which you want to add
+                                to your device to control your
+                                plant
+                                environment according to it, and you can switch off and on the fan or water pump.
+                            </h3>
+                        </div>
+                    </div>
                 </div>
-                <button class="admin_btn" onclick="routeToAddDevice()">Register device</button>
-            </section>
-            <section class="cell-6">
-                <h2><i class="fa fa-bar-chart" style="font-size:20px;color:red"></i></i>Live Chart!</h2>
-                <div style="height: 80px;">
-                    <h4>
-                        Here you can watch live chart of the environment of your plants, like temperature and humidity
-                        present situation. these values are updated every 10 seconds.
-                    </h4>
-                </div>
-                <button class="admin_btn" onclick="routeToLiveChart()">Live Chart</button>
-            </section>
-            <section class="cell-7">
-                <h2><i class="fa fa-pie-chart" style="font-size:20px;color:red"></i>Dated Chart!</h2>
-                <div style="height: 80px;">
-                    <h4>
-                        Here you can watch Dated chart of the environment of your plants, like temperature and humidity
-                        present situation. these values are updated according to specific chosen date and get updated
-                        each 1 hour.
-                    </h4>
-                </div>
-                <button class="admin_btn" onclick="routeToDatedChart()">Dated Chart</button>
-            </section>
-            <section class="cell-8">
-                <h2><i class='fa fa-gear fa-spin' style="font-size:20px;color:red;"></i>controls!</h2>
-                <div>
-                    <h4 style="height: 80px;">
-                        Here you can add specific values which you want to add to your device to control your plant
-                        environment according to it, and you can switch off and on the fan or water pump.
-                    </h4>
-                </div>
-                <button class="admin_btn" onclick="routeToControllers()">controls</button>
-            </section>
+            </div>
         </div>
-    </main>
-    <!-- footer -->
+    </div>
+    <!-- start footer -->
     <%- include ('partials/footer')%>
-    <!-- <script src="/js/pristine/dist/pristine.min.js"></script> -->
-    <script src="/js/publicScript.js"></script>
+    <!-- End footer -->
+    <%- include ('partials/script')%>
+    <% if(alertModel.show===true ){%>
     <script>
-         const today = new Date();
-        // const date1 = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        // const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        // const dateTime = date1 + ' ' + time;
-        const date = today.toISOString().substr(0, 10);
+        document.getElementById('reg_device').click();
+    </script>
+    <%}%>
+    <script>
+        const addDeviceForm = document.getElementById('add_device_form');
+        const addSnBtn = document.getElementById('addSN-button');
+        addSnBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const pristine = new Pristine(add_device_form);
+            const valid = pristine.validate();
+            if (valid) {
+                addDeviceForm.submit();
+            }
+        });
+        const addSettingsForm = document.getElementById('add_productSettings_form');
+        const addSettingsBtn = document.getElementById('addSettings-button');
+        addSettingsBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const pristine = new Pristine(add_productSettings_form);
+            const valid = pristine.validate();
+            if (valid) {
+                addSettingsForm.submit();
+            }
+        });
+    </script>
 
-        function routeToAddDevice() {
-            window.location.href = "/user/add-device";
-        }
-
-        function routeToDatedChart() {
-            window.location.href = `/user/dated-chart/${date}/<%- deviceName%>`;
-        }
-
-        function routeToControllers() {
-            window.location.href = "/user/controllers";
-        }
-
-        function routeToLiveChart() {
-            window.location.href = "/user/live-chart";
-        }
+    <script>
+        const editSettingsForm = document.getElementById('edit_productSettings_form');
+        const editSettingsBtn = document.getElementById('editSettings-button');
+        editSettingsBtn.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const pristine = new Pristine(edit_productSettings_form);
+            const valid = pristine.validate();
+            if (valid) {
+                // editSettingsForm.submit();
+            }
+        });
+    </script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const messages = document.getElementById('messages');
+        let socket = io();
+        socket.on('connect', () => {
+            console.log('connected');
+        });
+        socket.on('serverEventToBrowser', (data) => {
+            console.log('event from server has received');
+            const item = document.createElement('li');
+            item.textContent = JSON.stringify(data, null, 2);
+            messages.appendChild(item);
+        });
+        socket.on('disconnect', () => {
+            console.log(
+                'the server disconnected, the browser will keep trying to connect or you close the page and try later'
+            );
+        });
+        const pumpInput = document.getElementById('Pump');
+        pumpInput.addEventListener('change', (e) => {
+            const pump = e.target.checked;
+            socket.emit('pumpEventBrowserToServer', { // emit to server when checkbox is checked
+                pump
+            });
+        });
+        /* socket.on('pumpStatusServerToBrowser', (data) => { //start check the real pump stat when load this page
+        console.log('event from server has received');
+        pumpInput.checked = data.pump;
+      }); */
     </script>
 </body>
 

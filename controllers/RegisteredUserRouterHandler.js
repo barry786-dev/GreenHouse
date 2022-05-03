@@ -9,9 +9,13 @@ const { ghDbConnect } = require('../models/db_mongo');
 
 ///////////////////////////////////////////////////////////////////////////////
 /** */
-const getRegisteredUser = (req, res) => {
-  //res.render('userDashboard');
-  res.redirect('/user/dashboard');
+const getRegisteredUser = async (req, res) => {
+  try{
+    res.redirect('/user/dashboard');
+  } catch (error) {
+    log(error);
+  }
+  
 };
 const userDashboard = async (req, res) => {
   /* res.render('userDashboard', {
@@ -27,9 +31,14 @@ const userDashboard = async (req, res) => {
       const devicesNames = result.map((item) => item.productNameByUser);
       res.render('userDashboard', {
         type: 'LogOutBtn',
-        deviceName: devicesNames[0],
+        alertModel: { show: false },
         userName,
       });
+      /* res.render('userDashboard', {
+        type: 'LogOutBtn',
+        deviceName: devicesNames[0],
+        userName,
+      }); */
     } catch (error) {
       console.log('error', error);
     }
@@ -110,15 +119,16 @@ const getLiveChart = (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////
 /** */
 const getAddDevice = (req, res) => {
-  const userName = req.session.user.username;
+  /* const userName = req.session.user.username;
   res.render('userAddDevice', {
     alertModel: { show: false },
     userName,
-  });
+  }); */
 };
 
 /** */
 const postAddDevice = async (req, res) => {
+  const userName = req.session.user.username;
   try {
     if (req.body.productNameByUser) {
       // const { minValue, period, runTime, serialNumber, productNameByUser } =
@@ -128,14 +138,24 @@ const postAddDevice = async (req, res) => {
         serialNumber: req.body.serialNumber,
       });
       if (!result) {
-        return res.render('userAddDevice', {
+       return res.render('userDashboard', {
+         type: 'LogOutBtn',
+         alertModel: {
+           show: true,
+           modelTitle: 'errorNu: 8',
+           modelMsg: `this serial number is not in use please try again and be sure about it`,
+           modelType: 'danger',
+         },
+         userName,
+       });
+        /* return res.render('userAddDevice', {
           alertModel: {
             show: true,
             modelTitle: 'errorNu: 8',
             modelMsg:
               'this serial number is not in use please try again and be sure about it',
           },
-        });
+        }); */
         /* return res.json({
           errorNu: 8,
           myMsg:
@@ -144,14 +164,24 @@ const postAddDevice = async (req, res) => {
       } else if (result && result.userId.equals(userId)) {
         const result2 = await addUserProductSettings({ ...req.body, userId });
         if (result2.productNameByUser) {
-          res.render('userAddDevice', {
+          res.render('userDashboard', {
+            type: 'LogOutBtn',
+            alertModel: {
+              show: true,
+              modelTitle: 'Success',
+              modelMsg: `your product sittings is Done and the product is start working`,
+              modelType: 'productNameByUser',
+            },
+            userName,
+          });
+          /* res.render('userAddDevice', {
             alertModel: {
               show: true,
               modelTitle: 'Success',
               modelMsg:
                 'your product sittings is Done and the product is start working',
             },
-          });
+          }); */
           /* res.json({
             SuccessNu: 0,
             myMsg:
@@ -159,14 +189,24 @@ const postAddDevice = async (req, res) => {
           }); */
         }
       } else if (result && !result.userId.equals(userId)) {
-        res.render('userAddDevice', {
+        res.render('userDashboard', {
+          type: 'LogOutBtn',
+          alertModel: {
+            show: true,
+            modelTitle: 'errorNu: 10',
+            modelMsg: `you can not add this product because you are not the owner of this product`,
+            modelType: 'danger',
+          },
+          userName,
+        });
+        /* res.render('userAddDevice', {
           alertModel: {
             show: true,
             modelTitle: 'errorNu: 10',
             modelMsg:
               'you can not add this product because you are not the owner of this product',
           },
-        });
+        }); */
         /* res.json({
           errorNu: 10,
           myMsg:
@@ -183,38 +223,68 @@ const postAddDevice = async (req, res) => {
       if (result && result.userId === null) {
         const result2 = await addUserToProduct(serialNumber, userId);
         if (result2.productName) {
-          res.render('userAddDevice', {
+          res.render('userDashboard', {
+            type: 'LogOutBtn',
+            alertModel: {
+              show: true,
+              modelTitle: 'Success',
+              modelMsg: `your product is ready to be used`,
+              modelType: 'productName',
+            },
+            userName,
+          });
+          /* res.render('userAddDevice', {
             alertModel: {
               show: true,
               modelTitle: 'Success',
               modelMsg: 'your product is ready to be used',
             },
-          });
+          }); */
           //res.json({ message: 'your product is ready to be used' });
           /* res.sendFile(
             path.join(__dirname, '../views/dashboard_addProduct.html')
           ); */
         }
       } else if (result && result.serialNumber) {
-        res.render('userAddDevice', {
+        res.render('userDashboard', {
+          type: 'LogOutBtn',
+          alertModel: {
+            show: true,
+            modelTitle: 'errorNu: 9',
+            modelMsg: `this product is already sold and it is in use`,
+            modelType: 'danger',
+          },
+          userName,
+        });
+        /* res.render('userAddDevice', {
           alertModel: {
             show: true,
             modelTitle: 'errorNu: 9',
             modelMsg: 'this product is already sold and it is in use',
           },
-        });
+        }); */
         /* res.json({
           errorNu: 9,
           myMsg: 'this product is already sold and it is in use',
         }); */
       } else {
-        res.render('userAddDevice', {
+        res.render('userDashboard', {
+          type: 'LogOutBtn',
+          alertModel: {
+            show: true,
+            modelTitle: 'errorNu: 8',
+            modelMsg: `this serial number is not exist`,
+            modelType: 'danger',
+          },
+          userName,
+        });
+        /* res.render('userAddDevice', {
           alertModel: {
             show: true,
             modelTitle: 'errorNu: 8',
             modelMsg: 'this serial number is not exist',
           },
-        });
+        }); */
         /* res.json({
           errorNu: 8,
           myMsg: 'this serial number is not exist',

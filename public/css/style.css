@@ -690,7 +690,10 @@ h6 span {
   padding-right: 15px;
 }
 /* ======================add_product_form====================  */
-#add_product_form input {
+#add_product_form input,
+#add_device_form input,
+#add_productSettings_form input,
+#add_deviceSettings_form input {
   width: 100%;
   padding: 10px;
   border: none;
@@ -700,11 +703,96 @@ h6 span {
   font-size: 1.2em;
   font-family: 'Courier New', Courier, monospace;
 }
-#add_product_form input:focus {
+#add_product_form input:focus,
+#add_device_form input:focus,
+#add_productSettings_form input:focus {
   outline: none;
 }
-#add_product_form label {
+#add_product_form label,
+#add_device_form label,
+#add_productSettings_form label {
   font-size: 1.2em;
   font-weight: bold;
   color: #f26533;
+}
+/* ======================switchers==================== */
+.container_switchers {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #76d45c;
+}
+
+.switch-holder {
+  display: flex;
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  background-color: rgb(247, 247, 247);
+  /* box-shadow: -8px -8px 15px rgba(255,255,255,.7),
+                10px 10px 10px rgba(0,0,0, .3),
+                inset 8px 8px 15px rgba(255,255,255,.7),
+                inset 10px 10px 10px rgba(0,0,0, .3); */
+  justify-content: space-between;
+}
+
+.switch-label {
+  width: 70%;
+}
+
+.switch-label i {
+  margin-right: 10px;
+  width: 20px;
+}
+.switch-label span {
+  font-weight: bold;
+}
+.switch-toggle {
+  height: 40px;
+}
+
+.switch-toggle input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+  z-index: -2;
+}
+
+.switch-toggle input[type='checkbox'] + label {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 40px;
+  border-radius: 20px;
+  margin-top: 0;
+  cursor: pointer;
+  box-shadow: inset -8px -8px 15px rgba(255, 255, 255, 0.6),
+    inset 10px 10px 10px rgba(0, 0, 0, 0.25);
+}
+
+.switch-toggle input[type='checkbox'] + label::before {
+  position: absolute;
+  content: 'OFF';
+  font-size: 13px;
+  text-align: center;
+  line-height: 25px;
+  top: 8px;
+  left: 8px;
+  width: 45px;
+  height: 25px;
+  border-radius: 20px;
+  background-color: #d1dad3;
+  box-shadow: -3px -3px 5px rgba(255, 255, 255, 0.5),
+    3px 3px 5px rgba(0, 0, 0, 0.25);
+  transition: 0.3s ease-in-out;
+}
+
+.switch-toggle input[type='checkbox']:checked + label::before {
+  left: 50%;
+  content: 'ON';
+  color: #fff;
+  background-color: #00b33c;
+  box-shadow: -3px -3px 5px rgba(255, 255, 255, 0.5), 3px 3px 5px #00b33c;
 }
