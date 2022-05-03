@@ -1,139 +1,265 @@
-<%- include ('partials/head',{title: 'Gad Eden | chart'})%>
+<%- include ('partials/head',{title: 'Gad Eden | '+userName+'-Dash'})%>
 
 <body>
-  <%- include ('partials/nav3',{page:'dashboard',type:'WithLogoutBtn'})%>
-  <div id="datedChart">
-    <input type="date" name="filteredDate" id="ChartDate" value="<%= chosenDate%>">
-    <select name="device" id="device-select">
-      <% devicesNames.forEach(deviceName => { %>
-      <option value="<%= deviceName%>" <%= chosenDevice===deviceName ? 'selected' : ''%>><%=deviceName%></option>
-      <% }) %>
-
-    </select>
-    <div class="chart-container" style="position: relative; height: 20vh; width: 50vw">
-      <canvas id="myChart"></canvas>
+    <div id="transparent_back">
+        <div id="content" class="min-vh-100 d-flex flex-column">
+            <!-- start Navbar -->
+            <%- include ('partials/nav',{page:'dashboard',type:type})%>
+            <!-- End Navbar -->
+            <!-- start Main -->
+            <% if (alertModel.show===true) { %>
+            <%- include
+      ('partials/alertModel',{modelTitle:alertModel.modelTitle,modelMsg:alertModel.modelMsg,modelType:alertModel.modelType})%>
+            <% } %>
+            <div id="admin-side-bar" class="container-fluid ">
+                <div class="row flex-nowrap">
+                    <div class="col-sm-2  px-1 collapse show collapse-horizontal overflow-hidden" id="sidebar">
+                        <div id="transparent_back">
+                            <div class="offcanvas-header">
+                                <h5 class="d-none d-sm-block" id="offcanvas">Menu</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-toggle="collapse"
+                                    data-bs-target="#sidebar" role="button"></button>
+                            </div>
+                            <div class="list-group border-0 text-center text-sm-start min-vh-100" id="sidebar-menu">
+                                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                                    <li class="nav-item">
+                                        <a href="/" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-home"></i><span
+                                                class="ms-1 d-none d-sm-inline">Home</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-dashboard"></i>
+                                            <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+                                        </a>
+                                        <ul class="collapse show nav flex-column ms-0 " id="submenu1"
+                                            data-bs-parent="#menu">
+                                            <li class="w-100">
+                                                <a id="reg_device" href="/user/dashboard" class="nav-link ">
+                                                    <i class="fs-2 fa fa-edit"></i>
+                                                    <span class="d-none d-sm-inline">RegStr device</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/user/dashboard" class="nav-link " data-toggle="collapse">
+                                                    <i class="fs-2 fa fa-bar-chart"></i>
+                                                    <span class="d-none d-sm-inline">Live Chart</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="" class="nav-link ">
+                                                    <i class="fs-2 fa fa-pie-chart"></i>
+                                                    <span class="d-none d-sm-inline">Dated Chart</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/user/dashboard" class="nav-link ">
+                                                    <i class="fs-2 fa fa-gear fa-spin"></i>
+                                                    <span class="d-none d-sm-inline">controls</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="/contact-us" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-paper-plane"></i><span
+                                                class="ms-1 d-none d-sm-inline">Contact us</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="/about" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-group"></i><span
+                                                class="ms-1 d-none d-sm-inline">About</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="/user/logout" class="nav-link text-truncate">
+                                            <i class="fs-2 fa fa-sign-out"></i><span class="ms-1 d-none d-sm-inline">Log
+                                                out</span>
+                                        </a>
+                                    </li>
+                                    <div class="dropdown pb-4" style="margin: 20px;">
+                                        <a href="#"
+                                            class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <img src="/images/preview.svg" alt="Mohamed Barry" width="30" height="30"
+                                                class="rounded-circle" />
+                                            <span class="d-none d-sm-inline mx-1"
+                                                style="color: rgb(16, 15, 15);"><%= userName%></span>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider" />
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                                        </ul>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="admin-dash-cont" class="col min-vh-100 p-4">
+                        <!-- toggler -->
+                        <button class="btn float-end" data-bs-toggle="collapse" data-bs-target="#sidebar" role="button">
+                            <i class="fa fa-reorder fs-3 text-success" data-bs-toggle="collapse"
+                                data-bs-target="#sidebar"></i>
+                        </button>
+                        <h2>Hello <%= userName%> &#128512;...</h2>
+                        <!-- &#128515; -->
+                        <div id="" class="col-md-9 mb-md-0 mb-5" style="max-width: 40em;">
+                            <div id="datedChart">
+                                <input type="date" name="filteredDate" id="ChartDate" value="<%= chosenDate%>">
+                                <select name="device" id="device-select">
+                                    <% devicesNames.forEach(deviceName => { %>
+                                    <option value="<%= deviceName%>" <%= chosenDevice===deviceName ? 'selected' : ''%>>
+                                        <%=deviceName%></option>
+                                    <% }) %>
+                                </select>
+                                <div class="chart-container" style="position: relative; height: 20vh; width: 50vw">
+                                    <canvas id="myChart"></canvas>
+                                </div>
+                                <div class="chart-container" style="position: relative; height: 20vh; width: 50vw">
+                                    <canvas id="myChart1"></canvas>
+                                </div>
+                                <div class="chart-container" style="position: relative; height: 20vh; width: 50vw">
+                                    <canvas id="myChart2"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>
+                            What do you can do in this dashboard.
+                        </h2>
+                        <div id="admin_dash_explain">
+                            <a href="#" class="px-4">
+                                <i class="fs-1 fa fa-edit" aria-hidden="true"></i>
+                            </a>
+                            <h3>
+                                Your device has special serial number, you need to register it by entering this number
+                                here and
+                                then you can also add information about how you like to ue it, by giving name and values
+                                to its
+                                functionality.
+                            </h3>
+                        </div>
+                        <div>
+                            <a href="#" class=" px-4">
+                                <i class="fs-1 fa fa-bar-chart"></i>
+                            </a>
+                            <h3>
+                                By clicking in this icon in dashboard you can watch live chart of the environment of
+                                your plants, like temperature and
+                                humidity
+                                present situation. these values are updated every 10 seconds.
+                            </h3>
+                        </div>
+                        <div>
+                            <a href="#" class=" px-4">
+                                <i class="fs-1 fa fa-pie-chart"></i>
+                            </a>
+                            <h3>
+                                By clicking in this icon in dashboard you can watch Dated chart of the environment of
+                                your plants, like temperature and
+                                humidity
+                                present situation. these values are updated according to specific chosen date and get
+                                updated
+                                each 1 hour.
+                            </h3>
+                        </div>
+                        <div>
+                            <a href="#" class="px-4">
+                                <i class="fs-1 fa fa-gear fa-spin"></i>
+                            </a>
+                            <h3>
+                                By clicking in this icon in dashboard you can add specific values which you want to add
+                                to your device to control your
+                                plant
+                                environment according to it, and you can switch off and on the fan or water pump.
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="chart-container" style="position: relative; height: 20vh; width: 50vw">
-      <canvas id="myChart1"></canvas>
-    </div>
-    <div class="chart-container" style="position: relative; height: 20vh; width: 50vw">
-      <canvas id="myChart2"></canvas>
-    </div>
-  </div>
-  <!-- footer -->
-  <%- include ('partials/footer')%>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    const SoilHumidityData = {
-      labels: '<%- SoilLabels%>'.split(','),
-      datasets: [{
-        label: 'Soil Humidity (in %)',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(9, 32, 235)',
-        data: '<%- SoilHumidityData%>'.split(','),
-      }, ],
-    };
-    const SoilHumidityConfig = {
-      type: 'line',
-      data: SoilHumidityData,
-      options: {
-        maintainAspectRatio: false,
-      },
-    };
-    // light Chart data
-    const LightData = {
-      labels: '<%- lightLabels%>'.split(','),
-      datasets: [{
-        label: 'light (in lux)',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(9, 235, 21)',
-        data: '<%- lightData%>'.split(','),
-      }, ],
-    };
-    const LightConfig = {
-      type: 'line',
-      data: LightData,
-      options: {
-        maintainAspectRatio: false,
-      },
-    };
-    // pump chart data
-    const PumpData = {
-      labels: '<%- pumpLabels%>'.split(','),
-      datasets: [{
-        label: 'pump (in 0/1)',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: '<%- pumpData%>'.split(','),
-      }, ],
-    };
-    const PumpConfig = {
-      type: 'line',
-      data: PumpData,
-      options: {
-        maintainAspectRatio: false,
-      },
-    };
-    const myChart = new Chart(document.getElementById('myChart'), SoilHumidityConfig);
-    const myChart1 = new Chart(document.getElementById('myChart1'), LightConfig);
-    const myChart2 = new Chart(document.getElementById('myChart2'), PumpConfig);
-  </script>
-  <!-- <script src="/js/pristine/dist/pristine.min.js"></script> -->
-  <script src="/js/publicScript.js"></script>
-  <script>
-    const date = document.getElementById('ChartDate');
-    const device = document.getElementById('device-select');
-    date.addEventListener('change', (e) => {
-      const device = document.getElementById('device-select').value;
-      const date = e.target.value;
-      window.location.href = `/user/dated-chart/${date}/${device}`;
-    });
-    device.addEventListener('change', (e) => {
-      const date = document.getElementById('ChartDate').value;
-      const device = e.target.value;
-      window.location.href = `/user/dated-chart/${date}/${device}`;
-    });
-  </script>
+    <!-- start footer -->
+    <%- include ('partials/footer')%>
+    <!-- End footer -->
+    <%- include ('partials/script')%>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const SoilHumidityData = {
+            labels: '<%- SoilLabels%>'.split(','),
+            datasets: [{
+                label: 'Soil Humidity (in %)',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(9, 32, 235)',
+                data: '<%- SoilHumidityData%>'.split(','),
+            }, ],
+        };
+        const SoilHumidityConfig = {
+            type: 'line',
+            data: SoilHumidityData,
+            options: {
+                maintainAspectRatio: false,
+            },
+        };
+        // light Chart data
+        const LightData = {
+            labels: '<%- lightLabels%>'.split(','),
+            datasets: [{
+                label: 'light (in lux)',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(9, 235, 21)',
+                data: '<%- lightData%>'.split(','),
+            }, ],
+        };
+        const LightConfig = {
+            type: 'line',
+            data: LightData,
+            options: {
+                maintainAspectRatio: false,
+            },
+        };
+        // pump chart data
+        const PumpData = {
+            labels: '<%- pumpLabels%>'.split(','),
+            datasets: [{
+                label: 'pump (in 0/1)',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: '<%- pumpData%>'.split(','),
+            }, ],
+        };
+        const PumpConfig = {
+            type: 'line',
+            data: PumpData,
+            options: {
+                maintainAspectRatio: false,
+            },
+        };
+        const myChart = new Chart(document.getElementById('myChart'), SoilHumidityConfig);
+        const myChart1 = new Chart(document.getElementById('myChart1'), LightConfig);
+        const myChart2 = new Chart(document.getElementById('myChart2'), PumpConfig);
+    </script>
+    <!-- <script src="/js/pristine/dist/pristine.min.js"></script> -->
+    <script src="/js/publicScript.js"></script>
+    <script>
+        const date = document.getElementById('ChartDate');
+        const device = document.getElementById('device-select');
+        date.addEventListener('change', (e) => {
+            const device = document.getElementById('device-select').value;
+            const date = e.target.value;
+            window.location.href = `/user/dashboard/${date}/${device}`;
+        });
+        device.addEventListener('change', (e) => {
+            const date = document.getElementById('ChartDate').value;
+            const device = e.target.value;
+            window.location.href = `/user/dashboard/${date}/${device}`;
+        });
+    </script>
 </body>
 
 </html>
+</body>
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<canvas id="myChart" ></canvas>
-<script>
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});
-</script> -->
+</html>

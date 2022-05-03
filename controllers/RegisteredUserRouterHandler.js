@@ -26,6 +26,8 @@ const userDashboard = async (req, res) => {
       console.log('user');
       const userId = req.session.user.userId;
       const userName = req.session.user.username;
+      const today = new Date();
+      const nowDate = today.toISOString().substring(0, 10);
       await ghDbConnect();
       const result = await User_Product.find({ userId: userId });
       const devicesNames = result.map((item) => item.productNameByUser);
@@ -33,6 +35,8 @@ const userDashboard = async (req, res) => {
         type: 'LogOutBtn',
         alertModel: { show: false },
         userName,
+        deviceName: devicesNames[0],
+        nowDate,
       });
       /* res.render('userDashboard', {
         type: 'LogOutBtn',
@@ -49,6 +53,7 @@ const getDatedChart = async (req, res) => {
   const chosenDate = req.params.date;
   const chosenDevice = req.params.device;
   const userId = req.session.user.userId;
+  const userName = req.session.user.username;
   try {
     await ghDbConnect();
     const result = await User_Product.find({ userId: userId });
@@ -99,6 +104,9 @@ const getDatedChart = async (req, res) => {
       SoilHumidityData: SoilHumidityValuesToChart,
       lightData: lightValuesToChart,
       pumpData: pumpValuesToChart,
+      userName,
+      type: 'LogOutBtn',
+      alertModel: { show: false },
     });
   } catch (error) {
     console.log(error);
@@ -130,6 +138,12 @@ const getAddDevice = (req, res) => {
 const postAddDevice = async (req, res) => {
   const userName = req.session.user.username;
   try {
+    const userId = req.session.user.userId;
+    const today = new Date();
+    const nowDate = today.toISOString().substring(0, 10);
+    await ghDbConnect();
+    const result = await User_Product.find({ userId: userId });
+    const devicesNames = result.map((item) => item.productNameByUser);
     if (req.body.productNameByUser) {
       // const { minValue, period, runTime, serialNumber, productNameByUser } =
       //   req.body;
@@ -147,6 +161,8 @@ const postAddDevice = async (req, res) => {
            modelType: 'danger',
          },
          userName,
+         deviceName: devicesNames[0],
+         nowDate,
        });
         /* return res.render('userAddDevice', {
           alertModel: {
@@ -173,6 +189,8 @@ const postAddDevice = async (req, res) => {
               modelType: 'productNameByUser',
             },
             userName,
+            deviceName: devicesNames[0],
+            nowDate,
           });
           /* res.render('userAddDevice', {
             alertModel: {
@@ -198,6 +216,8 @@ const postAddDevice = async (req, res) => {
             modelType: 'danger',
           },
           userName,
+          deviceName: devicesNames[0],
+          nowDate,
         });
         /* res.render('userAddDevice', {
           alertModel: {
@@ -232,6 +252,8 @@ const postAddDevice = async (req, res) => {
               modelType: 'productName',
             },
             userName,
+            deviceName: devicesNames[0],
+            nowDate,
           });
           /* res.render('userAddDevice', {
             alertModel: {
@@ -255,6 +277,8 @@ const postAddDevice = async (req, res) => {
             modelType: 'danger',
           },
           userName,
+          deviceName: devicesNames[0],
+          nowDate,
         });
         /* res.render('userAddDevice', {
           alertModel: {
@@ -277,6 +301,8 @@ const postAddDevice = async (req, res) => {
             modelType: 'danger',
           },
           userName,
+          deviceName: devicesNames[0],
+          nowDate,
         });
         /* res.render('userAddDevice', {
           alertModel: {
