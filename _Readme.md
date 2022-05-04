@@ -2,7 +2,7 @@
 
 ## Project's Idea
 
-The Idea for this project is to build a product from A to Z which will monitor a plant environment (temperature, light, soil humidity...etc), check the suitable values which will be entered by the product user online dashboard, then automatically adjust the monitored plant environment.
+The Idea for this project is to build a product from A to Z which will monitor a plant environment (temperature, light, soil humidity...etc), check the suitable values which will be entered by the user online dashboard, then automatically adjust the monitored plant environment.
 Reading values from sensors connected to Raspberry Pi (Rasp Pi) GPIO pins and displaying the results on the command line is satisfying, but being able to access your sensors remotely is where things start getting useful.
 Automatic Irrigation System
 
@@ -38,9 +38,9 @@ Automatic Irrigation System
                 "node-fetch": "^2.0",
                 "nodemailer": "^6.7.2",
                 "socket.io": "^4.4.1",
-                "pristine.js.org"
-                "reCaptcha"
-                "ChartJs"
+                "pristine.js.org",
+                "reCaptcha",
+                "ChartJs",
                          },
         - Raspberry side : 
                          {
