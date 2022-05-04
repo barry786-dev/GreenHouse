@@ -276,7 +276,7 @@ const postRegister = (req, res) => {
         .then((info) => {
           log(info);
           res.render('index', {
-            signed: false,
+            type: 'LogInBtn',
             alertModel: {
               show: true,
               modelTitle: ' Registration Success',
@@ -293,7 +293,7 @@ const postRegister = (req, res) => {
           // handling error of confirmation email sending
           log(error);
           res.render('index', {
-            signed: false,
+            type: 'LogInBtn',
             alertModel: {
               show: true,
               modelTitle: ' Registration Success with errorNu: 6',
@@ -318,7 +318,7 @@ const postRegister = (req, res) => {
           error.myMsg,
         ]);
         res.render('index', {
-          signed: false,
+          type: 'LogInBtn',
           alertModel: {
             show: true,
             modelTitle: 'errorNu: 6',
