@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon  app",
-    "start": "node -r dotenv/config app"
+    "start": "node app"
   },
   "author": "Barry",
   "license": "ISC",

@@ -6,7 +6,7 @@
   src: url('fonts/unicons.eot?#iefix') format('embedded-opentype'),
     url('fonts/unicons.svg#unicons') format('svg'),
     url('fonts/unicons.woff') format('woff');
-  /* url('fonts/unicons.ttf') format('truetype'); */
+  /* url('fonts/unicons.ttf') format('true_type'); */
   font-weight: normal;
   font-style: normal;
 }
