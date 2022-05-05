@@ -3,7 +3,7 @@ require('dotenv').config();
 const regEmailSentForm = (emailReceiverInfo) => {
   const { userName, email, confirmationCode } = emailReceiverInfo;
   const reg_mailOption = {
-    from: process.env.APP_EMAIL,
+    from: process.env.APP_EMAIL, //mbrsyr@yahoo.com
     to: email,
     subject:
       'congratulation, you have just succeeded to register for or services - Green house',
@@ -22,8 +22,8 @@ const regEmailSentForm = (emailReceiverInfo) => {
 const contactEmailSentForm = (emailReceiverInfo) => {
   const { name, email, subject, message } = emailReceiverInfo;
   const contact_mailOption = {
-    from: process.env.APP_EMAIL,
-    to: process.env.CONTACT_EMAIL,
+    from: process.env.APP_EMAIL, //mbrsyr@yahoo.com
+    to: process.env.CONTACT_EMAIL, //mawlana133@gmail.com
     subject: `${name} has sent you a message from contact page in www.green-house.com`,
     html: `
       <h1>contact email from contact page in www.green-house.com</h1>

@@ -27,7 +27,7 @@ const server = app.listen(app.get('port'), () => {
 const socketIo = require('socket.io');
 const io = socketIo(server, {
   cors: {
-    origin: 'http://dci-lap:5900/',
+    origin: 'http://dci-lap:5900/', //change this to your web domain https://gadeden.coding-school.org/
     methods: ['GET', 'POST'],
     credentials: true,
   },

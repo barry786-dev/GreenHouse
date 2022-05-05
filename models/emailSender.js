@@ -13,7 +13,7 @@ const transporter = nodemailer.createTransport({
   //secure: true,
   auth: {
     //type: 'OAuth2',
-    user: process.env.APP_EMAIL, // APP_EMAIL
+    user: process.env.APP_EMAIL, // APP_EMAIL mbrsyr@yahoo.com
     pass: process.env.APP_EMAIL_PASSWORD, //APP_EMAIL_PASSWORD
   },
   //tls: {
@@ -23,7 +23,7 @@ const transporter = nodemailer.createTransport({
 });
 function sendEmail(mailOption) {
   return new Promise((resolve, reject) => {
-    log(mailOption);
+    //log(mailOption);
     transporter.sendMail(mailOption, (err, info) => {
       //log(info);
       if (err) {
