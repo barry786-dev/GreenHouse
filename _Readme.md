@@ -9,6 +9,7 @@ Automatic Irrigation System
 ## Project Structure
 
 ![Project Structure map](./utils/Untitled-2022-03-27-1057.png)
+![Project Structure map](./utils/mcp3008.jpg)
 
 ## Technologies and third parties
 
@@ -44,6 +45,8 @@ Automatic Irrigation System
                 "pristine.js.org",
                 "reCaptcha",
                 "ChartJs",
+                "bootstrap": "^5.1.3",
+                "jquery": "^3.6.0",
                          },
         - Raspberry side : 
                          {
@@ -55,8 +58,9 @@ Automatic Irrigation System
                 "rpi-gpio": "^2.1.7",
                 "rpiO": "^2.4.2",
                 "socket.io": "^4.4.1",
-                "socket.io-client": "^4.4.1"
-                "node-fetch": "^2.6.1"
+                "socket.io-client": "^4.4.1",
+                "node-fetch": "^2.6.1",
+                "mcp3008.js": "^0.4.1",
   }
 
 ## Analog_to_Digital_Signal
@@ -99,17 +103,9 @@ Connect the MCP3008 pins to Raspberry pi in this order:
 
 
 <br>
-The Data stored in two collections: books and authors.
+The Data stored in three collections: Products, Users and User_Product.
 <br>
-## Project's Packages
-> In this Project, The following packages are used:
-<br>
-├── bootstrap@5.1.3<br>
-├── dotenv@16.0.0<br>
-├── ejs@3.1.6<br>
-├── express@4.17.3<br>
-├── jquery@3.6.0<br>
-└── mongoose@6.2.3
+
 ## Project's Structure:
 
 ```sh
@@ -146,9 +142,27 @@ Root
 ## Project's Environmenet
 > Create ```.env``` file and make sure to put those variables with your values in Atlas mongodb:
 ```sh
-PORT=3000
+PORT=5900
 # DONT USE 'USER' VARIABLE, it's reserved By SYSTEM!!!
-DBUSER=<YOUR_CLUSTER_USER_IN_ATLAS>
-PASSWORD=<YOUR_CLUSTER_PASSWORD>
-DATABASE=bookstore
+CONTACT_EMAIL= email to receive your customers emails
+
+# email host configuration
+EMAIL_HOST=
+EMAIL_HOST_PORT=
+EMAIL_SERVICE=yahoo
+APP_EMAIL= your main company email
+APP_EMAIL_PASSWORD=
+
+# moongos information
+DB_USER=
+DB_PASSWORD=
+DB_NAME=GHouse-01
+
+# G_House_01 read only user configuration
+DB_READONLY_USER=GH_User1
+DB_READONLY_PASSWORD=
+
+# Recaptcha configuration
+NEXT_PUBLIC_RECAPTCHA_SITE_KEY=
+RECAPTCHA_SECRET_KEY=
 ```
