@@ -14,11 +14,14 @@ Automatic Irrigation System
 
     Hardware:
         - Raspberry Pi 4 B 8GB
+        - RPI T-COBBLER
+        - MCP3008
         - Digital Light intensity Sensor Module for Arduino
         - Soil Moisture Sensor Hygrometer Module V1.2 Capacitive Compatible with Arduino
         - Arduino Pump
+        - Relay high trigger 5VDC
         - Cable Jumper 28 AWG Wire Bridges for Arduino Raspberry Pi
-        - breadBoard
+        - breadBoard MB102
 
     Software:
         - HTML
@@ -56,14 +59,43 @@ Automatic Irrigation System
                 "node-fetch": "^2.6.1"
   }
 
+## Analog_to_Digital_Signal
+
+Receive an analog signal, convert it to digital, to be handled with micro controllers ARM processors using MCP3008 IC.
+
+Using Raspberry Pi4 and nodejs and python
+
+Connect the MCP3008 pins to Raspberry pi in this order:
+
+<pre>
+         ____
+  CH0 __|    |__VDD
+  CH1 __|    |__VREF
+  CH2 __|    |__AGND
+  CH3 __|    |__CLK
+  CH4 __|    |__Dout
+  CH5 __|    |__Din
+  CH6 __|    |__CS/SHDN
+  CH7 __|____|__DGND
+</pre>
+
+<ol>
+<li>MCP3008 (VDD) =======> Raspberry (3.3v)</li>
+<li>MCP3008 (Vref) =======> Raspberry (3.3v)</li>
+<li>MCP3008 (AGND) =======> Raspberry (GND)</li>
+<li>MCP3008 (CLK) =======> Raspberry PIN23(SCLK)</li>
+<li>MCP3008 (Dout) =======> Raspberry PIN21(MISO)</li>
+<li>MCP3008 (Din) =======> Raspberry PIN19(MOSI)</li>
+<li>MCP3008 (CS/SHDN) ====> Raspberry PIN22(CE0)</li>
+<li>MCP3008 (DGND) =======> Raspberry (GND)</li>
+</ol>
+
 ## project working tree
 
 ## User registration
 
     * status: Every new user must be created with “Pending” status by default. After registration, he will receive a confirmation email with an activation link. By clicking on it, his status will be updated to “Active”.
     * confirmationCode: A unique token for each user.
-
-    # Book Store Project
 
 
 <br>
