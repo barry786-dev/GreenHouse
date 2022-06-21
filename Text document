@@ -1,0 +1,22 @@
+router.post('/:page', (req, res)=>{
+if(req.session.user){
+fs.readdir(path.join(__dirname, '../views/pages'), (error, files)=>{
+if(error){
+res.render('pages/error', {title: "Error", error: error, user: req.session.user})
+}else{
+let page = files.find(p=>p.replace('.ejs', '').toLowerCase() === req.params.page.toLowerCase())
+if(page){
+res.render(`pages/${page.replace('.ejs', '')}`, {title: page, user: req.session.user})
+}else{
+res.render('pages/error', {title: "Not Found", error: "Page Not Found", user: req.session.user})
+}
+}
+})
+}else{
+res.render('pages/error',{error: "Session Expired"})
+}
+
+}) 
+
+
+ in NodeJS is the lack of code examples. Most of the guides focuses on using Python, and since I consider NodeJS to be a great companion to a Raspi my intention is to fill this information gap
